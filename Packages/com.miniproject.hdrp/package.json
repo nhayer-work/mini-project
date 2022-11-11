@@ -1,18 +1,17 @@
 {
-    "name": "com.miniproject.hdrp",
-    "version": "0.0.1",
-    "displayName": "Core",
-    "description": "Contains the HDRP components",
-    "unity": "2021.3",
-    "unityRelease": "12f1",
-    "dependencies": {
-        "com.miniproject.core": "0.0.1"
-   },
-   "keywords": [
-    ],
-    "author": {
-      "name": "Unity",
-      "email": "nav.hayer@unity3d.com",
-      "url": "https://www.unity3d.com"
-    }
+  "name": "com.miniproject.hdrp",
+  "version": "0.0.1",
+  "displayName": "MP HDRP",
+  "description": "Contains the HDRP components",
+  "unity": "2021.3",
+  "unityRelease": "12f1",
+  "dependencies": {
+    "com.miniproject.core": "0.0.1"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Unity",
+    "email": "nav.hayer@unity3d.com",
+    "url": "https://www.unity3d.com"
   }
+}
