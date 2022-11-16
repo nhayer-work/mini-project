@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.miniproject.core": {
+      "version": "file:../../../../../Packages/com.miniproject.core",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
       "depth": 1,
