@@ -1,7 +1,7 @@
 {
     "name": "com.miniproject.hdrp",
     "version": "0.0.1",
-    "displayName": "Core",
+    "displayName": "Core HDRP",
     "description": "Contains the HDRP components",
     "unity": "2021.3",
     "unityRelease": "12f1",
