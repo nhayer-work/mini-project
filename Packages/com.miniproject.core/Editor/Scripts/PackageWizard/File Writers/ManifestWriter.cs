@@ -212,6 +212,28 @@ namespace MiniProject.Core.Editor.PackageWizard
         }
         
         //================================================================================================================//
+        
+        //FIXME I think this should move to a Test
+        /*[MenuItem("Mini Project/Package Wizard/Test")]
+        private static void Test()
+        {
+            var unityVersions = new []
+            {
+                "2021",
+                "2022"
+            };
+        
+            var supportedPlatforms = new []
+            {
+                "miniproject-android",
+                "miniproject-ios",
+                "miniproject-standalone",
+                "miniproject-webgl"
+            };
+            
+            var manifestWriter = new ManifestWriter();
+            manifestWriter.UpdateManifestFiles("MyTestPackage", unityVersions, supportedPlatforms);
+        }*/
 
     }
 }
