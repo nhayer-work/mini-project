@@ -10,5 +10,8 @@
     "name": "Unity",
     "email": "nav.hayer@unity3d.com",
     "url": "https://www.unity3d.com"
+  },
+  "dependencies": {
+	  "com.unity.nuget.newtonsoft-json": "3.0.2"
   }
 }
