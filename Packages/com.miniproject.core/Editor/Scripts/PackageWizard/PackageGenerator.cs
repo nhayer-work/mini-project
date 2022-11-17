@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace MiniProject.Core.Editor.PackageWizard
 {
@@ -35,9 +36,10 @@ namespace MiniProject.Core.Editor.PackageWizard
         {
             throw new NotImplementedException();
         }
-        private void TryCreateAssemblyDefinitions()
+        private void TryCreateAssemblyDefinitions(in string packageName, in string packageDirectory, in bool usesEditorDirectory)
         {
-            throw new NotImplementedException();
+            var assemblyWriter = new AssemblyWriter();
+            assemblyWriter.GenerateAssemblyFiles(packageName, packageDirectory, usesEditorDirectory);
         }
         //Post-Generate Functions
         //================================================================================================================//
