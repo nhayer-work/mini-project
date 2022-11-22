@@ -34,7 +34,7 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="packageName">com.miniproject.EXAMPLE</param>
         /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
         /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
-        public void UpdateManifestFiles(in string packageName, string[] supportedUnityVersions, string[] supportedPlatforms)
+        public void UpdateManifestFiles(in string packageName, PackageData.UnityVersion[] supportedUnityVersions, PackageData.Platform[] supportedPlatforms)
         {
             bool DirectoryContainsItem(in DirectoryInfo directoryInfo, in string[] searchFor)
             {
@@ -47,13 +47,48 @@ namespace MiniProject.Core.Editor.PackageWizard
 
                 return false;
             }
-            //----------------------------------------------------------//
 
+            //Setup friendly platform names
+            //----------------------------------------------------------//
+           
+            var supportedPlatformNames = new string[supportedPlatforms.Length];
             for (var i = 0; i < supportedPlatforms.Length; i++)
             {
-                if (supportedPlatforms[i].Contains("miniproject-") == false)
-                    throw new Exception("All supported platforms must be preceded by miniproject- an example miniproject-android");
+                switch (supportedPlatforms[i])
+                {
+                    case PackageData.Platform.Windows:
+                    case PackageData.Platform.MacOS:
+                        supportedPlatformNames[i] = "miniproject-standalone";
+                        break;
+                    case PackageData.Platform.Android:
+                    case PackageData.Platform.iOS:
+                    case PackageData.Platform.WebGL:
+                        supportedPlatformNames[i] = $"miniproject-{Enum.GetName(typeof(PackageData.Platform), supportedPlatforms[i]).ToLower()}";
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
+            //Setup friendly version names
+            //----------------------------------------------------------//
+            
+            var supportedVersionNames = new string[supportedUnityVersions.Length];
+            for (int i = 0; i < supportedUnityVersions.Length; i++)
+            {
+                switch (supportedUnityVersions[i])
+                {
+                    case PackageData.UnityVersion.LTS2021:
+                        supportedVersionNames[i] = "2021";
+                        break;
+                    case PackageData.UnityVersion.BETA2022:
+                        supportedVersionNames[i] = "2022";
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            
+            //----------------------------------------------------------//
 
             var packagePath = $"file:../../../../../Packages/{packageName}";
 
@@ -66,8 +101,8 @@ namespace MiniProject.Core.Editor.PackageWizard
             var projectDirectories = directory
                 .EnumerateDirectories(PACKAGES_KEY, SearchOption.AllDirectories)
                 .Where(x => x.FullName.ToLower().Contains(IGNORE_PROJECT_SETTINGS) == false)
-                .Where(x => DirectoryContainsItem(x, supportedUnityVersions))
-                .Where(x => DirectoryContainsItem(x, supportedPlatforms))
+                .Where(x => DirectoryContainsItem(x, supportedVersionNames))
+                .Where(x => DirectoryContainsItem(x, supportedPlatformNames))
                 .ToArray();
 
 #if DEBUG
