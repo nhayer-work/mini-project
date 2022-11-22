@@ -25,11 +25,11 @@ public static class PackageData
 
     public enum Platform
     {
-        Windows,
-        MacOS,
-        Android,
-        iOS,
-        WebGL,
+        Windows = 1 << 1,
+        MacOS = 1 << 2,
+        Android = 1 << 4,
+        iOS = 1 << 8,
+        WebGL = 1 << 16,
     }
 
     public enum UnityVersion
@@ -38,10 +38,18 @@ public static class PackageData
         BETA2022,
     }
 
+    public enum RenderingPipeline
+    {
+        URP,
+        HDRP
+    }
+
     // TODO: Move to using lists instead of dictionary
     private static Dictionary<ExperienceTag, string> _experienceTags = new Dictionary<ExperienceTag, string>();
     private static Dictionary<Platform, string> _platforms = new Dictionary<Platform, string>();
     private static Dictionary<UnityVersion, string> _unityVersions = new Dictionary<UnityVersion, string>();
+    private static Dictionary<RenderingPipeline, string> _renderingPipelines = 
+        new Dictionary<RenderingPipeline, string>();
 
     /// <summary>
     /// Dictionary mapping ExperienceTag enum to string values
@@ -110,6 +118,26 @@ public static class PackageData
     }
 
     /// <summary>
+    /// Dictionary mapping RenderingPipeline enum to string values
+    /// </summary>
+    public static Dictionary<RenderingPipeline, string> RenderingPipelines
+    {
+        get
+        {
+            if (_renderingPipelines.Count == 0)
+            {
+                _renderingPipelines.Add(RenderingPipeline.URP, "Universal Render Pipeline");
+                _renderingPipelines.Add(RenderingPipeline.HDRP, "High Definition Render Pipeline");
+                return _renderingPipelines;
+            }
+            else
+            {
+                return _renderingPipelines;
+            }
+        }
+    }
+    
+    /// <summary>
     /// Prints all string values of package data
     /// </summary>
     /// <returns></returns>
@@ -132,6 +160,12 @@ public static class PackageData
         
         info = "SUPPORTED UNITY VERSIONS: \n";
         foreach (var kvp in UnityVersions)
+        {
+            info += $"\t{kvp.Value}\n";
+        }
+        
+        info = "SUPPORTED RENDERING PIPELINES: \n";
+        foreach (var kvp in RenderingPipelines)
         {
             info += $"\t{kvp.Value}\n";
         }
