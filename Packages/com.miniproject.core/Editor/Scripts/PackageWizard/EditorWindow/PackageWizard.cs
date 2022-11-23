@@ -82,6 +82,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             var packageData = new PackageData();
             var generator = new PackageGenerator(packageData);
             packageData.Name = _packageNameInputField.text;
+            packageData.HasEditorFolder = true;
             generator.Generate();
         }
     }

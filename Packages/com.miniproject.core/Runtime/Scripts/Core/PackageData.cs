@@ -139,6 +139,7 @@ public class PackageData
 
     public string Name { get; set; }
     public string UnityEditorVersion { get; set; }
+    public bool HasEditorFolder { get; set; }
 
     /// <summary>
     /// Prints all string values of package data

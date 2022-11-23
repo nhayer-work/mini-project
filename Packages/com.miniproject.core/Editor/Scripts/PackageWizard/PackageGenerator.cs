@@ -12,6 +12,7 @@ namespace MiniProject.Core.Editor.PackageWizard
     {
         private readonly PackageData _packageData;
         private string _rootPackagePath;
+        private string _packageAssembly;
 
         public PackageGenerator(PackageData packageData)
         {
@@ -56,12 +57,9 @@ namespace MiniProject.Core.Editor.PackageWizard
             if (packageInfo == null) return null;
 
             var corePackagePath = packageInfo.resolvedPath;
-            var corePackageName = packageInfo.name;
-
-            corePackageName = corePackageName.Replace("core", packageName);
-            Debug.Log(corePackagePath);
-
-            var newPackagePath = corePackagePath.Replace(packageInfo.name, corePackageName);
+            _packageAssembly = packageInfo.name.Replace("core", packageName);
+            
+            var newPackagePath = corePackagePath.Replace(packageInfo.name, _packageAssembly);
             return newPackagePath;
         }
 
@@ -85,6 +83,11 @@ namespace MiniProject.Core.Editor.PackageWizard
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Runtime"));
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Editor"));
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Tests"));
+            
+            TryCreateAssemblyDefinitions(_packageAssembly, _rootPackagePath, _packageData.HasEditorFolder );
+            PackageData.UnityVersion[] tttt = new [] { PackageData.UnityVersion.LTS2021 };
+            PackageData.Platform[] platforms = new [] { PackageData.Platform.Android };
+            UpdateManifests(_packageAssembly, tttt, platforms);
         }
 
         private void TryCreateAssemblyDefinitions(in string packageName, in string packageDirectory,
