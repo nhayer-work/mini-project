@@ -23,6 +23,9 @@ namespace MiniProject.Core.Editor.PackageWizard
 
         public void Generate()
         {
+            if (IsEmptyName(_packageData.Name))
+                return;
+            
             var newPackageName = _packageData.Name.ToLower().Trim();
             _rootPackagePath = FormatPackagePath(newPackageName);
 
@@ -38,6 +41,13 @@ namespace MiniProject.Core.Editor.PackageWizard
             }
 
             CreateNewPackage();
+        }
+
+        private bool IsEmptyName(string packageDataName)
+        {
+            if (!string.IsNullOrEmpty(packageDataName)) return false;
+            EditorUtility.DisplayDialog(R.Title, "Package name is empty", "Ok");
+            return true;
         }
 
         private string FormatPackagePath(string packageName)
