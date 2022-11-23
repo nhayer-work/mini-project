@@ -5,71 +5,79 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-public class PackageWizard : EditorWindow
+
+namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
-    private const string pathToUXML =
-        "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uxml";
-    private const string pathToUSS = 
-        "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss";
-    private const string experienceTagsFieldName = "ExperienceTags";
-    private const string platformOptionsPlaceholderFieldName = "PlatformOptionsPlaceholder";
-    private const string platformOptionsFieldName = "PlatformOptions";
-    private const string renderingPipelineFieldName = "RenderPipeline";
-    private const string unityEditorVersionFieldName = "UnityEditorVersion";
-
-    [MenuItem("Window/Package Wizard")]
-    public static void Init()
+    public class PackageWizard : UnityEditor.EditorWindow
     {
-        PackageWizard wnd = GetWindow<PackageWizard>();
-        wnd.titleContent = new GUIContent("PackageWizard");
-    }
-
-    public void CreateGUI()
-    {
-        // Each editor window contains a root VisualElement object
-        VisualElement root = rootVisualElement;
-        
-        // Import UXML
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(pathToUXML);
-        VisualElement labelFromUXML = visualTree.Instantiate();
-        root.Add(labelFromUXML);
-        
-        // Import USS
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(pathToUSS);
-        /*VisualElement labelWithStyle = new Label("Hello! With Style");
-        labelWithStyle.styleSheets.Add(styleSheet);
-        root.Add(labelWithStyle);*/
-        
-        VisualElement tagsGroup = root.Q<GroupBox>(experienceTagsFieldName);
-        foreach (var tag in Enum.GetValues(typeof(PackageData.ExperienceTag)))
+        [MenuItem("Window/Package Wizard")]
+        public static void Init()
         {
-            var toggleItem = new Toggle(tag.ToString());
-            tagsGroup.Add(toggleItem);
+            PackageWizard wnd = GetWindow<PackageWizard>();
+            wnd.titleContent = new GUIContent(R.Title);
         }
 
-        VisualElement platformOptionsPlaceholder = root.Q<VisualElement>(platformOptionsPlaceholderFieldName);
-        EnumFlagsField platformOptions = new EnumFlagsField(platformOptionsFieldName);
-        foreach (PackageData.Platform platformType in (PackageData.Platform[]) Enum.GetValues(typeof(PackageData.Platform)))
+        public void CreateGUI()
         {
-            platformOptions.Init(platformType);
-        }
-        platformOptionsPlaceholder.Add(platformOptions);
+            // Each editor window contains a root VisualElement object
+            VisualElement root = rootVisualElement;
 
-        EnumField renderPipeline = root.Q<EnumField>(renderingPipelineFieldName);
-        foreach (PackageData.RenderingPipeline renderPipelineType in (PackageData.RenderingPipeline[]) Enum.GetValues(typeof(PackageData.RenderingPipeline)))
-        {
-            renderPipeline.Init(renderPipelineType);
-        }
-        // default value
-        //renderPipeline.value = PackageData.RenderingPipeline.URP;
+            // Import UXML
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(R.PathToUxml);
+            VisualElement labelFromUXML = visualTree.Instantiate();
+            root.Add(labelFromUXML);
 
-        DropdownField editorVersion = root.Q<DropdownField>(unityEditorVersionFieldName);
-        List<string> versions = new List<string>();
-        foreach (var version in Enum.GetValues(typeof(PackageData.UnityVersion)))
-        {
-            versions.Add(version.ToString());
+            // Import USS
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(R.PathToUSS);
+            /*VisualElement labelWithStyle = new Label("Hello! With Style");
+            labelWithStyle.styleSheets.Add(styleSheet);
+            root.Add(labelWithStyle);*/
+
+            VisualElement tagsGroup = root.Q<GroupBox>(R.ExperienceTagsFieldName);
+            foreach (var tag in Enum.GetValues(typeof(PackageData.ExperienceTag)))
+            {
+                var toggleItem = new Toggle(tag.ToString());
+                tagsGroup.Add(toggleItem);
+            }
+
+            VisualElement platformOptionsPlaceholder = root.Q<VisualElement>(R.PlatformOptionsPlaceholderFieldName);
+            EnumFlagsField platformOptions = new EnumFlagsField(R.PlatformOptionsFieldName);
+            foreach (PackageData.Platform platformType in (PackageData.Platform[])Enum.GetValues(
+                         typeof(PackageData.Platform)))
+            {
+                platformOptions.Init(platformType);
+            }
+
+            platformOptionsPlaceholder.Add(platformOptions);
+
+            EnumField renderPipeline = root.Q<EnumField>(R.RenderingPipelineFieldName);
+            foreach (PackageData.RenderingPipeline renderPipelineType in (PackageData.RenderingPipeline[])
+                     Enum.GetValues(typeof(PackageData.RenderingPipeline)))
+            {
+                renderPipeline.Init(renderPipelineType);
+            }
+            // default value
+            //renderPipeline.value = PackageData.RenderingPipeline.URP;
+
+            DropdownField editorVersion = root.Q<DropdownField>(R.UnityEditorVersionFieldName);
+            List<string> versions = new List<string>();
+            foreach (var version in Enum.GetValues(typeof(PackageData.UnityVersion)))
+            {
+                versions.Add(version.ToString());
+            }
+
+            editorVersion.choices = versions;
+
+            Button generateButton = root.Q<Button>(R.GenerateButton);
+            generateButton.clicked += GenerateButtonClicked;
         }
-        editorVersion.choices = versions;
-        
+
+        private void GenerateButtonClicked()
+        {
+            PackageData packageData = new PackageData();
+            PackageGenerator generator = new PackageGenerator(packageData);
+            packageData.name = "Testing";
+            generator.Generate();
+        }
     }
 }

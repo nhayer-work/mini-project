@@ -5,7 +5,12 @@ namespace MiniProject.Core.Editor.Utilities
 {
     public class DirectoryOperations
     {
-        public bool CreateFolder(string path)
+        /// <summary>
+        /// Creates a directory at a given path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool CreateFolder(string path)
         {
             if (Directory.Exists(path))
             {
@@ -13,12 +18,16 @@ namespace MiniProject.Core.Editor.Utilities
                 return false;
             }
 
-
             Directory.CreateDirectory(path);
             return true;
         }
         
-        public bool DeleteFolder(string path)
+        /// <summary>
+        /// Delete a directory at a given path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool DeleteFolder(string path)
         {
             if (!Directory.Exists(path))
             {

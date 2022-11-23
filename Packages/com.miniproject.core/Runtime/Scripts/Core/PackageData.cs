@@ -5,7 +5,7 @@ using UnityEditor;
 /// <summary>
 /// Class containing package data
 /// </summary>
-public static class PackageData
+public class PackageData
 {
     // TODO: Confirm the list of experience tags, platforms, and Unity versions 
     public enum ExperienceTag
@@ -136,7 +136,10 @@ public static class PackageData
             }
         }
     }
-    
+
+    public string name { get; set; }
+    public string unityEditorVersion { get; set; }
+
     /// <summary>
     /// Prints all string values of package data
     /// </summary>

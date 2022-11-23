@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace MiniProject.Core.Editor.PackageWizard
 {
-    public class PackageWizardEditorWindow : EditorWindow
+    public class PackageWizardEditorWindow : UnityEditor.EditorWindow
     {
         public static Action GeneratePressed;
         

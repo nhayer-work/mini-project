@@ -1,21 +1,55 @@
 ﻿using System;
 using System.IO;
+using MiniProject.Core.Editor.PackageWizard.EditorWindow;
+using MiniProject.Core.Editor.Utilities;
+using UnityEditor;
+using UnityEngine;
+using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace MiniProject.Core.Editor.PackageWizard
 {
     public class PackageGenerator
     {
-        public PackageGenerator()
+        private readonly PackageData _packageData;
+        private string _rootPackagePath;
+
+        public PackageGenerator(PackageData packageData)
         {
-            throw new NotImplementedException();
+            _packageData = packageData;
         }
 
         //Generate Functions
         //================================================================================================================//
 
-        private void Generate()
+        public void Generate()
         {
-            throw new NotImplementedException();
+            var newPackageName = _packageData.name.ToLower().Trim();
+            _rootPackagePath = FormatPackagePath(newPackageName);
+            
+            if (!DirectoryOperations.CreateFolder(_rootPackagePath))
+            {
+                if (EditorUtility.DisplayDialog(R.Title, "Package already exists, overwrite?", "Yes", "No"))
+                {
+                    DirectoryOperations.DeleteFolder(_rootPackagePath);
+                    DirectoryOperations.CreateFolder(_rootPackagePath);
+                }
+            }
+            CreateNewPackage();
+        }
+
+        private string FormatPackagePath(string packageName)
+        {
+            var packageInfo = PackageInfo.FindForAssembly(GetType().Assembly);
+            if (packageInfo == null) return null;
+
+            var corePackagePath = packageInfo.resolvedPath;
+            var corePackageName = packageInfo.name;
+            
+            corePackageName = corePackageName.Replace("core", packageName);
+            Debug.Log(corePackagePath);
+            
+            var newPackagePath = corePackagePath.Replace(packageInfo.name, corePackageName);
+            return newPackagePath;
         }
 
         private void CheckForExisting()
@@ -25,18 +59,23 @@ namespace MiniProject.Core.Editor.PackageWizard
 
         private void CreateNewPackage()
         {
-            throw new NotImplementedException();
+            TryCreateDirectories();
         }
 
         private void TryCreateFiles()
         {
             throw new NotImplementedException();
         }
+
         private void TryCreateDirectories()
         {
-            throw new NotImplementedException();
+            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Runtime"));
+            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Editor"));
+            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Tests"));
         }
-        private void TryCreateAssemblyDefinitions(in string packageName, in string packageDirectory, in bool usesEditorDirectory)
+
+        private void TryCreateAssemblyDefinitions(in string packageName, in string packageDirectory,
+            in bool usesEditorDirectory)
         {
             var assemblyWriter = new AssemblyWriter();
             assemblyWriter.GenerateAssemblyFiles(packageName, packageDirectory, usesEditorDirectory);
@@ -57,12 +96,13 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="packageName">com.miniproject.EXAMPLE</param>
         /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
         /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
-        private void UpdateManifests(in string packageName, in PackageData.UnityVersion[] supportedUnityVersions, in PackageData.Platform[] supportedPlatforms)
+        private void UpdateManifests(in string packageName, in PackageData.UnityVersion[] supportedUnityVersions,
+            in PackageData.Platform[] supportedPlatforms)
         {
             var manifestWriter = new ManifestWriter();
             manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms);
         }
-        
+
         //================================================================================================================//
     }
 }
