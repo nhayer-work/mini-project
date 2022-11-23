@@ -36,7 +36,7 @@ namespace MiniProject.Core.Editor.Utilities
             }
 
 
-            Directory.Delete(path);
+            Directory.Delete(path, true);
             return true;
         }
     }
