@@ -6,7 +6,9 @@
             "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uxml";
         public const string PathToUSS = 
             "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss";
-       public const string ExperienceTagsFieldName = "ExperienceTags";
+        
+        public const string PackageNameInputField = "ExperienceName";
+        public const string ExperienceTagsFieldName = "ExperienceTags";
         public const string PlatformOptionsPlaceholderFieldName = "PlatformOptionsPlaceholder";
         public const string PlatformOptionsFieldName = "PlatformOptions";
         public const string RenderingPipelineFieldName = "RenderPipeline";

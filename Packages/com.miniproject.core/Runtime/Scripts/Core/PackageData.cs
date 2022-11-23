@@ -137,8 +137,8 @@ public class PackageData
         }
     }
 
-    public string name { get; set; }
-    public string unityEditorVersion { get; set; }
+    public string Name { get; set; }
+    public string UnityEditorVersion { get; set; }
 
     /// <summary>
     /// Prints all string values of package data

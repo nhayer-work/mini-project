@@ -23,17 +23,20 @@ namespace MiniProject.Core.Editor.PackageWizard
 
         public void Generate()
         {
-            var newPackageName = _packageData.name.ToLower().Trim();
+            var newPackageName = _packageData.Name.ToLower().Trim();
             _rootPackagePath = FormatPackagePath(newPackageName);
-            
+
             if (!DirectoryOperations.CreateFolder(_rootPackagePath))
             {
-                if (EditorUtility.DisplayDialog(R.Title, "Package already exists, overwrite?", "Yes", "No"))
+                if (!EditorUtility.DisplayDialog(R.Title, "Package already exists, overwrite?", "Yes", "No"))
                 {
-                    DirectoryOperations.DeleteFolder(_rootPackagePath);
-                    DirectoryOperations.CreateFolder(_rootPackagePath);
+                    return;
                 }
+
+                DirectoryOperations.DeleteFolder(_rootPackagePath);
+                DirectoryOperations.CreateFolder(_rootPackagePath);
             }
+
             CreateNewPackage();
         }
 
@@ -44,10 +47,10 @@ namespace MiniProject.Core.Editor.PackageWizard
 
             var corePackagePath = packageInfo.resolvedPath;
             var corePackageName = packageInfo.name;
-            
+
             corePackageName = corePackageName.Replace("core", packageName);
             Debug.Log(corePackagePath);
-            
+
             var newPackagePath = corePackagePath.Replace(packageInfo.name, corePackageName);
             return newPackagePath;
         }

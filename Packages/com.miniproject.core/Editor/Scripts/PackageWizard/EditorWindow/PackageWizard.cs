@@ -10,6 +10,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
     public class PackageWizard : UnityEditor.EditorWindow
     {
+        private TextInputBaseField<string> _packageNameInputField;
+
         [MenuItem("Window/Package Wizard")]
         public static void Init()
         {
@@ -33,6 +35,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             labelWithStyle.styleSheets.Add(styleSheet);
             root.Add(labelWithStyle);*/
 
+            _packageNameInputField = root.Q<TextInputBaseField<string>>(R.PackageNameInputField);
+            
+            
             VisualElement tagsGroup = root.Q<GroupBox>(R.ExperienceTagsFieldName);
             foreach (var tag in Enum.GetValues(typeof(PackageData.ExperienceTag)))
             {
@@ -74,9 +79,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         private void GenerateButtonClicked()
         {
-            PackageData packageData = new PackageData();
-            PackageGenerator generator = new PackageGenerator(packageData);
-            packageData.name = "Testing";
+            var packageData = new PackageData();
+            var generator = new PackageGenerator(packageData);
+            packageData.Name = _packageNameInputField.text;
             generator.Generate();
         }
     }
