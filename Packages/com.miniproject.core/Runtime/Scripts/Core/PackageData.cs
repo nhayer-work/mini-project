@@ -77,7 +77,7 @@ public class PackageData
     /// <summary>
     /// Dictionary mapping Platform enum to string values
     /// </summary>
-    public static Dictionary<Platform, string> Platforms
+    public Dictionary<Platform, string> Platforms
     {
         get
         {
@@ -100,7 +100,7 @@ public class PackageData
     /// <summary>
     /// Dictionary mapping UnityVersion enum to string values
     /// </summary>
-    public static Dictionary<UnityVersion, string> UnityVersions
+    public Dictionary<UnityVersion, string> UnityVersions
     {
         get
         {
@@ -138,7 +138,6 @@ public class PackageData
     }
 
     public string Name { get; set; }
-    public string UnityEditorVersion { get; set; }
     public bool HasEditorFolder { get; set; }
 
     /// <summary>

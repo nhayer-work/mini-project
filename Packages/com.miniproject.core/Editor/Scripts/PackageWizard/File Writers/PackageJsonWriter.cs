@@ -6,7 +6,7 @@ namespace MiniProject.Core.Editor.PackageWizard
     {
         protected override void TryCreateFile(in string filePath, in string fileContents)
         {
-            throw new System.NotImplementedException();
+            FileOperations.Create(filePath, fileContents);
         }
 
         protected override void TryUpdateFile(in string filePath, in string fileContents)

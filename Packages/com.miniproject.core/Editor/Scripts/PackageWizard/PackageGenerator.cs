@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using MiniProject.Core.Editor.PackageWizard.EditorWindow;
 using MiniProject.Core.Editor.Utilities;
 using UnityEditor;
@@ -75,7 +76,7 @@ namespace MiniProject.Core.Editor.PackageWizard
 
         private void TryCreateFiles()
         {
-            throw new NotImplementedException();
+            
         }
 
         private void TryCreateDirectories()
@@ -83,18 +84,23 @@ namespace MiniProject.Core.Editor.PackageWizard
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Runtime"));
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Editor"));
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Tests"));
+            TryCreateFiles();
             
-            TryCreateAssemblyDefinitions(_packageAssembly, _rootPackagePath, _packageData.HasEditorFolder );
-            PackageData.UnityVersion[] tttt = new [] { PackageData.UnityVersion.LTS2021 };
-            PackageData.Platform[] platforms = new [] { PackageData.Platform.Android };
-            UpdateManifests(_packageAssembly, tttt, platforms);
+            TryCreateAssemblyDefinitions( );
+            
+            UpdateManifests(_packageAssembly, _packageData.UnityVersions.Keys.ToArray(), _packageData.Platforms.Keys.ToArray());
         }
 
-        private void TryCreateAssemblyDefinitions(in string packageName, in string packageDirectory,
-            in bool usesEditorDirectory)
+        private void TryCreateAssemblyDefinitions( )
         {
             var assemblyWriter = new AssemblyWriter();
-            assemblyWriter.GenerateAssemblyFiles(packageName, packageDirectory, usesEditorDirectory);
+            assemblyWriter.GenerateAssemblyFiles(_packageAssembly, _rootPackagePath, _packageData.HasEditorFolder);
+        }
+
+        private void CreatePackageFile()
+        {
+            var packageJsonWriter = new PackageJsonWriter();
+            packageJsonWriter.Generate();
         }
         //Post-Generate Functions
         //================================================================================================================//
