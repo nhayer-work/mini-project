@@ -13,5 +13,10 @@ namespace MiniProject.Core.Editor.PackageWizard
         {
             throw new System.NotImplementedException();
         }
+
+        public void Generate()
+        {
+            
+        }
     }
 }

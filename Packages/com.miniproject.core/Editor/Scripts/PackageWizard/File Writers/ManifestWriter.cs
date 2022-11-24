@@ -94,7 +94,8 @@ namespace MiniProject.Core.Editor.PackageWizard
 
             //Go to Projects folder
             // /Projects/
-            var path = Path.Combine(Application.dataPath, CLIMB_TO_PROJECTS);
+            string proj = @"../../../";
+            var path = Path.Combine(Application.dataPath, proj);
             var directory = new DirectoryInfo(path);
 
 

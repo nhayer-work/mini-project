@@ -145,7 +145,7 @@ public class PackageData
     /// </summary>
     /// <returns></returns>
     [MenuItem("Package Data/Print All String Data")]
-    public static void PrintAllStringData()
+    public void PrintAllStringData()
     {
         string info = "EXPERIENCE TAGS: \n";
         foreach (var kvp in ExperienceTags)
