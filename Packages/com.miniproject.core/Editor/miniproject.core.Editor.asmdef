@@ -1,0 +1,18 @@
+{
+    "name": "miniproject.core.Editor",
+    "rootNamespace": "",
+    "references": ["GUID:e756199d4aa36874a862892cd7340847"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

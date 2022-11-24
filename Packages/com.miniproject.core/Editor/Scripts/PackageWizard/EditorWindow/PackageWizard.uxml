@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Label text="Package Details" name="Title" />
+    <ui:TextField picking-mode="Ignore" label="Experience Name" value="filler text" name="ExperienceName" />
+    <ui:GroupBox name="ExperienceTags" text="Experience Tags" />
+    <ui:Toggle label="Does it Score?" name="IfScore" />
+    <ui:VisualElement name="PlatformOptionsPlaceholder" />
+    <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" />
+    <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" />
+    <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" />
+    <ui:VisualElement name="Buttons" style="flex-direction: row; align-items: center; justify-content: center;">
+        <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" />
+        <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" />
+    </ui:VisualElement>
+</ui:UXML>

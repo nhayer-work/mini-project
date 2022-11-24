@@ -1,5 +1,6 @@
 {
   "dependencies": {
+	"com.miniproject.core": "file:../../../../../Packages/com.miniproject.core",
     "com.unity.feature.development": "1.0.1",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.ugui": "1.0.0",
