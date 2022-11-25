@@ -17,5 +17,13 @@
         
         
         public const string Title = "PackageWizard";
+
+        public class Progress
+        {
+            public const string Folder = "Creating package folders";
+            public const string Files = "Creating package files";
+            public const string Manifest = "Adding package to the [PROJECT] manifest";
+            public const string Assembly = "Adding package assembly definition";
+        }
     }
 }

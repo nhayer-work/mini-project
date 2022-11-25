@@ -46,8 +46,6 @@ public class PackageData
 
     // TODO: Move to using lists instead of dictionary
     private static Dictionary<ExperienceTag, string> _experienceTags = new Dictionary<ExperienceTag, string>();
-    private static Dictionary<Platform, string> _platforms = new Dictionary<Platform, string>();
-    private static Dictionary<UnityVersion, string> _unityVersions = new Dictionary<UnityVersion, string>();
     private static Dictionary<RenderingPipeline, string> _renderingPipelines = 
         new Dictionary<RenderingPipeline, string>();
 
@@ -77,45 +75,12 @@ public class PackageData
     /// <summary>
     /// Dictionary mapping Platform enum to string values
     /// </summary>
-    public Dictionary<Platform, string> Platforms
-    {
-        get
-        {
-            if (_platforms.Count == 0)
-            {
-                foreach (Platform platform in System.Enum.GetValues(typeof(Platform)))
-                {
-                    _platforms.Add(platform, platform.ToString());
-                }
-
-                return _platforms;
-            }
-            else
-            {
-                return _platforms;
-            }
-        }
-    }
+    public Dictionary<Platform, string> Platforms { get; set; }
 
     /// <summary>
     /// Dictionary mapping UnityVersion enum to string values
     /// </summary>
-    public Dictionary<UnityVersion, string> UnityVersions
-    {
-        get
-        {
-            if (_unityVersions.Count == 0)
-            {
-                _unityVersions.Add(UnityVersion.LTS2021, "2021.3.12f1-lts");
-                _unityVersions.Add(UnityVersion.BETA2022, "2022.2.0b13-beta");
-                return _unityVersions;
-            }
-            else
-            {
-                return _unityVersions;
-            }
-        }
-    }
+    public Dictionary<UnityVersion, string> UnityVersions { get; set; }
 
     /// <summary>
     /// Dictionary mapping RenderingPipeline enum to string values
@@ -139,6 +104,7 @@ public class PackageData
 
     public string Name { get; set; }
     public bool HasEditorFolder { get; set; }
+    public bool HasSamples { get; set; }
 
     /// <summary>
     /// Prints all string values of package data

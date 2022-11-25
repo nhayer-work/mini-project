@@ -11,6 +11,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
     public class PackageWizard : UnityEditor.EditorWindow
     {
         private TextInputBaseField<string> _packageNameInputField;
+        private PackageData _packageData;
+        private DropdownField _editorVersion;
+
 
         [MenuItem("Window/Package Wizard")]
         public static void Init()
@@ -36,8 +39,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             root.Add(labelWithStyle);*/
 
             _packageNameInputField = root.Q<TextInputBaseField<string>>(R.PackageNameInputField);
-            
-            
+
+
             VisualElement tagsGroup = root.Q<GroupBox>(R.ExperienceTagsFieldName);
             foreach (var tag in Enum.GetValues(typeof(PackageData.ExperienceTag)))
             {
@@ -64,14 +67,14 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             // default value
             //renderPipeline.value = PackageData.RenderingPipeline.URP;
 
-            DropdownField editorVersion = root.Q<DropdownField>(R.UnityEditorVersionFieldName);
+            _editorVersion = root.Q<DropdownField>(R.UnityEditorVersionFieldName);
             List<string> versions = new List<string>();
             foreach (var version in Enum.GetValues(typeof(PackageData.UnityVersion)))
             {
                 versions.Add(version.ToString());
             }
-
-            editorVersion.choices = versions;
+            
+            _editorVersion.choices = versions;
 
             Button generateButton = root.Q<Button>(R.GenerateButton);
             generateButton.clicked += GenerateButtonClicked;
@@ -79,10 +82,18 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         private void GenerateButtonClicked()
         {
-            var packageData = new PackageData();
-            var generator = new PackageGenerator(packageData);
-            packageData.Name = _packageNameInputField.text;
-            packageData.HasEditorFolder = true;
+            _packageData = new PackageData();
+            _packageData.Name = _packageNameInputField.text;
+            _packageData.HasEditorFolder = true;
+            
+            Debug.Log(_editorVersion.index); 
+                
+            _packageData.UnityVersions = new Dictionary<PackageData.UnityVersion, string>
+                { { PackageData.UnityVersion.LTS2021, "LTS2021" } };
+            _packageData.Platforms = new Dictionary<PackageData.Platform, string>
+                { { PackageData.Platform.Android, "Android" }, {PackageData.Platform.iOS, "iOS"} };
+            var generator = new PackageGenerator(_packageData);
+
             generator.Generate();
         }
     }
