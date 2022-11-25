@@ -1,7 +1,10 @@
 {
     "name": "miniproject.core.Editor",
     "rootNamespace": "",
-    "references": ["GUID:e756199d4aa36874a862892cd7340847"],
+    "references": [
+        "GUID:e756199d4aa36874a862892cd7340847",
+        "GUID:478a2357cc57436488a56e564b08d223"
+    ],
     "includePlatforms": [
         "Editor"
     ],
