@@ -1,167 +1,126 @@
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEditor;
 
-/// <summary>
-/// Class containing package data
-/// </summary>
-public class PackageData
+namespace Scripts.Core
 {
-    // TODO: Confirm the list of experience tags, platforms, and Unity versions 
-    public enum ExperienceTag
+    /// <summary>
+    /// Class containing package data
+    /// </summary>
+    public class PackageData
     {
-        Lighting,
-        Physics,
-        UIToolkit,
-        Cinemachine,
-        Shaders,
-        Networking,
-        AR,
-        VR,
-        MachineLearning,
-        NewInputSystem,
-        TerrainTools,
-    }
+        // TODO: Confirm the list of experience tags, platforms, and Unity versions 
+        public enum ExperienceTag
+        {
+            Lighting,
+            Physics,
+            UIToolkit,
+            Cinemachine,
+            Shaders,
+            Networking,
+            AR,
+            VR,
+            MachineLearning,
+            NewInputSystem,
+            TerrainTools,
+        }
 
-    public enum Platform
-    {
-        Windows = 1 << 1,
-        MacOS = 1 << 2,
-        Android = 1 << 4,
-        iOS = 1 << 8,
-        WebGL = 1 << 16,
-    }
+        public enum Platform
+        {
+            Windows = 1 << 1,
+            MacOS = 1 << 2,
+            Android = 1 << 4,
+            iOS = 1 << 8,
+            WebGL = 1 << 16,
+        }
 
-    public enum UnityVersion
-    {
-        LTS2021,
-        BETA2022,
-    }
+        public enum UnityVersion
+        {
+            LTS2021,
+            BETA2022,
+        }
 
-    public enum RenderingPipeline
-    {
-        URP,
-        HDRP
-    }
+        public enum RenderingPipeline
+        {
+            URP,
+            HDRP
+        }
 
-    public struct Author
-    {
+        public struct Author
+        {
+            public string Name { get; set; }
+            public string Email { get; set; }
+            public string Url { get; set; }
+        }
+        
+        /// <summary>
+        /// Dictionary mapping ExperienceTag enum to string values
+        /// </summary>
+        public List<ExperienceTag> ExperienceTags{ get; set; }
+
+        public List<Platform> Platforms { get; set; }
+        
+        public List<UnityVersion> UnityVersions { get; set; }
+
+        /// <summary>
+        /// Dictionary mapping RenderingPipeline enum to string values
+        /// </summary>
+        public List<RenderingPipeline> RenderingPipelines{ get; set; }
+
+        public string DisplayName { get; set; }
+
+        /// <summary>
+        /// The officially registered package name
+        /// <see href="https://docs.unity3d.com/Manual/upm-manifestPkg.html#name">Link Text</see>
+        /// </summary>
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Url { get; set; }
-    }
 
-    // TODO: Move to using lists instead of dictionary
-    private static Dictionary<ExperienceTag, string> _experienceTags = new Dictionary<ExperienceTag, string>();
+        public bool HasEditorFolder { get; set; }
+        public bool HasSamples { get; set; }
+        public string Version { get; set; }
+        public string Description { get; set; }
 
-    private static Dictionary<RenderingPipeline, string> _renderingPipelines =
-        new Dictionary<RenderingPipeline, string>();
+        public Author AuthorInfo;
 
-    /// <summary>
-    /// Dictionary mapping ExperienceTag enum to string values
-    /// </summary>
-    public static Dictionary<ExperienceTag, string> ExperienceTags
-    {
-        get
+        public string UnityRelease => PackageDataConverter.UnityReleases[UnityVersions[0]];
+        public string UnityVersionFormatted => PackageDataConverter.UnityVersions[UnityVersions[0]];
+
+        /// <summary>
+        /// Prints all string values of package data
+        /// </summary>
+        /// <returns></returns>
+        [MenuItem("Package Data/Print All String Data")]
+        public void PrintAllStringData()
         {
-            if (_experienceTags.Count == 0)
+            string info = "EXPERIENCE TAGS: \n";
+            foreach (var kvp in ExperienceTags)
             {
-                foreach (ExperienceTag tag in System.Enum.GetValues(typeof(ExperienceTag)))
-                {
-                    _experienceTags.Add(tag, tag.ToString());
-                }
-
-                return _experienceTags;
+                info += $"\t{kvp}\n";
             }
-            else
+
+            Debug.Log(info);
+
+            info = "PLATFORMS: \n";
+            foreach (var kvp in Platforms)
             {
-                return _experienceTags;
+                info += $"\t{kvp}\n";
             }
-        }
-    }
 
-    /// <summary>
-    /// Dictionary mapping Platform enum to string values
-    /// </summary>
-    public Dictionary<Platform, string> Platforms { get; set; }
+            Debug.Log(info);
 
-    /// <summary>
-    /// Dictionary mapping UnityVersion enum to string values
-    /// </summary>
-    public Dictionary<UnityVersion, string> UnityVersions { get; set; }
-
-    /// <summary>
-    /// Dictionary mapping RenderingPipeline enum to string values
-    /// </summary>
-    public static Dictionary<RenderingPipeline, string> RenderingPipelines
-    {
-        get
-        {
-            if (_renderingPipelines.Count == 0)
+            info = "SUPPORTED UNITY VERSIONS: \n";
+            foreach (var kvp in UnityVersions)
             {
-                _renderingPipelines.Add(RenderingPipeline.URP, "Universal Render Pipeline");
-                _renderingPipelines.Add(RenderingPipeline.HDRP, "High Definition Render Pipeline");
-                return _renderingPipelines;
+                info += $"\t{kvp}\n";
             }
-            else
+
+            info = "SUPPORTED RENDERING PIPELINES: \n";
+            foreach (var kvp in RenderingPipelines)
             {
-                return _renderingPipelines;
+                info += $"\t{kvp}\n";
             }
+
+            Debug.Log(info);
         }
-    }
-
-    public string DisplayName { get; set; }
-
-    /// <summary>
-    /// The officially registered package name
-    /// <see href="https://docs.unity3d.com/Manual/upm-manifestPkg.html#name">Link Text</see>
-    /// </summary>
-    public string Name { get; set; }
-
-    public bool HasEditorFolder { get; set; }
-    public bool HasSamples { get; set; }
-    public string Version { get; set; }
-    public string Description { get; set; }
-
-    public Author AuthorInfo;
-
-
-    /// <summary>
-    /// Prints all string values of package data
-    /// </summary>
-    /// <returns></returns>
-    [MenuItem("Package Data/Print All String Data")]
-    public void PrintAllStringData()
-    {
-        string info = "EXPERIENCE TAGS: \n";
-        foreach (var kvp in ExperienceTags)
-        {
-            info += $"\t{kvp.Value}\n";
-        }
-
-        Debug.Log(info);
-
-        info = "PLATFORMS: \n";
-        foreach (var kvp in Platforms)
-        {
-            info += $"\t{kvp.Value}\n";
-        }
-
-        Debug.Log(info);
-
-        info = "SUPPORTED UNITY VERSIONS: \n";
-        foreach (var kvp in UnityVersions)
-        {
-            info += $"\t{kvp.Value}\n";
-        }
-
-        info = "SUPPORTED RENDERING PIPELINES: \n";
-        foreach (var kvp in RenderingPipelines)
-        {
-            info += $"\t{kvp.Value}\n";
-        }
-
-        Debug.Log(info);
     }
 }

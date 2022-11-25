@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Scripts.Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -88,13 +89,24 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             _packageData = new PackageData();
             _packageData.DisplayName = _packageNameInputField.text;
             _packageData.HasEditorFolder = true;
+            _packageData.HasSamples = true;
 
-            Debug.Log(_editorVersion.index);
+            _packageData.Version = "0.0.1";
+            _packageData.Version = "A new experience";
 
-            _packageData.UnityVersions = new Dictionary<PackageData.UnityVersion, string>
-                { { PackageData.UnityVersion.LTS2021, "LTS2021" } };
-            _packageData.Platforms = new Dictionary<PackageData.Platform, string>
-                { { PackageData.Platform.Android, "Android" }, { PackageData.Platform.iOS, "iOS" } };
+            _packageData.AuthorInfo = new PackageData.Author
+            {
+                Name = "Smart Developer",
+                Email = "",
+                Url = ""
+            };
+        
+            var unityVersion = (PackageData.UnityVersion)_editorVersion.index;
+            Debug.Log($"Selected Editor Version {_editorVersion.index} | {unityVersion}");
+            _packageData.UnityVersions = new List<PackageData.UnityVersion> { unityVersion };
+
+            _packageData.Platforms = new List<PackageData.Platform>
+                { PackageData.Platform.Android, PackageData.Platform.iOS };
             var generator = new PackageGenerator(_packageData);
             generator.OnProgressChanged += OnProgressChanged;
             generator.Generate();

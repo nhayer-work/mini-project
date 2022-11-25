@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using MiniProject.Core.Editor.PackageWizard.EditorWindow;
 using MiniProject.Core.Editor.Utilities;
+using Scripts.Core;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
@@ -61,7 +61,7 @@ namespace MiniProject.Core.Editor.PackageWizard
                 return false;
 
             var regexItem = new Regex("[^a-zA-Z0-9_.]+");
-            _packageData.Name = regexItem.Replace(_packageData.DisplayName.ToLower(), ""); 
+            _packageData.Name = regexItem.Replace(_packageData.DisplayName.ToLower(), "");
             _rootPackagePath = FormatPackagePath(_packageData.Name);
 
             if (!DirectoryOperations.CreateFolder(_rootPackagePath))
@@ -84,8 +84,7 @@ namespace MiniProject.Core.Editor.PackageWizard
             yield return wait;
             TryCreateAssemblyDefinitions();
             yield return wait;
-            UpdateManifests(_packageData.Name, _packageData.UnityVersions.Keys.ToArray(),
-                _packageData.Platforms.Keys.ToArray());
+            UpdateManifests(_packageData.Name, _packageData.UnityVersions.ToArray(), _packageData.Platforms.ToArray());
             yield return wait;
             PostGenerate();
             yield return wait;

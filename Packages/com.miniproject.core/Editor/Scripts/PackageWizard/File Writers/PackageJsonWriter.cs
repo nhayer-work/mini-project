@@ -2,6 +2,7 @@
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Scripts.Core;
 using UnityEngine;
 
 namespace MiniProject.Core.Editor.PackageWizard
@@ -11,7 +12,7 @@ namespace MiniProject.Core.Editor.PackageWizard
         protected override void TryCreateFile(in string filePath, in string fileContents)
         {
             Debug.Log(fileContents);
-            // FileOperations.Create(filePath, fileContents);
+            FileOperations.Create(filePath, fileContents);
         }
 
         protected override void TryUpdateFile(in string filePath, in string fileContents)
@@ -34,12 +35,11 @@ namespace MiniProject.Core.Editor.PackageWizard
                 { "version", packageData.Version },
                 { "displayName", packageData.DisplayName },
                 { "description", packageData.Description },
-                // { "unity", packageData.UnityVersions },
-                { "unity", "2021.3" },
-                { "unityRelease", packageData.Name },
+                { "unity", packageData.UnityVersionFormatted},
+                { "unityRelease",packageData.UnityRelease },
                 { "keywords", emptyArray },
-                { "author", packageData.Name },
-                { "dependencies", packageData.Name },
+                { "author", author },
+                { "dependencies", emptyArray },
             };
             var path = Path.Combine(pathToRuntimeDirectory, $"package.json");
             TryCreateFile(path, JsonConvert.SerializeObject(packageInfo, Formatting.Indented));
