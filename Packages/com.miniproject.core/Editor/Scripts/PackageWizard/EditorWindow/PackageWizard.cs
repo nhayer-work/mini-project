@@ -86,7 +86,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
         private void GenerateButtonClicked()
         {
             _packageData = new PackageData();
-            _packageData.Name = _packageNameInputField.text;
+            _packageData.DisplayName = _packageNameInputField.text;
             _packageData.HasEditorFolder = true;
 
             Debug.Log(_editorVersion.index);

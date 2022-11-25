@@ -14,8 +14,7 @@ namespace MiniProject.Core.Editor.PackageWizard
     {
         private readonly PackageData _packageData;
         private string _rootPackagePath;
-        private string _packageAssembly;
-        
+
         public event EventHandler<ProgressEventArgs> OnProgressChanged;
 
         public PackageGenerator(PackageData packageData)
@@ -23,12 +22,9 @@ namespace MiniProject.Core.Editor.PackageWizard
             _packageData = packageData;
         }
 
-        //Generate Functions
-        //================================================================================================================//
-
         public void Generate()
         {
-            if(!CheckForExisting())
+            if (!CheckForExisting())
             {
                 EditorUtility.ClearProgressBar();
                 return;
@@ -50,21 +46,21 @@ namespace MiniProject.Core.Editor.PackageWizard
             if (packageInfo == null) return null;
 
             var corePackagePath = packageInfo.resolvedPath;
-            _packageAssembly = packageInfo.name.Replace("core", packageName);
-            
-            var newPackagePath = corePackagePath.Replace(packageInfo.name, _packageAssembly);
+            _packageData.Name = packageInfo.name.Replace("core", packageName);
+
+            var newPackagePath = corePackagePath.Replace(packageInfo.name, _packageData.Name);
             return newPackagePath;
         }
 
         private bool CheckForExisting()
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.CheckExisting, .1f));
-            
-            if (IsEmptyName(_packageData.Name))
+
+            if (IsEmptyName(_packageData.DisplayName))
                 return false;
-            
-            var newPackageName = _packageData.Name.ToLower().Trim();
-            _rootPackagePath = FormatPackagePath(newPackageName);
+
+            _packageData.Name = _packageData.DisplayName.ToLower().Trim();
+            _rootPackagePath = FormatPackagePath(_packageData.Name);
 
             if (!DirectoryOperations.CreateFolder(_rootPackagePath))
             {
@@ -72,21 +68,26 @@ namespace MiniProject.Core.Editor.PackageWizard
                 if (!EditorUtility.DisplayDialog(R.UI.Title, "Package already exists, overwrite?", "Yes", "No"))
                     return false;
             }
+
             return true;
         }
 
         private IEnumerator CreateNewPackage()
         {
-            yield return  new EditorWaitForSeconds(.3f);
+            var wait = new EditorWaitForSeconds(.1f);
+            yield return wait;
             TryCreateDirectories();
-            yield return  new EditorWaitForSeconds(.3f);
+            yield return wait;
             TryCreateFiles();
-            yield return  new EditorWaitForSeconds(.3f);
-            TryCreateAssemblyDefinitions( );
-            yield return  new EditorWaitForSeconds(.3f);
-            UpdateManifests(_packageAssembly, _packageData.UnityVersions.Keys.ToArray(), _packageData.Platforms.Keys.ToArray());
-            yield return  new EditorWaitForSeconds(.3f);
+            yield return wait;
+            TryCreateAssemblyDefinitions();
+            yield return wait;
+            UpdateManifests(_packageData.Name, _packageData.UnityVersions.Keys.ToArray(),
+                _packageData.Platforms.Keys.ToArray());
+            yield return wait;
             PostGenerate();
+            yield return wait;
+            EditorUtility.DisplayDialog(R.UI.Title, "Package created", "Ok");
         }
 
         private void TryCreateFiles()
@@ -101,32 +102,25 @@ namespace MiniProject.Core.Editor.PackageWizard
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Runtime"));
             DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Tests"));
 
-            if(_packageData.HasEditorFolder)
+            if (_packageData.HasEditorFolder)
                 DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Editor"));
-            if(_packageData.HasSamples)
+            if (_packageData.HasSamples)
                 DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Samples"));
         }
 
-        private void TryCreateAssemblyDefinitions( )
+        private void TryCreateAssemblyDefinitions()
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Assembly, .4f));
             var assemblyWriter = new AssemblyWriter();
-            assemblyWriter.GenerateAssemblyFiles(_packageAssembly, _rootPackagePath, _packageData.HasEditorFolder);
+            assemblyWriter.GenerateAssemblyFiles(_packageData.Name, _rootPackagePath, _packageData.HasEditorFolder);
         }
 
         private void CreatePackageFile()
         {
             var packageJsonWriter = new PackageJsonWriter();
-            packageJsonWriter.Generate();
+            packageJsonWriter.Generate(_packageData, _rootPackagePath);
         }
-        //Post-Generate Functions
-        //================================================================================================================//
 
-        private void PostGenerate()
-        {
-            OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Completed, 1f));
-            EditorUtility.DisplayDialog(R.UI.Title, "Package created", "Ok");
-        }
 
         /// <summary>
         /// This function will include the package, with a generated path in the respective platform & unity versions,
@@ -144,6 +138,9 @@ namespace MiniProject.Core.Editor.PackageWizard
             manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms);
         }
 
-        //================================================================================================================//
+        private void PostGenerate()
+        {
+            OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Completed, 1f));
+        }
     }
 }

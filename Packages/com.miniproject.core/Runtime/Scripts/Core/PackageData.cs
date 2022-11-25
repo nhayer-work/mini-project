@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEditor;
 
@@ -44,9 +45,17 @@ public class PackageData
         HDRP
     }
 
+    public struct Author
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Url { get; set; }
+    }
+
     // TODO: Move to using lists instead of dictionary
     private static Dictionary<ExperienceTag, string> _experienceTags = new Dictionary<ExperienceTag, string>();
-    private static Dictionary<RenderingPipeline, string> _renderingPipelines = 
+
+    private static Dictionary<RenderingPipeline, string> _renderingPipelines =
         new Dictionary<RenderingPipeline, string>();
 
     /// <summary>
@@ -102,9 +111,21 @@ public class PackageData
         }
     }
 
+    public string DisplayName { get; set; }
+
+    /// <summary>
+    /// The officially registered package name
+    /// <see href="https://docs.unity3d.com/Manual/upm-manifestPkg.html#name">Link Text</see>
+    /// </summary>
     public string Name { get; set; }
+
     public bool HasEditorFolder { get; set; }
     public bool HasSamples { get; set; }
+    public string Version { get; set; }
+    public string Description { get; set; }
+
+    public Author AuthorInfo;
+
 
     /// <summary>
     /// Prints all string values of package data
@@ -118,26 +139,29 @@ public class PackageData
         {
             info += $"\t{kvp.Value}\n";
         }
+
         Debug.Log(info);
-        
+
         info = "PLATFORMS: \n";
         foreach (var kvp in Platforms)
         {
             info += $"\t{kvp.Value}\n";
         }
+
         Debug.Log(info);
-        
+
         info = "SUPPORTED UNITY VERSIONS: \n";
         foreach (var kvp in UnityVersions)
         {
             info += $"\t{kvp.Value}\n";
         }
-        
+
         info = "SUPPORTED RENDERING PIPELINES: \n";
         foreach (var kvp in RenderingPipelines)
         {
             info += $"\t{kvp.Value}\n";
         }
+
         Debug.Log(info);
     }
 }
