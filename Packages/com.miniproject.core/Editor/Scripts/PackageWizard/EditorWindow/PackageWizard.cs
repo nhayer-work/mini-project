@@ -4,17 +4,25 @@ using Scripts.Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor;
 using UnityEditor.UIElements;
-
 
 namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
     public class PackageWizard : UnityEditor.EditorWindow
     {
-        private TextInputBaseField<string> _packageNameInputField;
+        private TextInputBaseField<string> m_packageNameInputField;
         private PackageData _packageData;
         private DropdownField _editorVersion;
-        private ProgressBar _progressBar;
+
+		//State dependent Elements
+		private VisualElement buttonContainer;
+        private ProgressBar m_progressBar;
+
+		//Buttons
+		private Button m_ClearButton;
+		private Button m_GenerateButton;
+		private Button m_LoadButton;
 
 
         [MenuItem("Window/Package Wizard")]
@@ -26,22 +34,16 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         public void CreateGUI()
         {
-            // Each editor window contains a root VisualElement object
+
             VisualElement root = rootVisualElement;
 
             // Import UXML
             var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(R.UI.PathToUxml);
             VisualElement labelFromUXML = visualTree.Instantiate();
             root.Add(labelFromUXML);
-
-            // Import USS
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(R.UI.PathToUSS);
-            /*VisualElement labelWithStyle = new Label("Hello! With Style");
-            labelWithStyle.styleSheets.Add(styleSheet);
-            root.Add(labelWithStyle);*/
 
-            _packageNameInputField = root.Q<TextInputBaseField<string>>(R.UI.PackageNameInputField);
-
+			GetReferences(root);
 
             VisualElement tagsGroup = root.Q<GroupBox>(R.UI.ExperienceTagsFieldName);
             foreach (var tag in Enum.GetValues(typeof(PackageData.ExperienceTag)))
@@ -75,19 +77,35 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             {
                 versions.Add(version.ToString());
             }
-
             _editorVersion.choices = versions;
 
-            Button generateButton = root.Q<Button>(R.UI.GenerateButton);
-            generateButton.clicked += GenerateButtonClicked;
+			SuscribeEvents();
             
-            _progressBar = root.Q<ProgressBar>(R.UI.ProgressBar);
+			m_progressBar.style.display = DisplayStyle.None;
         }
+
+		private void GetReferences(VisualElement root)
+		{
+            m_progressBar = root.Q<ProgressBar>(R.UI.ProgressBar);
+			m_ClearButton = root.Q<Button>(R.UI.ClearButtonName);
+			m_GenerateButton = root.Q<Button>(R.UI.GenerateButtonName);
+			m_LoadButton = root.Q<Button>(R.UI.GenerateButtonName);
+            m_packageNameInputField = root.Q<TextInputBaseField<string>>(R.UI.PackageNameInputField);
+		}
+
+		private void SuscribeEvents()
+		{
+			m_GenerateButton.RegisterCallback<ClickEvent>((e) => GenerateButtonClicked());
+			m_ClearButton.RegisterCallback<ClickEvent>((e) => ClearTool());
+			m_packageNameInputField.RegisterCallback<ChangeEvent<string>>((e) => HandleGenerateButtonState());
+		}
 
         private void GenerateButtonClicked()
         {
+			m_progressBar.style.display = DisplayStyle.Flex;
+
             _packageData = new PackageData();
-            _packageData.DisplayName = _packageNameInputField.text;
+            _packageData.DisplayName = m_packageNameInputField.text;
             _packageData.HasEditorFolder = true;
             _packageData.HasSamples = true;
 
@@ -114,8 +132,22 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         private void OnProgressChanged(object sender, ProgressEventArgs progress)
         {
-            _progressBar.value = progress.Progress * 100;
-            _progressBar.title = progress.Info;
+			// m_progressBar.style.display = DisplayStyle.Flex;
+            m_progressBar.value = progress.Progress * 100;
+            m_progressBar.title = progress.Info;
         }
+
+		private void HandleGenerateButtonState()
+		{
+			m_GenerateButton.SetEnabled(!m_packageNameInputField.text.Equals(""));
+			// m_GenerateButton.style.display = m_packageNameInputField.text.Equals("") ? DisplayStyle.None : DisplayStyle.Flex;
+		}
+
+		private void ClearTool()
+		{
+			m_progressBar.style.display = DisplayStyle.None;
+
+			// m_packageNameInputField.Clear();
+		}
     }
 }

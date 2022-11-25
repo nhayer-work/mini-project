@@ -15,9 +15,14 @@
             public const string PlatformOptionsFieldName = "PlatformOptions";
             public const string RenderingPipelineFieldName = "RenderPipeline";
             public const string UnityEditorVersionFieldName = "UnityEditorVersion";
-            public const string GenerateButton = "GeneratePackage";
-            public const string ProgressBar = "FileProgressBar";
+
+			public const string ButtonsContainer = "StateButtons";
+            public const string GenerateButtonName = "GeneratePackage";
+            public const string LoadButtonName = "LoadPackage";
+            public const string ClearButtonName = "ClearButton";
+
         
+            public const string ProgressBar = "FileProgressBar";
         
             public const string Title = "PackageWizard";
         }
