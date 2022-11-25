@@ -2,6 +2,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using MiniProject.Core.Editor.PackageWizard.EditorWindow;
 using MiniProject.Core.Editor.Utilities;
 using Unity.EditorCoroutines.Editor;
@@ -59,7 +60,8 @@ namespace MiniProject.Core.Editor.PackageWizard
             if (IsEmptyName(_packageData.DisplayName))
                 return false;
 
-            _packageData.Name = _packageData.DisplayName.ToLower().Trim();
+            var regexItem = new Regex("[^a-zA-Z0-9_.]+");
+            _packageData.Name = regexItem.Replace(_packageData.DisplayName.ToLower(), ""); 
             _rootPackagePath = FormatPackagePath(_packageData.Name);
 
             if (!DirectoryOperations.CreateFolder(_rootPackagePath))
