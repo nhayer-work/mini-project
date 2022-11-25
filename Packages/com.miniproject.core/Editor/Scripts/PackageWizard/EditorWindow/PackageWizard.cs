@@ -92,7 +92,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             _packageData.HasSamples = true;
 
             _packageData.Version = "0.0.1";
-            _packageData.Version = "A new experience";
+            _packageData.Description = "A new experience";
 
             _packageData.AuthorInfo = new PackageData.Author
             {

@@ -39,7 +39,7 @@ namespace MiniProject.Core.Editor.PackageWizard
                 { "unityRelease",packageData.UnityRelease },
                 { "keywords", emptyArray },
                 { "author", author },
-                { "dependencies", emptyArray },
+                { "dependencies", new JObject()}
             };
             var path = Path.Combine(pathToRuntimeDirectory, $"package.json");
             TryCreateFile(path, JsonConvert.SerializeObject(packageInfo, Formatting.Indented));
