@@ -23,9 +23,13 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		private Button m_ClearButton;
 		private Button m_GenerateButton;
 		private Button m_LoadButton;
+		
+		//Warning
+		private VisualElement m_warningContainer;
+		private Label m_warningLabel;
 
 
-        [MenuItem("Window/Package Wizard")]
+        [MenuItem("Mini Project/Package Wizard/New Package")]
         public static void Init()
         {
             PackageWizard wnd = GetWindow<PackageWizard>();
@@ -68,8 +72,6 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             {
                 renderPipeline.Init(renderPipelineType);
             }
-            // default value
-            //renderPipeline.value = PackageData.RenderingPipeline.URP;
 
             _editorVersion = root.Q<DropdownField>(R.UI.UnityEditorVersionFieldName);
             List<string> versions = new List<string>();
@@ -78,10 +80,12 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 versions.Add(version.ToString());
             }
             _editorVersion.choices = versions;
+			_editorVersion.value = versions[0];
 
 			SuscribeEvents();
-            
-			m_progressBar.style.display = DisplayStyle.None;
+			ClearTool();
+            HandleGenerateButtonState();
+			SetWarning(false, "");
         }
 
 		private void GetReferences(VisualElement root)
@@ -91,6 +95,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			m_GenerateButton = root.Q<Button>(R.UI.GenerateButtonName);
 			m_LoadButton = root.Q<Button>(R.UI.GenerateButtonName);
             m_packageNameInputField = root.Q<TextInputBaseField<string>>(R.UI.PackageNameInputField);
+
+			m_warningContainer = root.Q<VisualElement>(R.UI.WarningContainer);
+			m_warningLabel = root.Q<Label>(R.UI.WarningLabel);
 		}
 
 		private void SuscribeEvents()
@@ -132,22 +139,27 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         private void OnProgressChanged(object sender, ProgressEventArgs progress)
         {
-			// m_progressBar.style.display = DisplayStyle.Flex;
             m_progressBar.value = progress.Progress * 100;
             m_progressBar.title = progress.Info;
         }
 
 		private void HandleGenerateButtonState()
 		{
-			m_GenerateButton.SetEnabled(!m_packageNameInputField.text.Equals(""));
-			// m_GenerateButton.style.display = m_packageNameInputField.text.Equals("") ? DisplayStyle.None : DisplayStyle.Flex;
+			bool textIsEmpty = m_packageNameInputField.text.Trim().Equals("");
+			m_GenerateButton.SetEnabled(!textIsEmpty);
+			SetWarning(textIsEmpty, R.ErrorMessages.EmptyNameError);
+
+		}
+
+		private void SetWarning(bool show, string message = ""){
+			m_warningLabel.text = message;
+			m_warningContainer.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
 		}
 
 		private void ClearTool()
 		{
 			m_progressBar.style.display = DisplayStyle.None;
-
-			// m_packageNameInputField.Clear();
+			m_packageNameInputField.SetValueWithoutNotify("");
 		}
     }
 }

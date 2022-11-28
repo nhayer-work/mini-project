@@ -21,6 +21,8 @@
             public const string LoadButtonName = "LoadPackage";
             public const string ClearButtonName = "ClearButton";
 
+			public const string WarningContainer = "WarningContainer";
+			public const string WarningLabel = "WarningLabel";
         
             public const string ProgressBar = "FileProgressBar";
         
@@ -37,5 +39,10 @@
             public const string Assembly = "Adding package assembly definition";
             public const string Completed = "Completed";
         }
+
+		public class ErrorMessages
+		{
+			public const string EmptyNameError = "Warning: Package Cannot be Empty";
+		}
     }
 }
