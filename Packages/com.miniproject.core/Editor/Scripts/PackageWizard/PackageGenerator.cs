@@ -96,6 +96,7 @@ namespace MiniProject.Core.Editor.PackageWizard
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Files, .3f));
             CreatePackageFile();
             CreateReadMeFile();
+            CreateConfigFile();
         }
 
 
@@ -126,8 +127,14 @@ namespace MiniProject.Core.Editor.PackageWizard
 
         private void CreateReadMeFile()
         {
-            var readMe = new ReadmeWriter();
-            readMe.Generate(_packageData, _rootPackagePath);
+            var readmeWriter = new ReadmeWriter();
+            readmeWriter.Generate(_packageData, _rootPackagePath);
+        }
+        
+        private void CreateConfigFile()
+        {
+            var configDataWriter = new ConfigDataWriter();
+            configDataWriter.Generate(_packageData, _rootPackagePath);
         }
 
 
