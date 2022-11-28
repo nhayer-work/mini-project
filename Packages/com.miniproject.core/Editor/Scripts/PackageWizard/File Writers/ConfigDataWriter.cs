@@ -24,8 +24,11 @@ namespace MiniProject.Core.Editor.PackageWizard
             var emptyArray = new JArray();
             var configData = new JObject
             {
-                { "DATA", packageData.Name },
-                { "version", packageData.Version }
+                { "Name", packageData.Name },
+                { "DisplayName", packageData.DisplayName },
+                { "Platforms", JsonConvert.SerializeObject(packageData.Platforms) },
+                { "Dependencies", emptyArray },
+                { "EditorVersion", packageData.UnityVersionFormatted }
             };
             var path = Path.Combine(pathToRuntimeDirectory, $"config.json");
             TryCreateFile(path, JsonConvert.SerializeObject(configData, Formatting.Indented));
