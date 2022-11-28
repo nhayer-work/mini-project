@@ -3,7 +3,6 @@ using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Scripts.Core;
-using UnityEngine;
 
 namespace MiniProject.Core.Editor.PackageWizard
 {
@@ -11,7 +10,6 @@ namespace MiniProject.Core.Editor.PackageWizard
     {
         protected override void TryCreateFile(in string filePath, in string fileContents)
         {
-            Debug.Log(fileContents);
             FileOperations.Create(filePath, fileContents);
         }
 
