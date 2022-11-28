@@ -95,7 +95,9 @@ namespace MiniProject.Core.Editor.PackageWizard
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Files, .3f));
             CreatePackageFile();
+            CreateReadMeFile();
         }
+
 
         private void TryCreateDirectories()
         {
@@ -120,6 +122,12 @@ namespace MiniProject.Core.Editor.PackageWizard
         {
             var packageJsonWriter = new PackageJsonWriter();
             packageJsonWriter.Generate(_packageData, _rootPackagePath);
+        }
+
+        private void CreateReadMeFile()
+        {
+            var readMe = new ReadmeWriter();
+            readMe.Generate(_packageData, _rootPackagePath);
         }
 
 

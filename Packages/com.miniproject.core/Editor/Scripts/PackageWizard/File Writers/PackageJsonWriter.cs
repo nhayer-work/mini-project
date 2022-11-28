@@ -11,7 +11,6 @@ namespace MiniProject.Core.Editor.PackageWizard
     {
         protected override void TryCreateFile(in string filePath, in string fileContents)
         {
-            Debug.Log(fileContents);
             FileOperations.Create(filePath, fileContents);
         }
 
