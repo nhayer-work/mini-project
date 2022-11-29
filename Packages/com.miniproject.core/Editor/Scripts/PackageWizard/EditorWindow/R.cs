@@ -25,6 +25,9 @@
 
 			public const string WarningContainer = "WarningContainer";
 			public const string WarningLabel = "WarningLabel";
+
+			public const string AuthorNameField = "IfAuthor";
+			public const string AuthorDescription = "IfDescription";
         
             public const string ProgressBar = "FileProgressBar";
         

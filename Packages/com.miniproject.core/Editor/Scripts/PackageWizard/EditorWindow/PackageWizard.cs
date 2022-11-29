@@ -32,6 +32,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		private VisualElement m_warningContainer;
 		private Label m_warningLabel;
 
+		//Author Details
+		private TextInputBaseField<string> m_AuthorName;
+		private TextInputBaseField<string> m_AuthorDesc;
+ 
 
         [MenuItem("Mini Project/Package Wizard/New Package")]
         public static void Init()
@@ -107,6 +111,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
 			m_warningContainer = root.Q<VisualElement>(R.UI.WarningContainer);
 			m_warningLabel = root.Q<Label>(R.UI.WarningLabel);
+
+			m_AuthorName = root.Q<TextInputBaseField<string>>(R.UI.AuthorNameField);
+			m_AuthorDesc = root.Q<TextInputBaseField<string>>(R.UI.AuthorDescription);
 		}
 
 		private void SuscribeEvents()
@@ -127,7 +134,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            KeepsScore = _usesScoreToggle.value,
 	            HasSamples = false,//TODO Will need to add some support for this
 	            Version = "0.0.1",
-	            Description = "A new experience",//FIXME We do not have a field for this
+	            Description = GenerateDescription(m_AuthorName.text, m_AuthorDesc.text),
 	            AuthorInfo = new PackageData.Author
 	            {
 		            Name = "MiniProject",
@@ -195,6 +202,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		{
 			m_progressBar.style.display = DisplayStyle.None;
 			m_packageNameInputField.SetValueWithoutNotify("");
+		}
+
+		private string GenerateDescription(string authorName, string description){
+			return string.Format("By: {0} \n\n{1}",authorName, description);
 		}
     }
 }
