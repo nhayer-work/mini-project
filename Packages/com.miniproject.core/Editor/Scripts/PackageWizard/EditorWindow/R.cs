@@ -15,6 +15,8 @@
             public const string PlatformOptionsFieldName = "PlatformOptions";
             public const string RenderingPipelineFieldName = "RenderPipeline";
             public const string UnityEditorVersionFieldName = "UnityEditorVersion";
+            public const string IfRequireEditorScriptsFieldName = "IfRequireEditorScripts";
+            public const string IfScoreFieldName = "IfScore";
 
 			public const string ButtonsContainer = "StateButtons";
             public const string GenerateButtonName = "GeneratePackage";

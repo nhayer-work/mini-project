@@ -70,6 +70,10 @@ namespace MiniProject.Core.Editor.PackageWizard
                         throw new ArgumentOutOfRangeException();
                 }
             }
+            //Ensure we don't double include specific directories
+            supportedPlatformNames = supportedPlatformNames
+                .Distinct()
+                .ToArray();
             //Setup friendly version names
             //----------------------------------------------------------//
             

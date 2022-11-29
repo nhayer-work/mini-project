@@ -7,6 +7,10 @@ using MiniProject.Core.Editor.Utilities;
 using Scripts.Core;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
+using UnityEditor.VersionControl;
+using UnityEditorInternal;
+using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace MiniProject.Core.Editor.PackageWizard
@@ -31,7 +35,7 @@ namespace MiniProject.Core.Editor.PackageWizard
                 return;
             }
 
-            EditorCoroutineUtility.StartCoroutine(CreateNewPackage(), this);
+            EditorCoroutineUtility.StartCoroutine(CreateNewPackageCoroutine(), this);
         }
 
         private bool IsEmptyName(string packageDataName)
@@ -74,7 +78,7 @@ namespace MiniProject.Core.Editor.PackageWizard
             return true;
         }
 
-        private IEnumerator CreateNewPackage()
+        private IEnumerator CreateNewPackageCoroutine()
         {
             var wait = new EditorWaitForSeconds(.1f);
             yield return wait;
@@ -88,7 +92,10 @@ namespace MiniProject.Core.Editor.PackageWizard
             yield return wait;
             PostGenerate();
             yield return wait;
-            EditorUtility.DisplayDialog(R.UI.Title, "Package created", "Ok");
+
+            yield return new WaitUntil(() => EditorUtility.DisplayDialog(R.UI.Title, "Package created", "Ok"));
+            //FIXME This is not refresh as expected, requires manual refresh by user
+            AssetDatabase.Refresh();
         }
 
         private void TryCreateFiles()

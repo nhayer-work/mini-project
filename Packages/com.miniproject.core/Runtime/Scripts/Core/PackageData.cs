@@ -76,6 +76,7 @@ namespace Scripts.Core
         public string Name { get; set; }
 
         public bool HasEditorFolder { get; set; }
+        public bool KeepsScore { get; set; }
         public bool HasSamples { get; set; }
         public string Version { get; set; }
         public string Description { get; set; }

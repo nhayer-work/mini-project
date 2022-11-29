@@ -4,15 +4,19 @@ using Scripts.Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor;
 using UnityEditor.UIElements;
 
 namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
     public class PackageWizard : UnityEditor.EditorWindow
     {
+	    private PackageData _packageData;
+	    
         private TextInputBaseField<string> m_packageNameInputField;
-        private PackageData _packageData;
+        private EnumFlagsField _platformOptions;
+        private Toggle[] _tagToggles;
+        private Toggle _usesEditorToggle;
+        private Toggle _usesScoreToggle;
         private DropdownField _editorVersion;
 
 		//State dependent Elements
@@ -50,25 +54,27 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			GetReferences(root);
 
             VisualElement tagsGroup = root.Q<GroupBox>(R.UI.ExperienceTagsFieldName);
-            foreach (var tag in Enum.GetValues(typeof(PackageData.ExperienceTag)))
+            var tags = Enum.GetValues(typeof(PackageData.ExperienceTag));
+            _tagToggles = new Toggle[tags.Length];
+            var i = 0;
+            foreach (var tag in tags)
             {
                 var toggleItem = new Toggle(tag.ToString());
                 tagsGroup.Add(toggleItem);
+                _tagToggles[i++] = toggleItem;
             }
 
             VisualElement platformOptionsPlaceholder = root.Q<VisualElement>(R.UI.PlatformOptionsPlaceholderFieldName);
-            EnumFlagsField platformOptions = new EnumFlagsField(R.UI.PlatformOptionsFieldName);
-            foreach (PackageData.Platform platformType in (PackageData.Platform[])Enum.GetValues(
-                         typeof(PackageData.Platform)))
+            _platformOptions = new EnumFlagsField(R.UI.PlatformOptionsFieldName);
+            foreach (Enum platformType in Enum.GetValues(typeof(PackageData.Platform)))
             {
-                platformOptions.Init(platformType);
+	            _platformOptions.Init(platformType);
             }
 
-            platformOptionsPlaceholder.Add(platformOptions);
+            platformOptionsPlaceholder.Add(_platformOptions);
 
             EnumField renderPipeline = root.Q<EnumField>(R.UI.RenderingPipelineFieldName);
-            foreach (PackageData.RenderingPipeline renderPipelineType in (PackageData.RenderingPipeline[])
-                     Enum.GetValues(typeof(PackageData.RenderingPipeline)))
+            foreach (Enum renderPipelineType in Enum.GetValues(typeof(PackageData.RenderingPipeline)))
             {
                 renderPipeline.Init(renderPipelineType);
             }
@@ -81,6 +87,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             }
             _editorVersion.choices = versions;
 			_editorVersion.value = versions[0];
+			
+			_usesEditorToggle = root.Q<Toggle>(R.UI.IfRequireEditorScriptsFieldName);
+			_usesScoreToggle = root.Q<Toggle>(R.UI.IfScoreFieldName);
 
 			SuscribeEvents();
 			ClearTool();
@@ -111,27 +120,53 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
         {
 			m_progressBar.style.display = DisplayStyle.Flex;
 
-            _packageData = new PackageData();
-            _packageData.DisplayName = m_packageNameInputField.text;
-            _packageData.HasEditorFolder = true;
-            _packageData.HasSamples = true;
-
-            _packageData.Version = "0.0.1";
-            _packageData.Description = "A new experience";
-
-            _packageData.AuthorInfo = new PackageData.Author
+            _packageData = new PackageData
             {
-                Name = "Smart Developer",
-                Email = "",
-                Url = ""
+	            DisplayName = m_packageNameInputField.text,
+	            HasEditorFolder = _usesEditorToggle.value,
+	            KeepsScore = _usesScoreToggle.value,
+	            HasSamples = false,//TODO Will need to add some support for this
+	            Version = "0.0.1",
+	            Description = "A new experience",//FIXME We do not have a field for this
+	            AuthorInfo = new PackageData.Author
+	            {
+		            Name = "MiniProject",
+		            Email = "",
+		            Url = "https://github.com/navhayer1015/mini-project"
+	            }
             };
-        
+
             var unityVersion = (PackageData.UnityVersion)_editorVersion.index;
             Debug.Log($"Selected Editor Version {_editorVersion.index} | {unityVersion}");
             _packageData.UnityVersions = new List<PackageData.UnityVersion> { unityVersion };
 
-            _packageData.Platforms = new List<PackageData.Platform>
-                { PackageData.Platform.Android, PackageData.Platform.iOS };
+            //Get Selected Tags
+            //----------------------------------------------------------//
+            _packageData.ExperienceTags = new List<PackageData.ExperienceTag>();
+            for (var i = 0; i < _tagToggles.Length; i++)
+            {
+	            var tagToggle = _tagToggles[i];
+	            
+	            if(tagToggle.value == false)
+		            continue;
+	            
+	            _packageData.ExperienceTags.Add((PackageData.ExperienceTag)i);
+            }
+
+            //Determine which Platforms were selected 
+            //----------------------------------------------------------//
+            _packageData.Platforms = new List<PackageData.Platform>();
+            var selectedPlatforms = (PackageData.Platform)_platformOptions.value;
+            foreach (Enum platform in Enum.GetValues(typeof(PackageData.Platform)))
+            {
+	            if (selectedPlatforms.HasFlag(platform) == false)
+		            continue;
+	            
+	            _packageData.Platforms.Add((PackageData.Platform)platform);
+            }
+            //----------------------------------------------------------//
+
+
             var generator = new PackageGenerator(_packageData);
             generator.OnProgressChanged += OnProgressChanged;
             generator.Generate();
