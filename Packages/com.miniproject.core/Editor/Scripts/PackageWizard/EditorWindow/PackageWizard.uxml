@@ -1,14 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <ui:Label text="Package Details" name="Title" />
+    <ui:Label text="Package Details" name="Title" style="-unity-font-style: bold; font-size: 20px; -unity-text-align: upper-center; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
     <ui:TextField picking-mode="Ignore" label="Experience Name" value="filler text" name="ExperienceName" />
     <ui:GroupBox name="ExperienceTags" text="Experience Tags" />
     <ui:Toggle label="Does it Score?" name="IfScore" />
     <ui:VisualElement name="PlatformOptionsPlaceholder" />
     <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" />
     <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" />
-    <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" />
-    <ui:VisualElement name="Buttons" style="flex-direction: row; align-items: center; justify-content: center;">
-        <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" />
-        <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" />
+    <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" style="margin-bottom: 17px;" />
+    <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex;">
+        <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" style="flex-grow: 1; height: 30px;" />
+        <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" style="flex-grow: 1; height: 30px; display: none;" />
+        <ui:Button text="Clear Data" display-tooltip-when-elided="true" name="ClearButton" style="height: 30px; flex-grow: 1;" />
+    </ui:VisualElement>
+    <ui:ProgressBar title="Hang Tight!" name="FileProgressBar" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; display: flex;" />
+    <ui:VisualElement name="WarningContainer" style="height: 57px; flex-direction: row; background-color: rgb(47, 47, 47); border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;">
+        <ui:Label text="This is a warning " display-tooltip-when-elided="true" name="WarningLabel" style="flex-grow: 1; -unity-text-align: middle-center; border-left-width: 7px; border-right-width: 7px; border-top-width: 7px; border-bottom-width: 7px; font-size: 17px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
     </ui:VisualElement>
 </ui:UXML>
