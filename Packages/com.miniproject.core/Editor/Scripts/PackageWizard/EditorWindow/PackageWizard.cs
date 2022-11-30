@@ -18,6 +18,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
         private Toggle _usesEditorToggle;
         private Toggle _usesScoreToggle;
         private DropdownField _editorVersion;
+        private EnumField _renderPipeline;
 
 		//State dependent Elements
 		private VisualElement buttonContainer;
@@ -77,10 +78,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
             platformOptionsPlaceholder.Add(_platformOptions);
 
-            EnumField renderPipeline = root.Q<EnumField>(R.UI.RenderingPipelineFieldName);
+            _renderPipeline = root.Q<EnumField>(R.UI.RenderingPipelineFieldName);
             foreach (Enum renderPipelineType in Enum.GetValues(typeof(PackageData.RenderingPipeline)))
             {
-                renderPipeline.Init(renderPipelineType);
+                _renderPipeline.Init(renderPipelineType);
             }
 
             _editorVersion = root.Q<DropdownField>(R.UI.UnityEditorVersionFieldName);
@@ -136,7 +137,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            Version = "0.0.1",
 	            Description = m_AuthorDesc.text,
 	            AuthorName = m_AuthorName.text,
-	            // RenderPipeline = ,
+	            RenderPipeline = _renderPipeline.value.ToString(),
 	            AuthorInfo = new PackageData.Author
 	            {
 		            Name = "MiniProject",
@@ -146,7 +147,6 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             };
 
             var unityVersion = (PackageData.UnityVersion)_editorVersion.index;
-            Debug.Log($"Selected Editor Version {_editorVersion.index} | {unityVersion}");
             _packageData.UnityVersions = new List<PackageData.UnityVersion> { unityVersion };
 
             //Get Selected Tags
