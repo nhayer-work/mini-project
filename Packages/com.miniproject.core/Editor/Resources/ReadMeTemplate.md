@@ -1,6 +1,6 @@
 ﻿# [Title]
 ## [AuthorName]
-[RenderPipeline]
+[EditorVersion], [RenderPipeline]
 
 ### Tags
 [Tags]

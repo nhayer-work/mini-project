@@ -136,6 +136,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            Version = "0.0.1",
 	            Description = m_AuthorDesc.text,
 	            AuthorName = m_AuthorName.text,
+	            // RenderPipeline = ,
 	            AuthorInfo = new PackageData.Author
 	            {
 		            Name = "MiniProject",
