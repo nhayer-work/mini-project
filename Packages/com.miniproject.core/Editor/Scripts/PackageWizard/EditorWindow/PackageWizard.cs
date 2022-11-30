@@ -134,7 +134,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            KeepsScore = _usesScoreToggle.value,
 	            HasSamples = false,//TODO Will need to add some support for this
 	            Version = "0.0.1",
-	            Description = GenerateDescription(m_AuthorName.text, m_AuthorDesc.text),
+	            Description = m_AuthorDesc.text,
+	            AuthorName = m_AuthorName.text,
 	            AuthorInfo = new PackageData.Author
 	            {
 		            Name = "MiniProject",
@@ -202,10 +203,6 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		{
 			m_progressBar.style.display = DisplayStyle.None;
 			m_packageNameInputField.SetValueWithoutNotify("");
-		}
-
-		private string GenerateDescription(string authorName, string description){
-			return string.Format("By: {0} \n\n{1}",authorName, description);
 		}
     }
 }

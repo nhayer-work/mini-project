@@ -23,7 +23,11 @@ namespace MiniProject.Core.Editor.PackageWizard
         {
             var packageInfo = PackageInfo.FindForAssembly(GetType().Assembly);
             var obj = (TextAsset) EditorGUIUtility.Load($"Packages/{packageInfo.name}/Editor/Resources/ReadMeTemplate.md");
-            var text = obj.text.Replace("[TITLE]", packageData.DisplayName);
+            var text = obj.text.Replace("[Title]", packageData.DisplayName);
+            text = text.Replace("[AuthorName]", packageData.AuthorName);
+            text = text.Replace("[RenderPipeline]", packageData.RenderPipeline);
+            text = text.Replace("[Tags]", string.Join(", ", packageData.ExperienceTags.ToArray()));
+            text = text.Replace("[Platforms]", string.Join(", ", packageData.Platforms.ToArray()));
             text = text.Replace("[Description]", packageData.Description);
             
             var path = Path.Combine(pathToRuntimeDirectory, "README.md");
