@@ -1,10 +1,12 @@
 {
   "dependencies": {
-	  "com.miniproject.core": {
+    "com.miniproject.core": {
       "version": "file:../../../../../Packages/com.miniproject.core",
       "depth": 0,
       "source": "local",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      }
     },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
@@ -55,6 +57,13 @@
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.0.2",
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"

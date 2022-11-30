@@ -36,5 +36,11 @@ namespace MiniProject.Core.Editor.Utilities
             File.Delete(filePath);
             return true;
         }
+
+        public static void Create(in string filePath, in string fileContents)
+        {
+            //todo check if Path exists
+            File.WriteAllText(filePath, fileContents);
+        }
     }
 }

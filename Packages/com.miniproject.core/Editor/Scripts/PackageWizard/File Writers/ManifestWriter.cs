@@ -8,6 +8,7 @@ using System.Linq;
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Scripts.Core;
 using UnityEngine;
 
 namespace MiniProject.Core.Editor.PackageWizard
@@ -69,6 +70,10 @@ namespace MiniProject.Core.Editor.PackageWizard
                         throw new ArgumentOutOfRangeException();
                 }
             }
+            //Ensure we don't double include specific directories
+            supportedPlatformNames = supportedPlatformNames
+                .Distinct()
+                .ToArray();
             //Setup friendly version names
             //----------------------------------------------------------//
             
@@ -94,7 +99,8 @@ namespace MiniProject.Core.Editor.PackageWizard
 
             //Go to Projects folder
             // /Projects/
-            var path = Path.Combine(Application.dataPath, CLIMB_TO_PROJECTS);
+            string proj = @"../../../";
+            var path = Path.Combine(Application.dataPath, proj);
             var directory = new DirectoryInfo(path);
 
 
