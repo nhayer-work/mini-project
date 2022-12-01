@@ -80,6 +80,9 @@ namespace Scripts.Core
         public bool HasSamples { get; set; }
         public string Version { get; set; }
         public string Description { get; set; }
+        public string AuthorName { get; set; }
+        public string RenderPipeline { get; set; }
+        public string SelectedTags { get; set; }
 
         public Author AuthorInfo;
 

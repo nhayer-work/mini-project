@@ -18,6 +18,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
         private Toggle _usesEditorToggle;
         private Toggle _usesScoreToggle;
         private DropdownField _editorVersion;
+        private EnumField _renderPipeline;
 
 		//State dependent Elements
 		private VisualElement buttonContainer;
@@ -77,10 +78,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
             platformOptionsPlaceholder.Add(_platformOptions);
 
-            EnumField renderPipeline = root.Q<EnumField>(R.UI.RenderingPipelineFieldName);
+            _renderPipeline = root.Q<EnumField>(R.UI.RenderingPipelineFieldName);
             foreach (Enum renderPipelineType in Enum.GetValues(typeof(PackageData.RenderingPipeline)))
             {
-                renderPipeline.Init(renderPipelineType);
+                _renderPipeline.Init(renderPipelineType);
             }
 
             _editorVersion = root.Q<DropdownField>(R.UI.UnityEditorVersionFieldName);
@@ -134,7 +135,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            KeepsScore = _usesScoreToggle.value,
 	            HasSamples = false,//TODO Will need to add some support for this
 	            Version = "0.0.1",
-	            Description = GenerateDescription(m_AuthorName.text, m_AuthorDesc.text),
+	            Description = m_AuthorDesc.text,
+	            AuthorName = m_AuthorName.text,
+	            RenderPipeline = _renderPipeline.value.ToString(),
 	            AuthorInfo = new PackageData.Author
 	            {
 		            Name = "MiniProject",
@@ -144,7 +147,6 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             };
 
             var unityVersion = (PackageData.UnityVersion)_editorVersion.index;
-            Debug.Log($"Selected Editor Version {_editorVersion.index} | {unityVersion}");
             _packageData.UnityVersions = new List<PackageData.UnityVersion> { unityVersion };
 
             //Get Selected Tags
@@ -202,10 +204,6 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		{
 			m_progressBar.style.display = DisplayStyle.None;
 			m_packageNameInputField.SetValueWithoutNotify("");
-		}
-
-		private string GenerateDescription(string authorName, string description){
-			return string.Format("By: {0} \n\n{1}",authorName, description);
 		}
     }
 }
