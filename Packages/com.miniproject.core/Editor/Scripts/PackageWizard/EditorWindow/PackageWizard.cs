@@ -229,9 +229,14 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
 		private PackageData.DependencyData[] GetDependencies(string enumString)
 		{
-			var depList = R.Dependencies.DependencyDatas[(PackageData.Dependency)Enum.Parse(typeof(PackageData.Dependency), enumString)];
+			if (Enum.IsDefined(typeof(PackageData.Dependency), enumString))
+			{
+				var depList = R.Dependencies.DependencyDatas[
+					(PackageData.Dependency)Enum.Parse(typeof(PackageData.Dependency), enumString)];
+				return depList;
+			}
 
-			return depList;
+			return null;
 		}
 
 		
