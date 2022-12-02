@@ -227,8 +227,21 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			m_packageNameInputField.SetValueWithoutNotify("");
 		}
 
-		private PackageData.DependencyData[] GetDependencies(string enumString)
+		/// <summary>
+		/// Returns the list of dependency data for a given enum string.
+		/// Enum string can be any enum of type ExperienceTag, Platform, or RenderingPipeline
+		/// but it needs to be converted to string before being passed in as a parameter.
+		/// If the enumString is empty, it returns the list of common dependency.
+		/// </summary>
+		/// <param name="enumString"></param>
+		/// <returns></returns>
+		private PackageData.DependencyData[] GetDependencies(string enumString = "")
 		{
+			if (String.IsNullOrEmpty(enumString))
+			{
+				enumString = PackageData.Dependency.Common.ToString();
+			}
+			
 			if (Enum.IsDefined(typeof(PackageData.Dependency), enumString))
 			{
 				var depList = R.Dependencies.DependencyDatas[
