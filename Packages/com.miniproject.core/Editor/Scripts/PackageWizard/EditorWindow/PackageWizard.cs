@@ -173,8 +173,20 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            
 	            _packageData.Platforms.Add((PackageData.Platform)platform);
             }
+            
+            //Setup selected dependencies
             //----------------------------------------------------------//
+            _packageData.Dependencies = new List<PackageData.Dependency>();
+            //TODO Need to connect selected dependencies here
+            throw new NotImplementedException("Need to connect selected dependencies here");
 
+            //Custom Dependencies
+            //----------------------------------------------------------//
+            _packageData.CustomDependencies = new List<PackageData.DependencyData>();
+            //TODO Need to add a list of custom dependencies here that the user can specify
+            throw new NotImplementedException("Need to connect selected custom dependencies here");
+
+            //----------------------------------------------------------//
 
             var generator = new PackageGenerator(_packageData);
             generator.OnProgressChanged += OnProgressChanged;

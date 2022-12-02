@@ -1,4 +1,7 @@
-﻿namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
+﻿using System.Collections.Generic;
+using Scripts.Core;
+
+namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
     public static class R
     {
@@ -49,5 +52,44 @@
 		{
 			public const string EmptyNameError = "Warning: Package Cannot be Empty";
 		}
+
+        public class Dependencies
+        {
+            
+            
+            /// <summary>
+            /// We store the DependencyDatas as an array so that a single dependency tag could come with multiple packages
+            /// </summary>
+            public static readonly Dictionary<PackageData.Dependency, PackageData.DependencyData[]> DependencyDatas = new()
+            {
+                //"com.unity.nuget.newtonsoft-json": "3.0.2"
+                [PackageData.Dependency.URP] = new[]
+                {
+                    new PackageData.DependencyData
+                    {
+                        Name = "com.miniproject.urp",
+                        Version = "0.0.1",
+                        Source = "file:../../../../../Packages/com.miniproject.urp"
+                    }
+                },
+                [PackageData.Dependency.HDRP] = new[]
+                {
+                    new PackageData.DependencyData
+                    {
+                        Name = "com.miniproject.urp",
+                        Version = "0.0.1",
+                        Source = "file:../../../../../Packages/com.miniproject.urp"
+                    }
+                },
+                [PackageData.Dependency.NewtonsoftJson] = new[]
+                {
+                    new PackageData.DependencyData
+                    {
+                        Name = "com.unity.nuget.newtonsoft-json",
+                        Version = "3.0.2"
+                    }
+                },
+            };
+        }
     }
 }
