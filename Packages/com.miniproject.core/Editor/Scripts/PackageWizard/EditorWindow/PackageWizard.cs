@@ -5,6 +5,8 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEditor.PackageManager.Requests;
+using UnityEditor.PackageManager;
 
 namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
@@ -38,6 +40,14 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		//Author Details
 		private TextInputBaseField<string> m_AuthorName;
 		private TextInputBaseField<string> m_AuthorDesc;
+
+		// TODO: Confirm this member is needed
+		// Only created for an example of searching
+		// a package in registry and getting its display name
+		private List<string> _dependencies = new List<String>();
+
+		private SearchRequest _searchReq;
+ 
 
 		//Additional Optional Dependencies
 		private Foldout m_FoldoutDependencies;
@@ -203,8 +213,20 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	            
 	            _packageData.Platforms.Add((PackageData.Platform)platform);
             }
+            
+            //Setup selected dependencies
             //----------------------------------------------------------//
+            _packageData.Dependencies = new List<PackageData.Dependency>();
+            //TODO Need to connect selected dependencies here
+            throw new NotImplementedException("Need to connect selected dependencies here");
 
+            //Custom Dependencies
+            //----------------------------------------------------------//
+            _packageData.CustomDependencies = new List<PackageData.DependencyData>();
+            //TODO Need to add a list of custom dependencies here that the user can specify
+            throw new NotImplementedException("Need to connect selected custom dependencies here");
+
+            //----------------------------------------------------------//
 
             var generator = new PackageGenerator(_packageData);
             generator.OnProgressChanged += OnProgressChanged;
@@ -238,6 +260,57 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
 		private void ForceRefresh(){
 			AssetDatabase.Refresh();
+		}
+
+		/// <summary>
+		/// Returns the list of dependency data for a given enum string.
+		/// Enum string can be any enum of type ExperienceTag, Platform, or RenderingPipeline
+		/// but it needs to be converted to string before being passed in as a parameter.
+		/// If the enumString is empty, it returns the list of common dependency.
+		/// </summary>
+		/// <param name="enumString"></param>
+		/// <returns></returns>
+		private PackageData.DependencyData[] GetDependencies(string enumString = "")
+		{
+			if (String.IsNullOrEmpty(enumString))
+			{
+				enumString = PackageData.Dependency.Common.ToString();
+			}
+			
+			if (Enum.IsDefined(typeof(PackageData.Dependency), enumString))
+			{
+				var depList = R.Dependencies.DependencyDatas[
+					(PackageData.Dependency)Enum.Parse(typeof(PackageData.Dependency), enumString)];
+				return depList;
+			}
+
+			return null;
+		}
+
+		
+		// TODO: Confirm these functions are needed
+		// Example functions to grab package display name from domain name
+		private void SearchPackage(string name)
+		{
+			_searchReq = Client.Search(name);
+			EditorApplication.update += SearchPackageHandle;
+		}
+
+		private void SearchPackageHandle()
+		{
+			if (_searchReq != null && _searchReq.IsCompleted)
+			{
+				
+				if (_searchReq.Status == StatusCode.Success)
+				{
+					_dependencies.Add(_searchReq.Result[0].displayName);
+				}
+				else
+				{
+					// Couldn't find the package from registry
+				}
+				_searchReq = null;
+			}
 		}
     }
 }

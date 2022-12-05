@@ -88,7 +88,11 @@ namespace MiniProject.Core.Editor.PackageWizard
             yield return wait;
             TryCreateAssemblyDefinitions();
             yield return wait;
-            UpdateManifests(_packageData.Name, _packageData.UnityVersions.ToArray(), _packageData.Platforms.ToArray());
+            UpdateManifests(_packageData.Name, 
+                _packageData.UnityVersions.ToArray(), 
+                _packageData.Platforms.ToArray(),
+                _packageData.Dependencies.ToArray(),
+                _packageData.CustomDependencies.ToArray());
             yield return wait;
             PostGenerate();
             yield return wait;
@@ -153,12 +157,17 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="packageName">com.miniproject.EXAMPLE</param>
         /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
         /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
-        private void UpdateManifests(in string packageName, in PackageData.UnityVersion[] supportedUnityVersions,
-            in PackageData.Platform[] supportedPlatforms)
+        /// <param name="dependencies"></param>
+        /// <param name="customDependencies"></param>
+        private void UpdateManifests(in string packageName, 
+            in PackageData.UnityVersion[] supportedUnityVersions,
+            in PackageData.Platform[] supportedPlatforms,
+            in PackageData.Dependency[] dependencies,
+            in PackageData.DependencyData[] customDependencies)
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Manifest, .7f));
             var manifestWriter = new ManifestWriter();
-            manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms);
+            manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms, dependencies, customDependencies);
         }
 
         private void PostGenerate()
