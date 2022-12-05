@@ -51,7 +51,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
 		//Additional Optional Dependencies
 		private Foldout m_FoldoutDependencies;
+		private ScrollView m_ScrollviewDependencies;
 		private Toggle[] _dependencyToggles;
+
+		private Dictionary<Toggle,List<Toggle>> _dependencyToToggle = new Dictionary<Toggle, List<Toggle>>();
 
 		[MenuItem("Mini Project/Package Wizard/New Package")]
         public static void Init()
@@ -113,18 +116,30 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			//FIXME: Add the reference to the actual package Dependencies list
 
 			List<string> dependencies = new List<string>();
-			dependencies.Add("Sprite2D");
-			dependencies.Add("ARFoundations");
-			dependencies.Add("XRToolkit");
-			dependencies.Add("FirstPersonController");
-			dependencies.Add("ThirdPersonController");
+			// dependencies.Add("Sprite2D");
+			// dependencies.Add("ARFoundations");
+			// dependencies.Add("XRToolkit");
+			// dependencies.Add("FirstPersonController");
+			// dependencies.Add("ThirdPersonController");
 
 			_dependencyToggles = new Toggle[dependencies.Count];
 			i = 0;
-			foreach(var dependencyName in dependencies){
-				Toggle newToggle = new Toggle(dependencyName);
-				m_FoldoutDependencies.Add(newToggle);
-				_dependencyToggles[i++] = newToggle;
+			foreach(var dependency in R.Dependencies.DependencyDatas){
+				VisualElement newSection = new VisualElement();
+				newSection.name = dependency.Key.ToString();
+				newSection.style.width = 200f;
+				newSection.style.flexDirection = FlexDirection.Column;
+				m_ScrollviewDependencies.Add(newSection);
+				Toggle dependencyToggle = new Toggle(dependency.Key.ToString());
+				newSection.Add(dependencyToggle);
+				List<Toggle> packageToggles = new List<Toggle>();
+				foreach(var PackageData in dependency.Value){
+					Toggle newPackageToggle = new Toggle(PackageData.Name);
+					packageToggles.Add(newPackageToggle);
+					newSection.Add(newPackageToggle);
+					dependencyToggle.RegisterCallback<ChangeEvent<bool>>( e => newPackageToggle.value = e.newValue);
+				}
+				_dependencyToToggle.Add(dependencyToggle, packageToggles);
 			}
 
 			SuscribeEvents();
@@ -153,7 +168,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			m_AuthorName = root.Q<TextInputBaseField<string>>(R.UI.AuthorNameField);
 			m_AuthorDesc = root.Q<TextInputBaseField<string>>(R.UI.AuthorDescription);
 
-			m_FoldoutDependencies = root.Q<Foldout>(R.UI.DependenciesScrollView);
+			m_FoldoutDependencies = root.Q<Foldout>(R.UI.DependenciesFoldout);
+			m_ScrollviewDependencies = root.Q<ScrollView>(R.UI.DependenciesScrollview);
 		}
 
 		private void SuscribeEvents()

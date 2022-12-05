@@ -37,7 +37,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
         
             public const string ProgressBar = "FileProgressBar";
 
-			public const string DependenciesScrollView = "SCDependencies";
+			public const string DependenciesFoldout = "SCDependencies";
+			public const string DependenciesScrollview = "ScrollDependencies";
+
         
             public const string Title = "PackageWizard";
         }
