@@ -73,6 +73,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             VisualElement labelFromUXML = visualTree.Instantiate();
             root.Add(labelFromUXML);
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(R.UI.PathToUSS);
+            root.styleSheets.Add(styleSheet);
 
 			GetReferences(root);
 
