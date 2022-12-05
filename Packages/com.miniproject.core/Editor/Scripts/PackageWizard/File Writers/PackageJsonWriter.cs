@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using MiniProject.Core.Editor.PackageWizard.EditorWindow;
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,14 +36,57 @@ namespace MiniProject.Core.Editor.PackageWizard
                 { "version", packageData.Version },
                 { "displayName", packageData.DisplayName },
                 { "description", packageData.Description },
-                { "unity", packageData.UnityVersionFormatted},
-                { "unityRelease",packageData.UnityRelease },
+                { "unity", packageData.UnityVersionFormatted },
+                { "unityRelease", packageData.UnityRelease },
                 { "keywords", emptyArray },
                 { "author", author },
-                { "dependencies", new JObject()}
+                {
+                    "dependencies",
+                    GetPackageDependenciesAsJObject(packageData.Dependencies, packageData.CustomDependencies)
+                }
             };
-            var path = Path.Combine(pathToRuntimeDirectory, $"package.json");
+            var path = Path.Combine(pathToRuntimeDirectory, "package.json");
             TryCreateFile(path, JsonConvert.SerializeObject(packageInfo, Formatting.Indented));
         }
+
+        //Get Package Dependencies
+        //================================================================================================================//
+
+        /// <summary>
+        /// Combines the list of dependency tags & custom dependencies, in a Package.json "dependencies" friendly format.
+        /// { packageName, packageVersion }
+        /// </summary>
+        /// <param name="dependencies"></param>
+        /// <param name="customDependencies"></param>
+        /// <returns></returns>
+        private static JObject GetPackageDependenciesAsJObject(
+            in IEnumerable<PackageData.Dependency> dependencies,
+            in IEnumerable<PackageData.DependencyData> customDependencies)
+        {
+            var packageDependencies = new JObject();
+            
+            if (dependencies == null || dependencies.Any() == false)
+                return packageDependencies;
+
+            foreach (var d in dependencies)
+            {
+                var temp = R.Dependencies.DependencyDatas[d];
+
+                foreach (var dependencyData in temp)
+                {
+                    packageDependencies.Add(dependencyData.Name, dependencyData.Version);
+                }
+            }
+
+            foreach (var dependencyData in customDependencies)
+            {
+                packageDependencies.Add(dependencyData.Name, dependencyData.Version);
+            }
+
+            return packageDependencies;
+        }
+        
+        //================================================================================================================//
+
     }
 }

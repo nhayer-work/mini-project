@@ -46,13 +46,30 @@ namespace Scripts.Core
             HDRP
         }
 
+        //TODO Replace this with the version provided by Avery
+        public enum Dependency
+        {
+            Test,
+            URP,
+            HDRP,
+            NewtonsoftJson,
+        }
+
         public struct Author
         {
             public string Name { get; set; }
             public string Email { get; set; }
             public string Url { get; set; }
         }
-        
+
+        public struct DependencyData
+        {
+            public string Name { get; set; }
+            public string Version { get; set; }
+            //for com.unity packages, no need to include the source, the version should
+            public string Source { get; set; }
+        }
+
         /// <summary>
         /// Dictionary mapping ExperienceTag enum to string values
         /// </summary>
@@ -66,6 +83,9 @@ namespace Scripts.Core
         /// Dictionary mapping RenderingPipeline enum to string values
         /// </summary>
         public List<RenderingPipeline> RenderingPipelines{ get; set; }
+
+        public List<Dependency> Dependencies { get; set; }
+        public List<DependencyData> CustomDependencies { get; set; }
 
         public string DisplayName { get; set; }
 
