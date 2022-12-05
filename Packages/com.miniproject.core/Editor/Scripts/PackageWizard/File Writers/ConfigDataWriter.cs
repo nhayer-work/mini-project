@@ -26,9 +26,12 @@ namespace MiniProject.Core.Editor.PackageWizard
             {
                 { "Name", packageData.Name },
                 { "DisplayName", packageData.DisplayName },
-                { "Platforms", JsonConvert.SerializeObject(packageData.Platforms) },
+                { "Platforms", string.Join(", ", packageData.Platforms.ToArray()) },
                 { "Dependencies", emptyArray },
-                { "EditorVersion", packageData.UnityVersionFormatted }
+                { "EditorVersion", packageData.UnityVersionFormatted },
+                { "Description", packageData.Description },
+                { "Tags", string.Join(", ", packageData.ExperienceTags.ToArray()) },
+                { "RenderPipeline", packageData.RenderPipeline }
             };
             var path = Path.Combine(pathToRuntimeDirectory, $"config.json");
             TryCreateFile(path, JsonConvert.SerializeObject(configData, Formatting.Indented));
