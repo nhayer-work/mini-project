@@ -46,13 +46,19 @@ namespace Scripts.Core
             HDRP
         }
 
-        //TODO Replace this with the version provided by Avery
         public enum Dependency
         {
-            Test,
+            Common,
             URP,
             HDRP,
-            NewtonsoftJson,
+            Android,
+            Cinemachine,
+            Shaders,
+            AR,
+            VR,
+            MachineLearning,
+            NewInputSystem,
+            TerrainTools
         }
 
         public struct Author
