@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:Label text="Package Details" name="Title" class="section-title" style="font-size: 20px; -unity-text-align: upper-left; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
     <ui:TextField picking-mode="Ignore" label="Experience Name" value="filler text" name="ExperienceName" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px;" />
     <ui:Toggle label="Does it Score?" name="IfScore" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
@@ -6,13 +7,15 @@
     <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
     <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
     <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" style="margin-bottom: 6px; margin-left: 6px; margin-right: 6px; margin-top: 6px;" />
-    <ui:Label text="Experience Tags" display-tooltip-when-elided="true" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
-    <ui:ScrollView name="FDTags" style="height: 251px;" />
+    <ui:GroupBox text="Experience Tags" name="experience-tags" class="box-group" style="min-height: 100px; max-height: 250px;">
+        <ui:ScrollView name="FDTags" horizontal-scroller-visibility="Hidden" style="flex-wrap: wrap; flex-direction: row;" />
+    </ui:GroupBox>
     <ui:Label text="Author Details" display-tooltip-when-elided="true" class="section-title" style="font-size: 17px; -unity-text-align: upper-left; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />
     <ui:TextField picking-mode="Ignore" label="Author Name" name="IfAuthor" style="border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;" />
     <ui:TextField picking-mode="Ignore" label="Description" text="Tell us what your project is all about!" multiline="true" name="IfDescription" style="height: 60px; border-bottom-width: 6px; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px;" />
-    <ui:Label text="Optional Dependencies" display-tooltip-when-elided="true" class="section-title" style="font-size: 17px; -unity-text-align: upper-left; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />
-    <ui:ScrollView mode="Horizontal" name="ScrollDependencies" style="height: 397px; background-color: rgb(70, 70, 70); flex-direction: row; margin-left: 11px; margin-right: 11px; margin-top: 11px; margin-bottom: 11px;" />
+    <ui:GroupBox text="Optional Dependencies" name="optional-dependencies" class="box-group dependency-group" style="max-height: 250px; min-height: 100px;">
+        <ui:ScrollView name="ScrollDependencies" />
+    </ui:GroupBox>
     <ui:Foldout text="Select" name="SCDependencies" value="false" style="display: none;" />
     <ui:TextField picking-mode="Ignore" label="Any Extra Dependencies?" name="IFExtraDependencies" tooltip="Comma separated Please" style="display: none;" />
     <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; height: 100px;">

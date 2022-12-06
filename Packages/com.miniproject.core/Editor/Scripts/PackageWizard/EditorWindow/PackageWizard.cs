@@ -125,21 +125,60 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
 			_dependencyToggles = new Toggle[dependencies.Count];
 			i = 0;
-			foreach(var dependency in R.Dependencies.DependencyDatas){
-				VisualElement newSection = new VisualElement();
-				newSection.name = dependency.Key.ToString();
-				newSection.style.width = 250;
-				newSection.style.flexDirection = FlexDirection.Column;
-				m_ScrollviewDependencies.Add(newSection);
-				Toggle dependencyToggle = new Toggle(dependency.Key.ToString());
-				newSection.Add(dependencyToggle);
+			foreach(var dependency in R.Dependencies.DependencyDatas)
+			{
+				var dependencyName = dependency.Key.ToString();
+				//Create group box
+				//----------------------------------------------------------//
+				var newSectionGroupBox = new GroupBox
+				{
+					name = dependencyName,
+					focusable = false,
+					tabIndex = 0,
+					viewDataKey = null,
+					userData = null,
+					usageHints = UsageHints.None,
+					pickingMode = PickingMode.Position,
+					visible = true,
+					generateVisualContent = null,
+					tooltip = null,
+				};
+				newSectionGroupBox.AddToClassList("box-group");
+				newSectionGroupBox.AddToClassList("dependency-group");
+				//Create basic container for all toggles
+				//----------------------------------------------------------//\
+				var newSectionContainer= new VisualElement()
+				{
+					name = dependencyName,
+				};
+				newSectionContainer.AddToClassList("container");
+				
+				//Add toggle container to Group Box
+				//----------------------------------------------------------//
+				newSectionGroupBox.Add(newSectionContainer);
+
+				//Create header toggle
+				//----------------------------------------------------------//
+				Toggle dependencyToggle = new Toggle($"{dependencyName} Packages");
+				newSectionGroupBox.Insert(0, dependencyToggle);
+
+				//Create toggle group
+				//----------------------------------------------------------//
 				List<Toggle> packageToggles = new List<Toggle>();
-				foreach(var PackageData in dependency.Value){
-					Toggle newPackageToggle = new Toggle(PackageData.Name);
+				foreach(var packageData in dependency.Value)
+				{
+					Toggle newPackageToggle = new Toggle(packageData.Name);
 					packageToggles.Add(newPackageToggle);
-					newSection.Add(newPackageToggle);
+					newSectionContainer.Add(newPackageToggle);
 					dependencyToggle.RegisterCallback<ChangeEvent<bool>>( e => newPackageToggle.value = e.newValue);
 				}
+
+				//----------------------------------------------------------//
+
+				//Add GroupBox to Dependency scroll view
+				m_ScrollviewDependencies.Add(newSectionGroupBox);
+				
+				//Add toggle to list for future referencing
 				_dependencyToToggle.Add(dependencyToggle, packageToggles);
 			}
 
