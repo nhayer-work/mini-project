@@ -15,7 +15,9 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 	    private PackageData _packageData;
 	    
         private TextInputBaseField<string> m_packageNameInputField;
-        private EnumFlagsField _platformOptions;
+		private Button m_refreshButton;
+		private EnumFlagsField _platformOptions;
+		private ScrollView _foldoutTags;
         private Toggle[] _tagToggles;
         private Toggle _usesEditorToggle;
         private Toggle _usesScoreToggle;
@@ -47,7 +49,14 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		private SearchRequest _searchReq;
  
 
-        [MenuItem("Mini Project/Package Wizard/New Package")]
+		//Additional Optional Dependencies
+		private Foldout m_FoldoutDependencies;
+		private ScrollView m_ScrollviewDependencies;
+		private Toggle[] _dependencyToggles;
+
+		private Dictionary<Toggle,List<Toggle>> _dependencyToToggle = new Dictionary<Toggle, List<Toggle>>();
+
+		[MenuItem("Mini Project/Package Wizard/New Package")]
         public static void Init()
         {
             PackageWizard wnd = GetWindow<PackageWizard>();
@@ -64,17 +73,18 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             VisualElement labelFromUXML = visualTree.Instantiate();
             root.Add(labelFromUXML);
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(R.UI.PathToUSS);
+            root.styleSheets.Add(styleSheet);
 
 			GetReferences(root);
 
-            VisualElement tagsGroup = root.Q<GroupBox>(R.UI.ExperienceTagsFieldName);
             var tags = Enum.GetValues(typeof(PackageData.ExperienceTag));
             _tagToggles = new Toggle[tags.Length];
             var i = 0;
             foreach (var tag in tags)
             {
                 var toggleItem = new Toggle(tag.ToString());
-                tagsGroup.Add(toggleItem);
+                // tagsGroup.Add(toggleItem);
+				_foldoutTags.Add(toggleItem);
                 _tagToggles[i++] = toggleItem;
             }
 
@@ -99,11 +109,39 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             {
                 versions.Add(version.ToString());
             }
+
             _editorVersion.choices = versions;
 			_editorVersion.value = versions[0];
-			
-			_usesEditorToggle = root.Q<Toggle>(R.UI.IfRequireEditorScriptsFieldName);
-			_usesScoreToggle = root.Q<Toggle>(R.UI.IfScoreFieldName);
+
+
+			//FIXME: Add the reference to the actual package Dependencies list
+
+			List<string> dependencies = new List<string>();
+			// dependencies.Add("Sprite2D");
+			// dependencies.Add("ARFoundations");
+			// dependencies.Add("XRToolkit");
+			// dependencies.Add("FirstPersonController");
+			// dependencies.Add("ThirdPersonController");
+
+			_dependencyToggles = new Toggle[dependencies.Count];
+			i = 0;
+			foreach(var dependency in R.Dependencies.DependencyDatas){
+				VisualElement newSection = new VisualElement();
+				newSection.name = dependency.Key.ToString();
+				newSection.style.width = 250;
+				newSection.style.flexDirection = FlexDirection.Column;
+				m_ScrollviewDependencies.Add(newSection);
+				Toggle dependencyToggle = new Toggle(dependency.Key.ToString());
+				newSection.Add(dependencyToggle);
+				List<Toggle> packageToggles = new List<Toggle>();
+				foreach(var PackageData in dependency.Value){
+					Toggle newPackageToggle = new Toggle(PackageData.Name);
+					packageToggles.Add(newPackageToggle);
+					newSection.Add(newPackageToggle);
+					dependencyToggle.RegisterCallback<ChangeEvent<bool>>( e => newPackageToggle.value = e.newValue);
+				}
+				_dependencyToToggle.Add(dependencyToggle, packageToggles);
+			}
 
 			SuscribeEvents();
 			ClearTool();
@@ -118,12 +156,21 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			m_GenerateButton = root.Q<Button>(R.UI.GenerateButtonName);
 			m_LoadButton = root.Q<Button>(R.UI.GenerateButtonName);
             m_packageNameInputField = root.Q<TextInputBaseField<string>>(R.UI.PackageNameInputField);
+			m_refreshButton = root.Q<Button>(R.UI.RefreshButtonName);
+
+			_foldoutTags = root.Q<ScrollView>(R.UI.FoldoutTagsName);
+				
+			_usesEditorToggle = root.Q<Toggle>(R.UI.IfRequireEditorScriptsFieldName);
+			_usesScoreToggle = root.Q<Toggle>(R.UI.IfScoreFieldName);
 
 			m_warningContainer = root.Q<VisualElement>(R.UI.WarningContainer);
 			m_warningLabel = root.Q<Label>(R.UI.WarningLabel);
 
 			m_AuthorName = root.Q<TextInputBaseField<string>>(R.UI.AuthorNameField);
 			m_AuthorDesc = root.Q<TextInputBaseField<string>>(R.UI.AuthorDescription);
+
+			m_FoldoutDependencies = root.Q<Foldout>(R.UI.DependenciesFoldout);
+			m_ScrollviewDependencies = root.Q<ScrollView>(R.UI.DependenciesScrollview);
 		}
 
 		private void SuscribeEvents()
@@ -131,6 +178,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			m_GenerateButton.RegisterCallback<ClickEvent>((e) => GenerateButtonClicked());
 			m_ClearButton.RegisterCallback<ClickEvent>((e) => ClearTool());
 			m_packageNameInputField.RegisterCallback<ChangeEvent<string>>((e) => HandleGenerateButtonState());
+			m_refreshButton.RegisterCallback<ClickEvent>((e) => ForceRefresh());
 		}
 
         private void GenerateButtonClicked()
@@ -225,6 +273,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		{
 			m_progressBar.style.display = DisplayStyle.None;
 			m_packageNameInputField.SetValueWithoutNotify("");
+		}
+
+		private void ForceRefresh(){
+			AssetDatabase.Refresh();
 		}
 
 		/// <summary>

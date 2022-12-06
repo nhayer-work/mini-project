@@ -1,22 +1,28 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <ui:Label text="Package Details" name="Title" style="-unity-font-style: bold; font-size: 20px; -unity-text-align: upper-left; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
+    <ui:Label text="Package Details" name="Title" class="section-title" style="font-size: 20px; -unity-text-align: upper-left; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
     <ui:TextField picking-mode="Ignore" label="Experience Name" value="filler text" name="ExperienceName" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px;" />
-    <ui:GroupBox name="ExperienceTags" text="Experience Tags" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
     <ui:Toggle label="Does it Score?" name="IfScore" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
     <ui:VisualElement name="PlatformOptionsPlaceholder" />
     <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
     <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
     <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" style="margin-bottom: 6px; margin-left: 6px; margin-right: 6px; margin-top: 6px;" />
-    <ui:Label text="Author Details" display-tooltip-when-elided="true" style="-unity-font-style: bold; font-size: 17px; -unity-text-align: upper-left; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />
+    <ui:Label text="Experience Tags" display-tooltip-when-elided="true" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+    <ui:ScrollView name="FDTags" style="height: 251px;" />
+    <ui:Label text="Author Details" display-tooltip-when-elided="true" class="section-title" style="font-size: 17px; -unity-text-align: upper-left; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />
     <ui:TextField picking-mode="Ignore" label="Author Name" name="IfAuthor" style="border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;" />
-    <ui:TextField picking-mode="Ignore" label="Description" text="Tell us what your project is all about!" multiline="true" name="IfDescription" style="height: 50px; border-bottom-width: 6px; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px;" />
-    <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex;">
+    <ui:TextField picking-mode="Ignore" label="Description" text="Tell us what your project is all about!" multiline="true" name="IfDescription" style="height: 60px; border-bottom-width: 6px; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px;" />
+    <ui:Label text="Optional Dependencies" display-tooltip-when-elided="true" class="section-title" style="font-size: 17px; -unity-text-align: upper-left; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />
+    <ui:ScrollView mode="Horizontal" name="ScrollDependencies" style="height: 397px; background-color: rgb(70, 70, 70); flex-direction: row; margin-left: 11px; margin-right: 11px; margin-top: 11px; margin-bottom: 11px;" />
+    <ui:Foldout text="Select" name="SCDependencies" value="false" style="display: none;" />
+    <ui:TextField picking-mode="Ignore" label="Any Extra Dependencies?" name="IFExtraDependencies" tooltip="Comma separated Please" style="display: none;" />
+    <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; height: 100px;">
         <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" style="flex-grow: 1; height: 30px;" />
         <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" style="flex-grow: 1; height: 30px; display: none;" />
         <ui:Button text="Clear Data" display-tooltip-when-elided="true" name="ClearButton" style="height: 30px; flex-grow: 1;" />
+        <ui:Button text="Refresh Database" display-tooltip-when-elided="true" name="RefreshButton" style="height: 30px; flex-grow: 1;" />
     </ui:VisualElement>
     <ui:ProgressBar title="Hang Tight!" name="FileProgressBar" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; display: flex;" />
-    <ui:VisualElement name="WarningContainer" style="height: 57px; flex-direction: row; background-color: rgb(47, 47, 47); border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;">
-        <ui:Label text="This is a warning " display-tooltip-when-elided="true" name="WarningLabel" style="flex-grow: 1; -unity-text-align: middle-center; border-left-width: 7px; border-right-width: 7px; border-top-width: 7px; border-bottom-width: 7px; font-size: 17px; color: rgb(255, 255, 255); -unity-font-style: normal;" />
+    <ui:VisualElement name="WarningContainer" style="height: 57px; flex-direction: row; background-color: rgb(47, 47, 47); border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px; padding-bottom: 39px;">
+        <ui:Label text="This is a warning " display-tooltip-when-elided="true" name="WarningLabel" style="flex-grow: 1; -unity-text-align: middle-center; border-left-width: 7px; border-right-width: 7px; border-top-width: 7px; border-bottom-width: 7px; font-size: 17px; color: rgb(255, 255, 255); -unity-font-style: normal; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;" />
     </ui:VisualElement>
 </ui:UXML>

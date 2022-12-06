@@ -21,10 +21,13 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             public const string IfRequireEditorScriptsFieldName = "IfRequireEditorScripts";
             public const string IfScoreFieldName = "IfScore";
 
+			public const string FoldoutTagsName = "FDTags";
+
 			public const string ButtonsContainer = "StateButtons";
             public const string GenerateButtonName = "GeneratePackage";
             public const string LoadButtonName = "LoadPackage";
             public const string ClearButtonName = "ClearButton";
+            public const string RefreshButtonName = "RefreshButton";
 
 			public const string WarningContainer = "WarningContainer";
 			public const string WarningLabel = "WarningLabel";
@@ -33,6 +36,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			public const string AuthorDescription = "IfDescription";
         
             public const string ProgressBar = "FileProgressBar";
+
+			public const string DependenciesFoldout = "SCDependencies";
+			public const string DependenciesScrollview = "ScrollDependencies";
+
         
             public const string Title = "PackageWizard";
         }
