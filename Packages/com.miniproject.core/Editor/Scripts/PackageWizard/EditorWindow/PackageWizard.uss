@@ -17,12 +17,13 @@ Label {
 
 }
 
-.unity-base-field__input{
+.unity-toggle{
 	justify-content: space-between;
 }
 
-.unity-toggle__checkmark{
-	position: relative;
+.unity-toggle__input{
+	/* flex-direction : column; */
+	position: absolute;
 	right: 0px;
 }
 
