@@ -17,7 +17,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
         private TextInputBaseField<string> m_packageNameInputField;
 		private Button m_refreshButton;
 		private EnumFlagsField _platformOptions;
-		private Foldout _foldoutTags;
+		private ScrollView _foldoutTags;
         private Toggle[] _tagToggles;
         private Toggle _usesEditorToggle;
         private Toggle _usesScoreToggle;
@@ -128,7 +128,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			foreach(var dependency in R.Dependencies.DependencyDatas){
 				VisualElement newSection = new VisualElement();
 				newSection.name = dependency.Key.ToString();
-				newSection.style.width = 200f;
+				newSection.style.width = 250;
 				newSection.style.flexDirection = FlexDirection.Column;
 				m_ScrollviewDependencies.Add(newSection);
 				Toggle dependencyToggle = new Toggle(dependency.Key.ToString());
@@ -158,7 +158,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             m_packageNameInputField = root.Q<TextInputBaseField<string>>(R.UI.PackageNameInputField);
 			m_refreshButton = root.Q<Button>(R.UI.RefreshButtonName);
 
-			_foldoutTags = root.Q<Foldout>(R.UI.FoldoutTagsName);
+			_foldoutTags = root.Q<ScrollView>(R.UI.FoldoutTagsName);
 				
 			_usesEditorToggle = root.Q<Toggle>(R.UI.IfRequireEditorScriptsFieldName);
 			_usesScoreToggle = root.Q<Toggle>(R.UI.IfScoreFieldName);

@@ -1,9 +1,33 @@
 Label {
     /* font-size: 20px; */
-    /* -unity-font-style: bold; */
-    /* color: rgb(68, 138, 255); */
+    /* -unity-font-style: bold;
+    color: rgb(68, 138, 255); */
 }
 
-RadioButton{
-    
+.section-title{
+	-unity-font-style : bold;
+	color: rgb(255,255,255);
+	font-size: 20px;
 }
+
+.unity-scroller--horizontal{
+	position: absolute;
+	width : 100%;
+	bottom : 0px;
+
+}
+
+.unity-base-field__input{
+	justify-content: space-between;
+}
+
+.unity-toggle__checkmark{
+	position: relative;
+	right: 0px;
+}
+
+/* 
+.unity-repeat-button{
+	position: absolute;
+	top : 0px;
+} */
