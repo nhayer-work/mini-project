@@ -12,6 +12,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
     public class PackageWizard : UnityEditor.EditorWindow
     {
+	    private static PackageWizard window;
+	    
 	    private PackageData _packageData;
 	    
         private TextInputBaseField<string> m_packageNameInputField;
@@ -52,15 +54,18 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		//Additional Optional Dependencies
 		private Foldout m_FoldoutDependencies;
 		private ScrollView m_ScrollviewDependencies;
-		private Toggle[] _dependencyToggles;
+		//private Toggle[] _dependencyToggles;
 
-		private Dictionary<Toggle,List<Toggle>> _dependencyToToggle = new Dictionary<Toggle, List<Toggle>>();
+		[SerializeField]
+		private List<PackageData.DependencyData> _customDependencies;
+		private Dictionary<Toggle,List<Toggle>> _dependencyToToggle;
+		private Dictionary<Toggle, PackageData.DependencyData> _toggleToDependencyData;
 
 		[MenuItem("Mini Project/Package Wizard/New Package")]
         public static void Init()
         {
-            PackageWizard wnd = GetWindow<PackageWizard>();
-            wnd.titleContent = new GUIContent(R.UI.Title);
+	        window = GetWindow<PackageWizard>();
+	        window.titleContent = new GUIContent(R.UI.Title);
         }
 
         public void CreateGUI()
@@ -88,20 +93,29 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 _tagToggles[i++] = toggleItem;
             }
 
+            //Setup Platform selection Enum
+            //----------------------------------------------------------//
             VisualElement platformOptionsPlaceholder = root.Q<VisualElement>(R.UI.PlatformOptionsPlaceholderFieldName);
             _platformOptions = new EnumFlagsField(R.UI.PlatformOptionsFieldName);
             foreach (Enum platformType in Enum.GetValues(typeof(PackageData.Platform)))
             {
 	            _platformOptions.Init(platformType);
             }
-
+            
+            //Gets the current platform to use as the default target
+            _platformOptions.value = GetCurrentPlatformAsEnum();
             platformOptionsPlaceholder.Add(_platformOptions);
-
+            
+            //Setup Render Pipeline selection Enum
+            //----------------------------------------------------------//
             _renderPipeline = root.Q<EnumField>(R.UI.RenderingPipelineFieldName);
             foreach (Enum renderPipelineType in Enum.GetValues(typeof(PackageData.RenderingPipeline)))
             {
                 _renderPipeline.Init(renderPipelineType);
             }
+
+            _renderPipeline.value = (PackageData.RenderingPipeline)0;
+            //----------------------------------------------------------//
 
             _editorVersion = root.Q<DropdownField>(R.UI.UnityEditorVersionFieldName);
             List<string> versions = new List<string>();
@@ -113,76 +127,90 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             _editorVersion.choices = versions;
 			_editorVersion.value = versions[0];
 
-
-			//FIXME: Add the reference to the actual package Dependencies list
-
-			List<string> dependencies = new List<string>();
-			// dependencies.Add("Sprite2D");
-			// dependencies.Add("ARFoundations");
-			// dependencies.Add("XRToolkit");
-			// dependencies.Add("FirstPersonController");
-			// dependencies.Add("ThirdPersonController");
-
-			_dependencyToggles = new Toggle[dependencies.Count];
-			i = 0;
-			foreach(var dependency in R.Dependencies.DependencyDatas)
+			//Dependency Setup
+			//----------------------------------------------------------//
 			{
-				var dependencyName = dependency.Key.ToString();
-				//Create group box
-				//----------------------------------------------------------//
-				var newSectionGroupBox = new GroupBox
+				_dependencyToToggle = new Dictionary<Toggle, List<Toggle>>();
+				_toggleToDependencyData = new Dictionary<Toggle, PackageData.DependencyData>();
+				foreach (var dependency in R.Dependencies.DependencyDatas)
 				{
-					name = dependencyName,
-					focusable = false,
-					tabIndex = 0,
-					viewDataKey = null,
-					userData = null,
-					usageHints = UsageHints.None,
-					pickingMode = PickingMode.Position,
-					visible = true,
-					generateVisualContent = null,
-					tooltip = null,
-				};
-				newSectionGroupBox.AddToClassList("box-group");
-				newSectionGroupBox.AddToClassList("dependency-group");
-				//Create basic container for all toggles
-				//----------------------------------------------------------//\
-				var newSectionContainer= new VisualElement()
-				{
-					name = dependencyName,
-				};
-				newSectionContainer.AddToClassList("container");
+					var dependencyName = dependency.Key.ToString();
+					//Create group box
+					//----------------------------------------------------------//
+					var newSectionGroupBox = new GroupBox
+					{
+						name = dependencyName,
+						focusable = false,
+						tabIndex = 0,
+						viewDataKey = null,
+						userData = null,
+						usageHints = UsageHints.None,
+						pickingMode = PickingMode.Position,
+						visible = true,
+						generateVisualContent = null,
+						tooltip = null,
+					};
+					newSectionGroupBox.AddToClassList("box-group");
+					newSectionGroupBox.AddToClassList("dependency-group");
+					//Create basic container for all toggles
+					//----------------------------------------------------------//\
+					var newSectionContainer = new VisualElement()
+					{
+						name = dependencyName,
+					};
+					newSectionContainer.AddToClassList("container");
+
+					//Add toggle container to Group Box
+					//----------------------------------------------------------//
+					newSectionGroupBox.Add(newSectionContainer);
+
+					//Create header toggle
+					//----------------------------------------------------------//
+					Toggle dependencyToggle = new Toggle($"{dependencyName} Packages");
+					newSectionGroupBox.Insert(0, dependencyToggle);
+
+					//Create toggle group
+					//----------------------------------------------------------//
+					var packageToggleList = new List<Toggle>();
+					foreach (var packageData in dependency.Value)
+					{
+						//Use the display name as the toggle text, and let the domain be used for the tooltip
+						var newDependencyToggle = new Toggle(packageData.DisplayName)
+						{
+							tooltip = packageData.Domain
+						};
+						_toggleToDependencyData.Add(newDependencyToggle, packageData);
+
+						packageToggleList.Add(newDependencyToggle);
+						newSectionContainer.Add(newDependencyToggle);
+						dependencyToggle.RegisterCallback<ChangeEvent<bool>>(
+							e => newDependencyToggle.value = e.newValue);
+					}
+
+					//----------------------------------------------------------//
+
+					//Add GroupBox to Dependency scroll view
+					m_ScrollviewDependencies.Add(newSectionGroupBox);
 				
-				//Add toggle container to Group Box
-				//----------------------------------------------------------//
-				newSectionGroupBox.Add(newSectionContainer);
-
-				//Create header toggle
-				//----------------------------------------------------------//
-				Toggle dependencyToggle = new Toggle($"{dependencyName} Packages");
-				newSectionGroupBox.Insert(0, dependencyToggle);
-
-				//Create toggle group
-				//----------------------------------------------------------//
-				List<Toggle> packageToggles = new List<Toggle>();
-				foreach(var packageData in dependency.Value)
-				{
-					Toggle newPackageToggle = new Toggle(packageData.Name);
-					packageToggles.Add(newPackageToggle);
-					newSectionContainer.Add(newPackageToggle);
-					dependencyToggle.RegisterCallback<ChangeEvent<bool>>( e => newPackageToggle.value = e.newValue);
+					//Add toggle to list for future referencing
+					_dependencyToToggle.Add(dependencyToggle, packageToggleList);
 				}
 
-				//----------------------------------------------------------//
-
-				//Add GroupBox to Dependency scroll view
-				m_ScrollviewDependencies.Add(newSectionGroupBox);
-				
-				//Add toggle to list for future referencing
-				_dependencyToToggle.Add(dependencyToggle, packageToggles);
 			}
+			//Custom Dependencies
+			//----------------------------------------------------------//
+			{
+				var _customDependencies = root.Q<ListView>("custom-dependencies");
+				SerializedObject serializedObject = new UnityEditor.SerializedObject(this);
+				SerializedProperty serializedProperty_customDependencies = serializedObject.FindProperty(nameof(_customDependencies));
+				_customDependencies.BindProperty(serializedProperty_customDependencies);
 
-			SuscribeEvents();
+			}
+			//----------------------------------------------------------//
+
+
+
+			SubscribeEvents();
 			ClearTool();
             HandleGenerateButtonState();
 			SetWarning(false, "");
@@ -212,7 +240,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 			m_ScrollviewDependencies = root.Q<ScrollView>(R.UI.DependenciesScrollview);
 		}
 
-		private void SuscribeEvents()
+		private void SubscribeEvents()
 		{
 			m_GenerateButton.RegisterCallback<ClickEvent>((e) => GenerateButtonClicked());
 			m_ClearButton.RegisterCallback<ClickEvent>((e) => ClearTool());
@@ -272,16 +300,19 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             
             //Setup selected dependencies
             //----------------------------------------------------------//
-            _packageData.Dependencies = new List<PackageData.Dependency>();
-            //TODO Need to connect selected dependencies here
-            throw new NotImplementedException("Need to connect selected dependencies here");
+            _packageData.Dependencies = new List<PackageData.DependencyData>();
+            foreach (var data in _toggleToDependencyData)
+            {
+	            if(data.Key.value == false)
+		            continue;
+	            
+	            _packageData.Dependencies.Add(data.Value);
+            }
 
             //Custom Dependencies
             //----------------------------------------------------------//
-            _packageData.CustomDependencies = new List<PackageData.DependencyData>();
-            //TODO Need to add a list of custom dependencies here that the user can specify
-            throw new NotImplementedException("Need to connect selected custom dependencies here");
-
+            _packageData.CustomDependencies = new List<PackageData.DependencyData>(_customDependencies);
+            
             //----------------------------------------------------------//
 
             var generator = new PackageGenerator(_packageData);
@@ -367,6 +398,28 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 				}
 				_searchReq = null;
 			}
+		}
+
+		private static PackageData.Platform GetCurrentPlatformAsEnum()
+		{
+			switch (Application.platform)
+			{
+				case RuntimePlatform.OSXEditor:
+				case RuntimePlatform.OSXPlayer:
+					return PackageData.Platform.MacOS;
+				case RuntimePlatform.WindowsPlayer:
+				case RuntimePlatform.WindowsEditor:
+					return PackageData.Platform.Windows;
+				case RuntimePlatform.WebGLPlayer:
+					return PackageData.Platform.WebGL;
+				case RuntimePlatform.IPhonePlayer:
+					return PackageData.Platform.iOS;
+				case RuntimePlatform.Android:
+					return PackageData.Platform.Android;
+				default:
+					throw new NotImplementedException($"{Application.platform} is not supported by {nameof(PackageWizard)}");
+			}
+				
 		}
     }
 }

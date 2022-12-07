@@ -42,6 +42,18 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         
             public const string Title = "PackageWizard";
+            
+            public class DependencyData
+            {
+                public const string UXMLPath =
+                    "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyData.uxml";
+                public const string GroupBoxName = "custom-dependency-group";
+
+                public const string DisplayNameField = "display-name";
+                public const string DomainNameField = "domain-name";
+                public const string VersionField = "version";
+                public const string SourceField = "source";
+            }
         }
         
 
@@ -73,71 +85,104 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.feature.2d",
+                        DisplayName = "2D Features",
+                        Domain = "com.unity.feature.2d",
                         Version = "1.0.0"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.editorcoroutines",
+                        DisplayName = "Editor Coroutines",
+                        Domain = "com.unity.editorcoroutines",
                         Version = "1.0.0"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.postprocessing",
+                        DisplayName = "Post Processing",
+                        Domain = "com.unity.postprocessing",
                         Version = "3.2.2"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.probuilder",
+                        DisplayName = "Pro Builder",
+                        Domain = "com.unity.probuilder",
                         Version = "5.0.6"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.textmeshpro",
+                        DisplayName = "TextMeshPro",
+                        Domain = "com.unity.textmeshpro",
                         Version = "3.0.6"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.timeline",
+                        DisplayName = "Timeline",
+                        Domain = "com.unity.timeline",
                         Version = "1.6.4"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.visualeffectgraph",
+                        DisplayName = "Visual Effects Graph",
+                        Domain = "com.unity.visualeffectgraph",
                         Version = "12.1.7"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.visualscripting",
+                        DisplayName = "Visual Scripting",
+                        Domain = "com.unity.visualscripting",
                         Version = "1.7.8"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.nuget.newtonsoft-json",
+                        DisplayName = "Newtonsoft Json",
+                        Domain = "com.unity.nuget.newtonsoft-json",
                         Version = "3.0.2"
+                    },
+                    new PackageData.DependencyData
+                    {
+                        DisplayName = "UIToolkit Attributes",
+                        Domain = "com.miniproject.uitoolkitattributes",
+                        Version = "0.0.1",
+                        Source = "https://github.com/AlexBedardReidU3D/UIToolkitAttributes.git"
                     }
                 },
                 [PackageData.Dependency.URP] = new[]
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.render-pipelines.universal",
+                        DisplayName = "Unity URP",
+                        Domain = "com.unity.render-pipelines.universal",
                         Version = "12.1.7"
+                    },
+                    new PackageData.DependencyData
+                    {
+                        DisplayName = "MiniProject URP",
+                        Domain = "com.miniproject.urp",
+                        Version = "0.0.1",
+                        Source = "file:../../../../../Packages/com.miniproject.urp"
                     }
                 },
                 [PackageData.Dependency.HDRP] = new[]
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.render-pipelines.high-definition",
+                        DisplayName = "Unity HDRP",
+                        Domain = "com.unity.render-pipelines.high-definition",
                         Version = "12.1.7"
+                    },
+                    new PackageData.DependencyData
+                    {
+                        DisplayName = "MiniProject HDRP",
+                        Domain = "com.miniproject.hdrp",
+                        Version = "0.0.1",
+                        Source = "file:../../../../../Packages/com.miniproject.hdrp"
                     }
                 },
                 [PackageData.Dependency.Android] = new[]
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.mobile.android-logcat",
+                        DisplayName = "Logcat",
+                        Domain = "com.unity.mobile.android-logcat",
                         Version = "1.3.2"
                     }
                 },
@@ -145,7 +190,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.cinemachine",
+                        DisplayName = "Cinemachine",
+                        Domain = "com.unity.cinemachine",
                         Version = "2.8.9"
                     }
                 },
@@ -153,7 +199,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.shadergraph",
+                        DisplayName = "Shader Graph",
+                        Domain = "com.unity.shadergraph",
                         Version = "12.1.7"
                     }
                 },
@@ -161,7 +208,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.xr.openxr",
+                        DisplayName = "Open XR",
+                        Domain = "com.unity.xr.openxr",
                         Version = "1.5.3"
                     }
                 },
@@ -169,7 +217,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.xr.openxr",
+                        DisplayName = "Open XR",
+                        Domain = "com.unity.xr.openxr",
                         Version = "1.5.3"
                     }
                 },
@@ -177,12 +226,14 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.mathematics",
+                        DisplayName = "Mathematics",
+                        Domain = "com.unity.mathematics",
                         Version = "1.2.6"
                     },
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.ml-agents",
+                        DisplayName = "ML Agents",
+                        Domain = "com.unity.ml-agents",
                         Version = "2.0.1"
                     }
                 },
@@ -190,7 +241,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.inputsystem",
+                        DisplayName = "Input System",
+                        Domain = "com.unity.inputsystem",
                         Version = "1.4.4"
                     }
                 },
@@ -198,7 +250,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                 {
                     new PackageData.DependencyData
                     {
-                        Name = "com.unity.terrain-tools",
+                        DisplayName = "Terrain Tools",
+                        Domain = "com.unity.terrain-tools",
                         Version = "4.0.3"
                     }
                 },

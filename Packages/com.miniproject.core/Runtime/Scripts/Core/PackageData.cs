@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -42,6 +43,7 @@ namespace Scripts.Core
 
         public enum RenderingPipeline
         {
+            BuiltIn,
             URP,
             HDRP
         }
@@ -68,12 +70,14 @@ namespace Scripts.Core
             public string Url { get; set; }
         }
 
+        [Serializable]
         public struct DependencyData
         {
-            public string Name { get; set; }
-            public string Version { get; set; }
+            public string DisplayName;
+            public string Domain;
+            public string Version;
             //for com.unity packages, no need to include the source, the version should
-            public string Source { get; set; }
+            public string Source;
         }
 
         /// <summary>
@@ -90,7 +94,7 @@ namespace Scripts.Core
         /// </summary>
         public List<RenderingPipeline> RenderingPipelines{ get; set; }
 
-        public List<Dependency> Dependencies { get; set; }
+        public List<DependencyData> Dependencies { get; set; }
         public List<DependencyData> CustomDependencies { get; set; }
 
         public string DisplayName { get; set; }

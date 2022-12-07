@@ -60,7 +60,7 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="customDependencies"></param>
         /// <returns></returns>
         private static JObject GetPackageDependenciesAsJObject(
-            in IEnumerable<PackageData.Dependency> dependencies,
+            in IEnumerable<PackageData.DependencyData> dependencies,
             in IEnumerable<PackageData.DependencyData> customDependencies)
         {
             var packageDependencies = new JObject();
@@ -68,19 +68,14 @@ namespace MiniProject.Core.Editor.PackageWizard
             if (dependencies == null || dependencies.Any() == false)
                 return packageDependencies;
 
-            foreach (var d in dependencies)
+            foreach (var dependencyData in dependencies)
             {
-                var temp = R.Dependencies.DependencyDatas[d];
-
-                foreach (var dependencyData in temp)
-                {
-                    packageDependencies.Add(dependencyData.Name, dependencyData.Version);
-                }
+                packageDependencies.Add(dependencyData.Domain, dependencyData.Version);
             }
 
             foreach (var dependencyData in customDependencies)
             {
-                packageDependencies.Add(dependencyData.Name, dependencyData.Version);
+                packageDependencies.Add(dependencyData.Domain, dependencyData.Version);
             }
 
             return packageDependencies;

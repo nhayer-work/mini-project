@@ -162,7 +162,7 @@ namespace MiniProject.Core.Editor.PackageWizard
         private void UpdateManifests(in string packageName, 
             in PackageData.UnityVersion[] supportedUnityVersions,
             in PackageData.Platform[] supportedPlatforms,
-            in PackageData.Dependency[] dependencies,
+            in PackageData.DependencyData[] dependencies,
             in PackageData.DependencyData[] customDependencies)
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Manifest, .7f));
