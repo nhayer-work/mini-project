@@ -7,6 +7,10 @@ using MiniProject.Core.Editor.Utilities;
 using Scripts.Core;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
+using UnityEditor.VersionControl;
+using UnityEditorInternal;
+using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace MiniProject.Core.Editor.PackageWizard
@@ -31,7 +35,7 @@ namespace MiniProject.Core.Editor.PackageWizard
                 return;
             }
 
-            EditorCoroutineUtility.StartCoroutine(CreateNewPackage(), this);
+            EditorCoroutineUtility.StartCoroutine(CreateNewPackageCoroutine(), this);
         }
 
         private bool IsEmptyName(string packageDataName)
@@ -74,7 +78,7 @@ namespace MiniProject.Core.Editor.PackageWizard
             return true;
         }
 
-        private IEnumerator CreateNewPackage()
+        private IEnumerator CreateNewPackageCoroutine()
         {
             var wait = new EditorWaitForSeconds(.1f);
             yield return wait;
@@ -84,11 +88,18 @@ namespace MiniProject.Core.Editor.PackageWizard
             yield return wait;
             TryCreateAssemblyDefinitions();
             yield return wait;
-            UpdateManifests(_packageData.Name, _packageData.UnityVersions.ToArray(), _packageData.Platforms.ToArray());
+            UpdateManifests(_packageData.Name, 
+                _packageData.UnityVersions.ToArray(), 
+                _packageData.Platforms.ToArray(),
+                _packageData.Dependencies.ToArray(),
+                _packageData.CustomDependencies.ToArray());
             yield return wait;
             PostGenerate();
             yield return wait;
-            EditorUtility.DisplayDialog(R.UI.Title, "Package created", "Ok");
+
+            yield return new WaitUntil(() => EditorUtility.DisplayDialog(R.UI.Title, "Package created", "Ok"));
+            //FIXME This is not refresh as expected, requires manual refresh by user
+            AssetDatabase.Refresh();
         }
 
         private void TryCreateFiles()
@@ -146,12 +157,17 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="packageName">com.miniproject.EXAMPLE</param>
         /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
         /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
-        private void UpdateManifests(in string packageName, in PackageData.UnityVersion[] supportedUnityVersions,
-            in PackageData.Platform[] supportedPlatforms)
+        /// <param name="dependencies"></param>
+        /// <param name="customDependencies"></param>
+        private void UpdateManifests(in string packageName, 
+            in PackageData.UnityVersion[] supportedUnityVersions,
+            in PackageData.Platform[] supportedPlatforms,
+            in PackageData.Dependency[] dependencies,
+            in PackageData.DependencyData[] customDependencies)
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Manifest, .7f));
             var manifestWriter = new ManifestWriter();
-            manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms);
+            manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms, dependencies, customDependencies);
         }
 
         private void PostGenerate()

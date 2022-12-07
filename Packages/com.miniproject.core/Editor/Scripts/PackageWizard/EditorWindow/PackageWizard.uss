@@ -1,9 +1,64 @@
-Label {
-    font-size: 20px;
-    -unity-font-style: bold;
-    color: rgb(68, 138, 255);
+/*Box Group Styles*/
+/*======================================================*/
+GroupBox.box-group {
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: rgb(45, 45, 45);
+    background-color: rgb(65, 65, 65);
+    margin: 5px;
+    padding: 0;
 }
 
-RadioButton{
-    
+GroupBox.box-group > Label.unity-group-box__label {
+    background-color: rgb(85, 85, 85);
+    margin: 0;
+    padding: 2px;
+    padding-left: 10;
+    font-size: 17px;
 }
+
+/*Box Group Toggle*/
+/*======================================================*/
+GroupBox .unity-toggle {
+    max-width: 166px;
+}
+
+.unity-toggle .unity-label {
+    overflow: hidden;
+    flex-shrink: 1;
+}
+
+/*Group Styling to support Wrapping Rows*/
+/*======================================================*/
+.dependency-group .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10;
+}
+ScrollView#FDTags #unity-content-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10;
+}
+
+/*Custom Box Group setting to use Toggle as Title*/
+/*======================================================*/
+GroupBox.box-group.dependency-group > Toggle {
+    max-width: none;
+    justify-content: space-around;
+    flex-direction: row;
+/*    //flex-grow: 1;
+    width: auto;*/
+    background-color: rgb(44,93,135);
+    margin: 0;
+    padding: 2px;
+    padding-left: 10;
+    padding-right: 10;
+    font-size: 17px;
+}
+GroupBox.box-group.dependency-group > Toggle > * {
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+/*======================================================*/
+

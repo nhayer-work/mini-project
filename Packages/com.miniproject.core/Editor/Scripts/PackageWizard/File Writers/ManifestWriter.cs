@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MiniProject.Core.Editor.PackageWizard.EditorWindow;
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,10 +20,7 @@ namespace MiniProject.Core.Editor.PackageWizard
         private const string DEPENDENCIES_KEY = "dependencies";
         private const string IGNORE_PROJECT_SETTINGS = "projectsettings";
 
-        private const string CLIMB_TO_PROJECTS = @"..\..\..\";
-        
         private const string MANIFEST_FILENAME = "manifest.json";
-        private const string PACKAGESLOCK_FILENAME = "packages-lock.json";
 
         //ManifestWriter Functions
         //================================================================================================================//
@@ -35,7 +33,13 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="packageName">com.miniproject.EXAMPLE</param>
         /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
         /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
-        public void UpdateManifestFiles(in string packageName, PackageData.UnityVersion[] supportedUnityVersions, PackageData.Platform[] supportedPlatforms)
+        /// <param name="packageDependencies"></param>
+        /// <param name="customDependencies"></param>
+        public void UpdateManifestFiles(in string packageName, 
+            PackageData.UnityVersion[] supportedUnityVersions, 
+            PackageData.Platform[] supportedPlatforms,
+            PackageData.Dependency[] packageDependencies,
+            PackageData.DependencyData[] customDependencies)
         {
             bool DirectoryContainsItem(in DirectoryInfo directoryInfo, in string[] searchFor)
             {
@@ -70,6 +74,10 @@ namespace MiniProject.Core.Editor.PackageWizard
                         throw new ArgumentOutOfRangeException();
                 }
             }
+            //Ensure we don't double include specific directories
+            supportedPlatformNames = supportedPlatformNames
+                .Distinct()
+                .ToArray();
             //Setup friendly version names
             //----------------------------------------------------------//
             
@@ -111,28 +119,27 @@ namespace MiniProject.Core.Editor.PackageWizard
             Debug.Log("Found Packages:\n" + string.Join('\n', projectDirectories.Select(x => x.FullName)));
 #endif
 
+            var packageManifestDependencies = GetAsManifestDependencies(packageDependencies, customDependencies);
 
             for (var i = 0; i < projectDirectories.Length; i++)
             {
-                var files = projectDirectories[i].GetFiles("*.json");
+                //We only need to find the Manifest file, as the package-lock appears to update itself
+                var files = projectDirectories[i].GetFiles(MANIFEST_FILENAME);
 #if DEBUG
                 Debug.Log(
                     $"{projectDirectories[i].FullName} [{files.Length}] => {string.Join(", ", files.Select(x => x.Name))}");    
 #endif
+                
 
                 for (var ii = 0; ii < files.Length; ii++)
                 {
-                    switch (files[ii].Name)
-                    {
-                        case MANIFEST_FILENAME:
-                            TryAddKeyToManifest(files[ii], packageName, packagePath);
-                            continue;
-                        case PACKAGESLOCK_FILENAME:
-                            TryAddKeyToPackagesLock(files[ii], packageName, packagePath);
-                            continue;
-                        default:
-                            continue;
-                    }
+                    if(files[ii].Name.Equals(MANIFEST_FILENAME) == false)
+                        continue;
+                    
+                    packageManifestDependencies.Add(new KeyValuePair<string, string>(packageName, packagePath));
+                    //Add all of the dependencies that the package needs to the project, including itself
+                    TryAddKeysToManifest(files[ii], packageManifestDependencies);
+                    
                 }
             }
         }
@@ -153,8 +160,11 @@ namespace MiniProject.Core.Editor.PackageWizard
         
         //Update Manifest File Functions
         //================================================================================================================//
-        private void TryAddKeyToManifest(in FileInfo fileInfo, in string key, in string value)
+        private void TryAddKeysToManifest(in FileInfo fileInfo, in List<KeyValuePair<string,string>> packageDependencies)
         {
+            if (packageDependencies == null || packageDependencies.Count == 0)
+                return;
+            
             var fileText = File.ReadAllText(fileInfo.FullName);
             var data = JObject.Parse(fileText);
 
@@ -166,30 +176,35 @@ namespace MiniProject.Core.Editor.PackageWizard
             if (dependencies.HasValues == false)
                 throw new Exception();
 
-            if (dependencies.ContainsKey(key))
+            var propertiesListCopy = dependencies.Values<JProperty>().ToList();
+            
+            foreach (var (key, value) in packageDependencies)
             {
-                dependencies[key] = value;
-
-                fileText = JsonConvert.SerializeObject(data, Formatting.Indented);
-            }
-            //If we need to add a new key, its a little more involved.
-            else
-            {
-                //If we want to add a new value, but have it sit at the [0] position, we need to create a new list
-                // with the order that we are expecting.
-                var temp = dependencies.Values<JProperty>().ToList();
-                temp.Insert(0, new JProperty(key, value));
-
-                var newDependencies = new JObject();
-                foreach (var dependency in temp)
+                if (dependencies.ContainsKey(key))
                 {
-                    newDependencies.Add(dependency);
+                    var foundIndex = propertiesListCopy.FindIndex(x => x.Name == key);
+                    propertiesListCopy[foundIndex] = new JProperty(key, value);
                 }
-
-                var outObject = new JObject { { DEPENDENCIES_KEY, newDependencies } };
-
-                fileText = JsonConvert.SerializeObject(outObject, Formatting.Indented);
+                //If we need to add a new key, its a little more involved.
+                else
+                {
+                    //If we want to add a new value, but have it sit at the [0] position, we need to create a new list
+                    // with the order that we are expecting.
+                    propertiesListCopy.Insert(0, new JProperty(key, value));
+                }
             }
+            var newDependencies = new JObject();
+            foreach (var dependency in propertiesListCopy)
+            {
+                newDependencies.Add(dependency);
+            }
+
+            var outObject = new JObject
+            {
+                { DEPENDENCIES_KEY, newDependencies }
+            };
+            fileText = JsonConvert.SerializeObject(outObject, Formatting.Indented);
+
             
 #if DEBUG
                 Debug.Log(fileText);
@@ -197,58 +212,47 @@ namespace MiniProject.Core.Editor.PackageWizard
             TryUpdateFile(fileInfo.FullName, fileText);
         }
 
-        private void TryAddKeyToPackagesLock(in FileInfo fileInfo, in string key, in string value)
-        {
-            var fileText = File.ReadAllText(fileInfo.FullName);
-            var data = JObject.Parse(fileText);
-
-            if (data.ContainsKey(DEPENDENCIES_KEY) == false)
-                throw new KeyNotFoundException($"[{DEPENDENCIES_KEY}] not found in {fileInfo.Name}");
-
-            var dependencies = (JObject)data[DEPENDENCIES_KEY];
-
-            var newValue = JObject.FromObject(
-                new
-                {
-                    version = value,
-                    depth = 0,
-                    source = "local",
-                    dependencies = new JObject()
-                });
-
-            if (dependencies.ContainsKey(key))
-            {
-                dependencies[key] = newValue;
-
-                fileText = JsonConvert.SerializeObject(data, Formatting.Indented);
-            }
-            //If we need to add a new key, its a little more involved.
-            else
-            {
-                //If we want to add a new value, but have it sit at the [0] position, we need to create a new list
-                // with the order that we are expecting.
-                var temp = dependencies.Values<JProperty>().ToList();
-                temp.Insert(0, new JProperty(key, newValue));
-
-                var newDependencies = new JObject();
-                foreach (var dependency in temp)
-                {
-                    newDependencies.Add(dependency);
-                }
-
-                var outObject = new JObject { { DEPENDENCIES_KEY, newDependencies } };
-
-                fileText = JsonConvert.SerializeObject(outObject, Formatting.Indented);
-
-            }
-            
-#if DEBUG
-                Debug.Log(fileText);
-#endif
-            TryUpdateFile(fileInfo.FullName, fileText);
-        }
-        
+        //Get Manifest Dependencies
         //================================================================================================================//
+
+        /// <summary>
+        /// Get a list of manifest dependencies if a custom source was used (Git/Local).
+        /// </summary>
+        /// <param name="dependencies"></param>
+        /// <param name="customDependencies"></param>
+        /// <returns></returns>
+        private static List<KeyValuePair<string, string>> GetAsManifestDependencies(
+            in IEnumerable<PackageData.Dependency> dependencies, 
+            in IEnumerable<PackageData.DependencyData> customDependencies)
+        {
+            var packageDependencies = new List<KeyValuePair<string, string>>();
+
+            foreach (var d in dependencies)
+            {
+                var temp = R.Dependencies.DependencyDatas[d];
+
+                foreach (var dependencyData in temp)
+                {
+                    if(string.IsNullOrWhiteSpace(dependencyData.Source))
+                        continue;
+                    
+                    packageDependencies.Add(new KeyValuePair<string, string>(dependencyData.Name, dependencyData.Source));
+                }
+            }
+
+            foreach (var dependencyData in customDependencies)
+            {
+                if(string.IsNullOrWhiteSpace(dependencyData.Source))
+                    continue;
+                    
+                packageDependencies.Add(new KeyValuePair<string, string>(dependencyData.Name, dependencyData.Source));
+            }
+
+            return packageDependencies;
+        }
+
+        //================================================================================================================//
+
         
         //FIXME I think this should move to a Test
         /*[MenuItem("Mini Project/Package Wizard/Test")]

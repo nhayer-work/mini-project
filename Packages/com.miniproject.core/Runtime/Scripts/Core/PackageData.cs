@@ -46,13 +46,36 @@ namespace Scripts.Core
             HDRP
         }
 
+        public enum Dependency
+        {
+            Common,
+            URP,
+            HDRP,
+            Android,
+            Cinemachine,
+            Shaders,
+            AR,
+            VR,
+            MachineLearning,
+            NewInputSystem,
+            TerrainTools
+        }
+
         public struct Author
         {
             public string Name { get; set; }
             public string Email { get; set; }
             public string Url { get; set; }
         }
-        
+
+        public struct DependencyData
+        {
+            public string Name { get; set; }
+            public string Version { get; set; }
+            //for com.unity packages, no need to include the source, the version should
+            public string Source { get; set; }
+        }
+
         /// <summary>
         /// Dictionary mapping ExperienceTag enum to string values
         /// </summary>
@@ -67,6 +90,9 @@ namespace Scripts.Core
         /// </summary>
         public List<RenderingPipeline> RenderingPipelines{ get; set; }
 
+        public List<Dependency> Dependencies { get; set; }
+        public List<DependencyData> CustomDependencies { get; set; }
+
         public string DisplayName { get; set; }
 
         /// <summary>
@@ -76,9 +102,13 @@ namespace Scripts.Core
         public string Name { get; set; }
 
         public bool HasEditorFolder { get; set; }
+        public bool KeepsScore { get; set; }
         public bool HasSamples { get; set; }
         public string Version { get; set; }
         public string Description { get; set; }
+        public string AuthorName { get; set; }
+        public string RenderPipeline { get; set; }
+        public string SelectedTags { get; set; }
 
         public Author AuthorInfo;
 
