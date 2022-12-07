@@ -42,6 +42,7 @@ namespace Scripts.Core
 
         public enum RenderingPipeline
         {
+            BuiltIn,
             URP,
             HDRP
         }
@@ -70,7 +71,8 @@ namespace Scripts.Core
 
         public struct DependencyData
         {
-            public string Name { get; set; }
+            public string DisplayName { get; set; }
+            public string Domain { get; set; }
             public string Version { get; set; }
             //for com.unity packages, no need to include the source, the version should
             public string Source { get; set; }
@@ -90,7 +92,7 @@ namespace Scripts.Core
         /// </summary>
         public List<RenderingPipeline> RenderingPipelines{ get; set; }
 
-        public List<Dependency> Dependencies { get; set; }
+        public List<DependencyData> Dependencies { get; set; }
         public List<DependencyData> CustomDependencies { get; set; }
 
         public string DisplayName { get; set; }
