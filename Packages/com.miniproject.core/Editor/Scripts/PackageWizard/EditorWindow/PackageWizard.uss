@@ -28,6 +28,27 @@ GroupBox .unity-toggle {
     flex-shrink: 1;
 }
 
+/*Foldout Group Styles*/
+/*======================================================*/
+Foldout.foldout-group {
+    border-width: 1px;
+    border-radius: 2px;
+    border-color: rgb(45,45,45);
+    background-color: rgb(65,65,65);
+    margin: 5px;
+    padding: 0;
+}
+Foldout.foldout-group > Toggle.unity-foldout__toggle{
+    background-color: rgb(85,85,85);
+    margin: 0;
+    padding: 2px;
+    max-width: none;
+    font-size: 14;
+}
+Foldout.foldout-group > #unity-content{
+    padding: 5px;
+}
+
 /*Group Styling to support Wrapping Rows*/
 /*======================================================*/
 .dependency-group .container {

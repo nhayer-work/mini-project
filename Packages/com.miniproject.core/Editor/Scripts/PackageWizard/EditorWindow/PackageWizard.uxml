@@ -17,6 +17,9 @@
         <ui:GroupBox text="Optional Dependencies" name="optional-dependencies" class="box-group dependency-group" style="max-height: 250px; min-height: 100px;">
             <ui:ScrollView name="ScrollDependencies" />
         </ui:GroupBox>
+        <ui:GroupBox text="Custom Dependencies" class="box-group dependency-group">
+            <ui:ListView focusable="true" name="custom-dependencies" show-add-remove-footer="true" reorderable="true" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="ContentOnly" style="flex-grow: 1;" />
+        </ui:GroupBox>
         <ui:Foldout text="Select" name="SCDependencies" value="false" style="display: none;" />
         <ui:TextField picking-mode="Ignore" label="Any Extra Dependencies?" name="IFExtraDependencies" tooltip="Comma separated Please" style="display: none;" />
         <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; height: 100px;">

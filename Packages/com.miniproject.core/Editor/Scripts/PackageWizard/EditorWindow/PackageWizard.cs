@@ -12,6 +12,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 {
     public class PackageWizard : UnityEditor.EditorWindow
     {
+	    private static PackageWizard window;
+	    
 	    private PackageData _packageData;
 	    
         private TextInputBaseField<string> m_packageNameInputField;
@@ -54,14 +56,16 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 		private ScrollView m_ScrollviewDependencies;
 		//private Toggle[] _dependencyToggles;
 
+		[SerializeField]
+		private List<PackageData.DependencyData> _customDependencies;
 		private Dictionary<Toggle,List<Toggle>> _dependencyToToggle;
 		private Dictionary<Toggle, PackageData.DependencyData> _toggleToDependencyData;
 
 		[MenuItem("Mini Project/Package Wizard/New Package")]
         public static void Init()
         {
-            PackageWizard wnd = GetWindow<PackageWizard>();
-            wnd.titleContent = new GUIContent(R.UI.Title);
+	        window = GetWindow<PackageWizard>();
+	        window.titleContent = new GUIContent(R.UI.Title);
         }
 
         public void CreateGUI()
@@ -125,70 +129,86 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
 			//Dependency Setup
 			//----------------------------------------------------------//
-			_dependencyToToggle = new Dictionary<Toggle, List<Toggle>>();
-			_toggleToDependencyData = new Dictionary<Toggle, PackageData.DependencyData>();
-			foreach(var dependency in R.Dependencies.DependencyDatas)
 			{
-				var dependencyName = dependency.Key.ToString();
-				//Create group box
-				//----------------------------------------------------------//
-				var newSectionGroupBox = new GroupBox
+				_dependencyToToggle = new Dictionary<Toggle, List<Toggle>>();
+				_toggleToDependencyData = new Dictionary<Toggle, PackageData.DependencyData>();
+				foreach (var dependency in R.Dependencies.DependencyDatas)
 				{
-					name = dependencyName,
-					focusable = false,
-					tabIndex = 0,
-					viewDataKey = null,
-					userData = null,
-					usageHints = UsageHints.None,
-					pickingMode = PickingMode.Position,
-					visible = true,
-					generateVisualContent = null,
-					tooltip = null,
-				};
-				newSectionGroupBox.AddToClassList("box-group");
-				newSectionGroupBox.AddToClassList("dependency-group");
-				//Create basic container for all toggles
-				//----------------------------------------------------------//\
-				var newSectionContainer= new VisualElement()
-				{
-					name = dependencyName,
-				};
-				newSectionContainer.AddToClassList("container");
-				
-				//Add toggle container to Group Box
-				//----------------------------------------------------------//
-				newSectionGroupBox.Add(newSectionContainer);
-
-				//Create header toggle
-				//----------------------------------------------------------//
-				Toggle dependencyToggle = new Toggle($"{dependencyName} Packages");
-				newSectionGroupBox.Insert(0, dependencyToggle);
-
-				//Create toggle group
-				//----------------------------------------------------------//
-				var packageToggleList = new List<Toggle>();
-				foreach(var packageData in dependency.Value)
-				{
-					//Use the display name as the toggle text, and let the domain be used for the tooltip
-					var newDependencyToggle = new Toggle(packageData.DisplayName)
+					var dependencyName = dependency.Key.ToString();
+					//Create group box
+					//----------------------------------------------------------//
+					var newSectionGroupBox = new GroupBox
 					{
-						tooltip = packageData.Domain
+						name = dependencyName,
+						focusable = false,
+						tabIndex = 0,
+						viewDataKey = null,
+						userData = null,
+						usageHints = UsageHints.None,
+						pickingMode = PickingMode.Position,
+						visible = true,
+						generateVisualContent = null,
+						tooltip = null,
 					};
-					_toggleToDependencyData.Add(newDependencyToggle, packageData);
-					
-					packageToggleList.Add(newDependencyToggle);
-					newSectionContainer.Add(newDependencyToggle);
-					dependencyToggle.RegisterCallback<ChangeEvent<bool>>( e => newDependencyToggle.value = e.newValue);
+					newSectionGroupBox.AddToClassList("box-group");
+					newSectionGroupBox.AddToClassList("dependency-group");
+					//Create basic container for all toggles
+					//----------------------------------------------------------//\
+					var newSectionContainer = new VisualElement()
+					{
+						name = dependencyName,
+					};
+					newSectionContainer.AddToClassList("container");
+
+					//Add toggle container to Group Box
+					//----------------------------------------------------------//
+					newSectionGroupBox.Add(newSectionContainer);
+
+					//Create header toggle
+					//----------------------------------------------------------//
+					Toggle dependencyToggle = new Toggle($"{dependencyName} Packages");
+					newSectionGroupBox.Insert(0, dependencyToggle);
+
+					//Create toggle group
+					//----------------------------------------------------------//
+					var packageToggleList = new List<Toggle>();
+					foreach (var packageData in dependency.Value)
+					{
+						//Use the display name as the toggle text, and let the domain be used for the tooltip
+						var newDependencyToggle = new Toggle(packageData.DisplayName)
+						{
+							tooltip = packageData.Domain
+						};
+						_toggleToDependencyData.Add(newDependencyToggle, packageData);
+
+						packageToggleList.Add(newDependencyToggle);
+						newSectionContainer.Add(newDependencyToggle);
+						dependencyToggle.RegisterCallback<ChangeEvent<bool>>(
+							e => newDependencyToggle.value = e.newValue);
+					}
+
+					//----------------------------------------------------------//
+
+					//Add GroupBox to Dependency scroll view
+					m_ScrollviewDependencies.Add(newSectionGroupBox);
+				
+					//Add toggle to list for future referencing
+					_dependencyToToggle.Add(dependencyToggle, packageToggleList);
 				}
 
-				//----------------------------------------------------------//
-
-				//Add GroupBox to Dependency scroll view
-				m_ScrollviewDependencies.Add(newSectionGroupBox);
-				
-				//Add toggle to list for future referencing
-				_dependencyToToggle.Add(dependencyToggle, packageToggleList);
 			}
+			//Custom Dependencies
+			//----------------------------------------------------------//
+			{
+				var _customDependencies = root.Q<ListView>("custom-dependencies");
+				SerializedObject serializedObject = new UnityEditor.SerializedObject(this);
+				SerializedProperty serializedProperty_customDependencies = serializedObject.FindProperty(nameof(_customDependencies));
+				_customDependencies.BindProperty(serializedProperty_customDependencies);
+
+			}
+			//----------------------------------------------------------//
+
+
 
 			SubscribeEvents();
 			ClearTool();
@@ -291,10 +311,8 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
             //Custom Dependencies
             //----------------------------------------------------------//
-            _packageData.CustomDependencies = new List<PackageData.DependencyData>();
-            //TODO Need to add a list of custom dependencies here that the user can specify
-            throw new NotImplementedException("Need to connect selected custom dependencies here");
-
+            _packageData.CustomDependencies = new List<PackageData.DependencyData>(_customDependencies);
+            
             //----------------------------------------------------------//
 
             var generator = new PackageGenerator(_packageData);

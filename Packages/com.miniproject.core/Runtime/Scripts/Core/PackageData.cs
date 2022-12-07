@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -69,13 +70,14 @@ namespace Scripts.Core
             public string Url { get; set; }
         }
 
+        [Serializable]
         public struct DependencyData
         {
-            public string DisplayName { get; set; }
-            public string Domain { get; set; }
-            public string Version { get; set; }
+            public string DisplayName;
+            public string Domain;
+            public string Version;
             //for com.unity packages, no need to include the source, the version should
-            public string Source { get; set; }
+            public string Source;
         }
 
         /// <summary>

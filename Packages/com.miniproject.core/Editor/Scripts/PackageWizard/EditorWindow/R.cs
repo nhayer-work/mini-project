@@ -42,6 +42,18 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
         
             public const string Title = "PackageWizard";
+            
+            public class DependencyData
+            {
+                public const string UXMLPath =
+                    "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyData.uxml";
+                public const string GroupBoxName = "custom-dependency-group";
+
+                public const string DisplayNameField = "display-name";
+                public const string DomainNameField = "domain-name";
+                public const string VersionField = "version";
+                public const string SourceField = "source";
+            }
         }
         
 
