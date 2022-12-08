@@ -311,7 +311,10 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
 
             //Custom Dependencies
             //----------------------------------------------------------//
-            _packageData.CustomDependencies = new List<PackageData.DependencyData>(_customDependencies);
+
+            _packageData.CustomDependencies = _customDependencies == null
+	            ? new List<PackageData.DependencyData>()
+	            : new List<PackageData.DependencyData>(_customDependencies);
             
             //----------------------------------------------------------//
 
