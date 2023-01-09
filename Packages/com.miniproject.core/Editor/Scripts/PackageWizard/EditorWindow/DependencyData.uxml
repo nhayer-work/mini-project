@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
+    <ui:Foldout text="Package Name" name="custom-dependency-group" class="box-group foldout-group" style="flex-direction: column;">
+        <ui:VisualElement style="flex-direction: row; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;">
+            <ui:TextField picking-mode="Ignore" label="DisplayName" name="display-name" style="flex-direction: column; flex-shrink: 1; width: 33%;" />
+            <ui:TextField picking-mode="Ignore" label="Domain" name="domain-name" style="flex-direction: column; flex-shrink: 1; flex-grow: 1; width: 33%;" />
+            <ui:TextField picking-mode="Ignore" label="Version" name="version" style="flex-direction: column; flex-shrink: 1; width: 33%;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;">
+            <ui:TextField picking-mode="Ignore" label="Source" name="source" />
+        </ui:VisualElement>
+    </ui:Foldout>
+</ui:UXML>

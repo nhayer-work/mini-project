@@ -38,7 +38,7 @@ namespace MiniProject.Core.Editor.PackageWizard
         public void UpdateManifestFiles(in string packageName, 
             PackageData.UnityVersion[] supportedUnityVersions, 
             PackageData.Platform[] supportedPlatforms,
-            PackageData.Dependency[] packageDependencies,
+            PackageData.DependencyData[] packageDependencies,
             PackageData.DependencyData[] customDependencies)
         {
             bool DirectoryContainsItem(in DirectoryInfo directoryInfo, in string[] searchFor)
@@ -222,22 +222,17 @@ namespace MiniProject.Core.Editor.PackageWizard
         /// <param name="customDependencies"></param>
         /// <returns></returns>
         private static List<KeyValuePair<string, string>> GetAsManifestDependencies(
-            in IEnumerable<PackageData.Dependency> dependencies, 
+            in IEnumerable<PackageData.DependencyData> dependencies, 
             in IEnumerable<PackageData.DependencyData> customDependencies)
         {
             var packageDependencies = new List<KeyValuePair<string, string>>();
 
-            foreach (var d in dependencies)
+            foreach (var dependencyData in dependencies)
             {
-                var temp = R.Dependencies.DependencyDatas[d];
-
-                foreach (var dependencyData in temp)
-                {
-                    if(string.IsNullOrWhiteSpace(dependencyData.Source))
-                        continue;
+                if(string.IsNullOrWhiteSpace(dependencyData.Source))
+                    continue;
                     
-                    packageDependencies.Add(new KeyValuePair<string, string>(dependencyData.Name, dependencyData.Source));
-                }
+                packageDependencies.Add(new KeyValuePair<string, string>(dependencyData.Domain, dependencyData.Source));
             }
 
             foreach (var dependencyData in customDependencies)
@@ -245,7 +240,7 @@ namespace MiniProject.Core.Editor.PackageWizard
                 if(string.IsNullOrWhiteSpace(dependencyData.Source))
                     continue;
                     
-                packageDependencies.Add(new KeyValuePair<string, string>(dependencyData.Name, dependencyData.Source));
+                packageDependencies.Add(new KeyValuePair<string, string>(dependencyData.Domain, dependencyData.Source));
             }
 
             return packageDependencies;
