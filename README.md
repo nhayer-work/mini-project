@@ -19,8 +19,8 @@ When working a feature for the project itself the naming convention is:
 1. Clone the repo.
 2. Create a branch for your package (`<package>/experience/<experience-name>`).
 3. Create a package using the package wizard built into the editor for this project.
-4. [Open Wizard](<./README_IMAGES/Open Wizard>)
-5. [Make selections and click Generate Package](<./README_IMAGES/Wizard Selections Filled>)
+4. [Open Wizard](<./README_IMAGES/Open_Wizard>)
+5. [Make selections and click Generate Package](<./README_IMAGES/Wizard_Selections_Filled>)
 6. Work in this branch and when finished create a PR.
 
 
