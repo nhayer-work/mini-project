@@ -1,0 +1,17 @@
+{
+  "name": "com.miniproject.wavysurfacedeformation",
+  "version": "0.0.1",
+  "displayName": "Wavy Surface Deformation",
+  "description": "Physically based simulation of wave propagation on a flexible surface",
+  "unity": "2021.3",
+  "unityRelease": "12f1",
+  "keywords": [],
+  "author": {
+    "name": "MiniProject",
+    "email": "",
+    "url": "https://github.com/navhayer1015/mini-project"
+  },
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "12.1.7"
+  }
+}

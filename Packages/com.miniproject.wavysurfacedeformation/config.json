@@ -1,0 +1,10 @@
+{
+  "Name": "com.miniproject.wavysurfacedeformation",
+  "DisplayName": "Wavy Surface Deformation",
+  "Platforms": "Windows",
+  "Dependencies": [],
+  "EditorVersion": "2021.3",
+  "Description": "Physically based simulation of wave propagation on a flexible surface",
+  "Tags": "Physics, Shaders",
+  "RenderPipeline": "URP"
+}

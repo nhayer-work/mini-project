@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.miniproject.wavysurfacedeformation": {
+      "version": "file:../../../../../Packages/com.miniproject.wavysurfacedeformation",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.miniproject.core": {
       "version": "file:../../../../../Packages/com.miniproject.core",
       "depth": 0,
