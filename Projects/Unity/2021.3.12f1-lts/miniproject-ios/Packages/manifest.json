@@ -1,6 +1,7 @@
 {
   "dependencies": {
-	"com.miniproject.core": "file:../../../../../Packages/com.miniproject.core",
+    "com.miniproject.wavysurfacedeformation": "file:../../../../../Packages/com.miniproject.wavysurfacedeformation",
+    "com.miniproject.core": "file:../../../../../Packages/com.miniproject.core",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.16",
     "com.unity.ide.visualstudio": "2.0.16",
