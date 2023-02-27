@@ -1,0 +1,10 @@
+{
+  "Name": "com.miniproject.packagewizard",
+  "DisplayName": "PackageWizard",
+  "Platforms": "Windows, MacOS, Android, iOS, WebGL",
+  "Dependencies": [],
+  "EditorVersion": "2021.3",
+  "Description": "Tell us what your project is all about!",
+  "Tags": "UIToolkit",
+  "RenderPipeline": "BuiltIn"
+}

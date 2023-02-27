@@ -12,6 +12,7 @@
     "url": "https://www.unity3d.com"
   },
   "dependencies": {
-	  "com.unity.nuget.newtonsoft-json": "3.0.2"
+	  "com.unity.nuget.newtonsoft-json": "3.0.2",
+      "com.miniproject.packagewizard": "0.0.1"
   }
 }

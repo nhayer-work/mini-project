@@ -2,8 +2,10 @@
 using System.Collections;
 using System.IO;
 using System.Text.RegularExpressions;
-using MiniProject.Core.Editor.PackageWizard.EditorWindow;
+using MiniProject.Core.Editor.PackageWizard;
 using MiniProject.Core.Editor.Utilities;
+using MiniProject.PackageWizard.EditorWindow;
+using MiniProject.PackageWizard.FileWriters;
 using Scripts.Core;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
@@ -13,7 +15,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
-namespace MiniProject.Core.Editor.PackageWizard
+namespace MiniProject.PackageWizard
 {
     public class PackageGenerator
     {

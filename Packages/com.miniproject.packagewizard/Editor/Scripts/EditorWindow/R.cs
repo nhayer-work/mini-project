@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using Scripts.Core;
 
-namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
+namespace MiniProject.PackageWizard.EditorWindow
 {
     public static class R
     {
         public class UI
         {
             public const string PathToUxml =
-                "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uxml";
+                "Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uxml";
             public const string PathToUSS = 
-                "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss";
+                "Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss";
         
             public const string PackageNameInputField = "ExperienceName";
             public const string ExperienceTagsFieldName = "ExperienceTags";
@@ -46,7 +46,7 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
             public class DependencyData
             {
                 public const string UXMLPath =
-                    "Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyData.uxml";
+                    "Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/DependencyData.uxml";
                 public const string GroupBoxName = "custom-dependency-group";
 
                 public const string DisplayNameField = "display-name";
@@ -143,6 +143,13 @@ namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
                         Domain = "com.miniproject.uitoolkitattributes",
                         Version = "0.0.1",
                         Source = "https://github.com/AlexBedardReidU3D/UIToolkitAttributes.git"
+                    },
+                    new PackageData.DependencyData
+                    {
+                        DisplayName = "Package Wizard",
+                        Domain = "com.miniproject.packagewizard",
+                        Version = "0.0.1",
+                        Source = "file:../../../../../Packages/com.miniproject.packagewizard"
                     }
                 },
                 [PackageData.Dependency.URP] = new[]

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEditor;
 
-namespace MiniProject.Core.Editor.PackageWizard
+namespace MiniProject.PackageWizard.FileWriters
 {
     //Based on: https://docs.unity3d.com/Manual/cus-asmdef.html
     public class AssemblyWriter : FileWriterBase

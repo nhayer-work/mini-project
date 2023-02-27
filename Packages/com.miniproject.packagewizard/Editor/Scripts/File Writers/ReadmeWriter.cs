@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
-namespace MiniProject.Core.Editor.PackageWizard
+namespace MiniProject.PackageWizard.FileWriters
 {
     public class ReadmeWriter : FileWriterBase
     {

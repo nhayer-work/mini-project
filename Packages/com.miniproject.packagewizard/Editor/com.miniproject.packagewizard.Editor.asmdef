@@ -1,0 +1,21 @@
+{
+    "name": "com.miniproject.packagewizard.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4b44d4441663bb84a93cbf0e9cabc12a",
+        "GUID:478a2357cc57436488a56e564b08d223"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
 
-namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
+namespace MiniProject.PackageWizard.EditorWindow
 {
     [CustomPropertyDrawer(typeof(PackageData.DependencyData))]
     public class DependencyDataCustomEditor : PropertyDrawer

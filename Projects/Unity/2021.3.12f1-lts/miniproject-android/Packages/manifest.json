@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.miniproject.packagewizard": "file:../../../../../Packages/com.miniproject.packagewizard",
     "com.miniproject.wavysurfacedeformation": "file:../../../../../Packages/com.miniproject.wavysurfacedeformation",
     "com.miniproject.core": "file:../../../../../Packages/com.miniproject.core",
     "com.unity.feature.development": "1.0.1",

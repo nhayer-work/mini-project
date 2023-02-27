@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Scripts.Core;
 
-namespace MiniProject.Core.Editor.PackageWizard
+namespace MiniProject.PackageWizard.FileWriters
 {
     public class ConfigDataWriter : FileWriterBase
     {

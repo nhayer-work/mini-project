@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MiniProject.Core.Editor.PackageWizard;
 using Scripts.Core;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEditor.UIElements;
 using UnityEditor.PackageManager.Requests;
 using UnityEditor.PackageManager;
 
-namespace MiniProject.Core.Editor.PackageWizard.EditorWindow
+namespace MiniProject.PackageWizard.EditorWindow
 {
     public class PackageWizard : UnityEditor.EditorWindow
     {

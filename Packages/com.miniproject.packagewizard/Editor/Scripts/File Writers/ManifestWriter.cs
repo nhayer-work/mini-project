@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using MiniProject.Core.Editor.PackageWizard.EditorWindow;
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Scripts.Core;
 using UnityEngine;
 
-namespace MiniProject.Core.Editor.PackageWizard
+namespace MiniProject.PackageWizard.FileWriters
 {
     public class ManifestWriter : FileWriterBase
     {

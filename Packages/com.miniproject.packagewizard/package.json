@@ -1,0 +1,17 @@
+{
+  "name": "com.miniproject.packagewizard",
+  "version": "0.0.1",
+  "displayName": "PackageWizard",
+  "description": "Tell us what your project is all about!",
+  "unity": "2021.3",
+  "unityRelease": "12f1",
+  "keywords": [],
+  "author": {
+    "name": "MiniProject",
+    "email": "",
+    "url": "https://github.com/navhayer1015/mini-project"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.2"
+  }
+}
