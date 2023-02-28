@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace Scripts.Core
+namespace MiniProject.PackageWizard
 {
     /// <summary>
     /// Class containing package data

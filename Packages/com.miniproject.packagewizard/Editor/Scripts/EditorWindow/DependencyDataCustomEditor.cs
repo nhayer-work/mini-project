@@ -1,4 +1,3 @@
-using Scripts.Core;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;

@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using MiniProject.Core.Editor.Utilities;
-using Scripts.Core;
 using UnityEditor;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;

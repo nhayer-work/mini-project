@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using MiniProject.Core.Editor.PackageWizard;
-using Scripts.Core;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;

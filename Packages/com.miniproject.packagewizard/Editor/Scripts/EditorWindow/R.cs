@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Scripts.Core;
 
 namespace MiniProject.PackageWizard.EditorWindow
 {

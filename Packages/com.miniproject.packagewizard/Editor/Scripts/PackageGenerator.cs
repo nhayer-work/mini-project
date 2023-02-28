@@ -6,12 +6,8 @@ using MiniProject.Core.Editor.PackageWizard;
 using MiniProject.Core.Editor.Utilities;
 using MiniProject.PackageWizard.EditorWindow;
 using MiniProject.PackageWizard.FileWriters;
-using Scripts.Core;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
-using UnityEditor.VersionControl;
-using UnityEditorInternal;
 using UnityEngine;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 

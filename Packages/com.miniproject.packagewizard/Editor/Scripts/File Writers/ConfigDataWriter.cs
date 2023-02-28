@@ -2,7 +2,6 @@
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Scripts.Core;
 
 namespace MiniProject.PackageWizard.FileWriters
 {

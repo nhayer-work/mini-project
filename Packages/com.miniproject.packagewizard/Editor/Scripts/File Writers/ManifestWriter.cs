@@ -8,7 +8,6 @@ using System.Linq;
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Scripts.Core;
 using UnityEngine;
 
 namespace MiniProject.PackageWizard.FileWriters
