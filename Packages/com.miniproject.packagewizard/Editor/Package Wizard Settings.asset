@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321e1309a9664df89d201da74e0e39a4, type: 3}
+  m_Name: Package Wizard Settings
+  m_EditorClassIdentifier: 
+  projectDirectories:
+  - name: 2021.3.12f1 - StandaloneOSX
+    directory: C:\Repos\mini-project\Projects\Unity\2021.3.12f1-lts\miniproject-android
+    unityVersion: 2021.3.12f1
+    buildTarget: 2
+  - name: 2021.3.18f1 - StandaloneOSX
+    directory: C:\Repos\mini-project\Projects\Unity\2021.3.12f1-lts\miniproject-standalone
+    unityVersion: 2021.3.18f1
+    buildTarget: 2
+  - name: 2022.2.0b13 - 0
+    directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-android
+    unityVersion: 2022.2.0b13
+    buildTarget: 0
+  - name: 2022.2.0b13 - 0
+    directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-ios
+    unityVersion: 2022.2.0b13
+    buildTarget: 0
+  - name: 2022.2.0b13 - 0
+    directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-standalone
+    unityVersion: 2022.2.0b13
+    buildTarget: 0
+  - name: 2022.2.0b13 - StandaloneOSXIntel
+    directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-webgl
+    unityVersion: 2022.2.0b13
+    buildTarget: 4
+  depedencyDataGroups: []

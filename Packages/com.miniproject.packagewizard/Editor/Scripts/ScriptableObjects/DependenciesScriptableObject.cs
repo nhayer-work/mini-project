@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MiniProject.PackageWizard.EditorWindow;
+using UnityEditor;
 using UnityEngine;
 
 namespace MiniProject.PackageWizard.ScriptableObjects
@@ -78,7 +79,7 @@ namespace MiniProject.PackageWizard.ScriptableObjects
         
         //================================================================================================================//
 
-        /*[ContextMenu("Get From R")]
+        [ContextMenu("Get From R")]
         private void GetFromR()
         {
             
@@ -95,6 +96,10 @@ namespace MiniProject.PackageWizard.ScriptableObjects
                 
                 i++;
             }
-        }*/
+            
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
     }
 }

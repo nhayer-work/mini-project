@@ -12,4 +12,122 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29534b8d6d954efb99f1b114ac685b84, type: 3}
   m_Name: Package Dependency Collection
   m_EditorClassIdentifier: 
-  depedencyDataGroups: []
+  depedencyDataGroups:
+  - name: Common
+    dependencies:
+    - DisplayName: 2D Features
+      Domain: com.unity.feature.2d
+      Version: 1.0.0
+      Source: 
+    - DisplayName: Editor Coroutines
+      Domain: com.unity.editorcoroutines
+      Version: 1.0.0
+      Source: 
+    - DisplayName: Post Processing
+      Domain: com.unity.postprocessing
+      Version: 3.2.2
+      Source: 
+    - DisplayName: Pro Builder
+      Domain: com.unity.probuilder
+      Version: 5.0.6
+      Source: 
+    - DisplayName: TextMeshPro
+      Domain: com.unity.textmeshpro
+      Version: 3.0.6
+      Source: 
+    - DisplayName: Timeline
+      Domain: com.unity.timeline
+      Version: 1.6.4
+      Source: 
+    - DisplayName: Visual Effects Graph
+      Domain: com.unity.visualeffectgraph
+      Version: 12.1.7
+      Source: 
+    - DisplayName: Visual Scripting
+      Domain: com.unity.visualscripting
+      Version: 1.7.8
+      Source: 
+    - DisplayName: Newtonsoft Json
+      Domain: com.unity.nuget.newtonsoft-json
+      Version: 3.0.2
+      Source: 
+    - DisplayName: UIToolkit Attributes
+      Domain: com.miniproject.uitoolkitattributes
+      Version: 0.0.1
+      Source: https://github.com/AlexBedardReidU3D/UIToolkitAttributes.git
+    - DisplayName: Package Wizard
+      Domain: com.miniproject.packagewizard
+      Version: 0.0.1
+      Source: file:../../../../../Packages/com.miniproject.packagewizard
+  - name: URP
+    dependencies:
+    - DisplayName: Unity URP
+      Domain: com.unity.render-pipelines.universal
+      Version: 12.1.7
+      Source: 
+    - DisplayName: MiniProject URP
+      Domain: com.miniproject.urp
+      Version: 0.0.1
+      Source: file:../../../../../Packages/com.miniproject.urp
+  - name: HDRP
+    dependencies:
+    - DisplayName: Unity HDRP
+      Domain: com.unity.render-pipelines.high-definition
+      Version: 12.1.7
+      Source: 
+    - DisplayName: MiniProject HDRP
+      Domain: com.miniproject.hdrp
+      Version: 0.0.1
+      Source: file:../../../../../Packages/com.miniproject.hdrp
+  - name: Android
+    dependencies:
+    - DisplayName: Logcat
+      Domain: com.unity.mobile.android-logcat
+      Version: 1.3.2
+      Source: 
+  - name: Cinemachine
+    dependencies:
+    - DisplayName: Cinemachine
+      Domain: com.unity.cinemachine
+      Version: 2.8.9
+      Source: 
+  - name: Shaders
+    dependencies:
+    - DisplayName: Shader Graph
+      Domain: com.unity.shadergraph
+      Version: 12.1.7
+      Source: 
+  - name: AR
+    dependencies:
+    - DisplayName: Open XR
+      Domain: com.unity.xr.openxr
+      Version: 1.5.3
+      Source: 
+  - name: VR
+    dependencies:
+    - DisplayName: Open XR
+      Domain: com.unity.xr.openxr
+      Version: 1.5.3
+      Source: 
+  - name: MachineLearning
+    dependencies:
+    - DisplayName: Mathematics
+      Domain: com.unity.mathematics
+      Version: 1.2.6
+      Source: 
+    - DisplayName: ML Agents
+      Domain: com.unity.ml-agents
+      Version: 2.0.1
+      Source: 
+  - name: NewInputSystem
+    dependencies:
+    - DisplayName: Input System
+      Domain: com.unity.inputsystem
+      Version: 1.4.4
+      Source: 
+  - name: TerrainTools
+    dependencies:
+    - DisplayName: Terrain Tools
+      Domain: com.unity.terrain-tools
+      Version: 4.0.3
+      Source: 
