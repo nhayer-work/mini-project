@@ -14,7 +14,6 @@ namespace MiniProject.PackageWizard.ScriptableObjects
     [CreateAssetMenu(fileName = "Package Wizard Settings", menuName = "Mini Project/Package Wizard/Settings", order = 1)]
     public class PackageWizardSettingsScriptableObject : ScriptableObject
     {
-
         [Serializable]
         public struct ProjectInfo
         {
@@ -22,18 +21,30 @@ namespace MiniProject.PackageWizard.ScriptableObjects
             
             public string directory;
             public string unityVersion;
-            public BuildTarget buildTarget;
+            public BuildTargetGroup buildTargetGroup;
 
-            public ProjectInfo(string directory, string unityVersion, BuildTarget buildTarget)
+            public ProjectInfo(string directory, string unityVersion, BuildTargetGroup buildTargetGroup)
             {
                 this.directory = directory;
                 this.unityVersion = unityVersion;
-                this.buildTarget = buildTarget;
+                this.buildTargetGroup = buildTargetGroup;
 
-                name = $"{unityVersion} - {buildTarget}";
+                name = $"{unityVersion} - {buildTargetGroup}";
             }
         }
-        
+
+        //================================================================================================================//
+
+        private void OnEnable()
+        {
+            Debug.Log("OnEnable");
+        }
+
+        private void OnValidate()
+        {
+            Debug.Log("OnValidate");
+        }
+
         //Unity Hub Installs Directory
         //================================================================================================================//
 
@@ -41,7 +52,7 @@ namespace MiniProject.PackageWizard.ScriptableObjects
         public class UnityEditorData
         {
             public string version;
-            public PlatformData[] installedModules;
+            public string[] installedModules;
         }
         
         [SerializeField]
@@ -60,16 +71,18 @@ namespace MiniProject.PackageWizard.ScriptableObjects
             var installsDirectoryInfo = new DirectoryInfo(path);
             foreach (var directory in installsDirectoryInfo.EnumerateDirectories())
             {
-                var file = directory.EnumerateFiles("UnityEditor.dll", SearchOption.AllDirectories)
-                    .First();
+                /*var file = directory.EnumerateFiles("UnityEditor.dll", SearchOption.AllDirectories)
+                    .First();*/
                 
                 
                 installedEditors.Add(new UnityEditorData
                 {
                     version = directory.Name,
-                    installedModules = GetPlatformModules(file)
+                    installedModules = GetModules(directory)
                 });
             }
+
+            installedEditors = installedEditors.OrderByDescending(x => x.version).ToList();
 
             installsDirectory = installsDirectoryInfo.FullName;
         }
@@ -103,17 +116,23 @@ namespace MiniProject.PackageWizard.ScriptableObjects
                     continue;
                 }
 
-                if (GetBuildTarget(directory, out var buildTarget) == false)
+                var installedModules = installedEditors.FirstOrDefault(x => x.version == version)?.installedModules;
+
+                BuildTargetGroup buildTargetGroup = default;
+                if (installedModules == null)
+                {
+                    Debug.LogError($"Unable to find Editor version {version}");
+                }
+                else if (GetBuildTarget(directory, installedModules, out buildTargetGroup) == false)
                 {
                     Debug.LogError($"Unable to find Build Target in {directoryName}");
-                    continue;
                 }
                 
                 projectDirectories.Add(new ProjectInfo
                 (
                     directoryName,
                     version,
-                    buildTarget
+                    buildTargetGroup
                 ));
             }
 
@@ -154,12 +173,12 @@ namespace MiniProject.PackageWizard.ScriptableObjects
             }
         }
         
-        private static bool GetBuildTarget(in DirectoryInfo directoryInfo, out BuildTarget buildTarget)
+        private static bool GetBuildTarget(in DirectoryInfo directoryInfo, in string[] platforms, out BuildTargetGroup buildTargetGroup)
         {
             const string SELECTED_PLATFORM = "selectedPlatform";
             const string PROJECT_SETTINGS_FILE = "ProjectSettings.asset";
             //----------------------------------------------------------//
-            buildTarget = default;
+            buildTargetGroup = default;
             
             var files = directoryInfo.GetFiles(PROJECT_SETTINGS_FILE, SearchOption.TopDirectoryOnly);
 
@@ -184,7 +203,7 @@ namespace MiniProject.PackageWizard.ScriptableObjects
                         return false;
                     
                     //RuntimePlatform
-                    buildTarget = (BuildTarget)buildTargetInt;
+                    buildTargetGroup = NamedGroupToTargetGroup(platforms[buildTargetInt]);
                     
                     return true;
                 }
@@ -195,7 +214,7 @@ namespace MiniProject.PackageWizard.ScriptableObjects
 
         //Test Target
         //================================================================================================================//
-        public struct PlatformData
+        /*public struct PlatformData
         {
             public BuildTargetGroup BuildTargetGroup;
             public BuildTarget BuildTarget;
@@ -305,6 +324,90 @@ namespace MiniProject.PackageWizard.ScriptableObjects
             //----------------------------------------------------------//
 
             return outPlatformData;
+        }*/
+
+        private static string[] GetModules(in DirectoryInfo directoryInfo)
+        {
+            string[] validNames = new string[]
+            {
+                "Standalone",
+                "Server",
+                "iOS",
+                "Android",
+                "WebGL",
+                "Windows Store Apps",
+                "PS4",
+                "XboxOne",
+                "tvOS",
+                "Nintendo Switch",
+                "Stadia",
+                "CloudRendering",
+                "LinuxHeadlessSimulation",
+                "Lumin",
+                "GameCoreScarlett",
+                "GameCoreXboxOne",
+                "PS5",
+                "EmbeddedLinux",
+            };
+            var modulesPath = Path.Combine(directoryInfo.FullName, "Editor/Data/PlaybackEngines");
+            var modulesDirectory = new DirectoryInfo(modulesPath);
+            var directories = modulesDirectory.GetDirectories().Select(x => x.Name.ToLower()).ToList();
+
+            var outList = new List<string>();
+            foreach (var platformName in validNames)
+            {
+                var name = platformName.ToLower();
+                if(directories.Any(x => x.Contains(name)) == false)
+                    continue;
+                
+                outList.Add(platformName);
+            }
+
+            outList.Insert(1, "Server");
+            return outList.ToArray();
+        }
+
+        private static BuildTargetGroup NamedGroupToTargetGroup(in string namedTargetGroup)
+        {
+            switch (namedTargetGroup)
+            {
+                case "Standalone":
+                case "Windows Store Apps":
+                case "Server":
+                    return BuildTargetGroup.Standalone;
+                case "iOS":
+                    return BuildTargetGroup.iOS;
+                case "Android":
+                    return BuildTargetGroup.Android;
+                case "WebGL":
+                    return BuildTargetGroup.WebGL;
+                case "PS4":
+                    return BuildTargetGroup.PS4;
+                case "XboxOne":
+                    return BuildTargetGroup.XboxOne;
+                case "tvOS":
+                    return BuildTargetGroup.tvOS;
+                case "Nintendo Switch":
+                    return BuildTargetGroup.Switch;
+                case "Stadia":
+                    return BuildTargetGroup.Stadia;
+                case "CloudRendering":
+                    return BuildTargetGroup.LinuxHeadlessSimulation;
+                case "LinuxHeadlessSimulation":
+                    return BuildTargetGroup.LinuxHeadlessSimulation;
+                case "Lumin":
+                    return BuildTargetGroup.Lumin;
+                case "GameCoreScarlett":
+                    return BuildTargetGroup.GameCoreXboxSeries;
+                case "GameCoreXboxOne":
+                    return BuildTargetGroup.GameCoreXboxOne;
+                case "PS5":
+                    return BuildTargetGroup.PS5;
+                case "EmbeddedLinux":
+                    return BuildTargetGroup.EmbeddedLinux;
+            }
+
+            throw new Exception();
         }
 
         //Dependency Data
@@ -379,7 +482,6 @@ namespace MiniProject.PackageWizard.ScriptableObjects
         }
 
         #endregion //Dependency Data
-        
         
         //Asset Update
         //================================================================================================================//

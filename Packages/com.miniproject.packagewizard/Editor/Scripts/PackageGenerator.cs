@@ -49,7 +49,7 @@ namespace MiniProject.PackageWizard
             if (packageInfo == null) return null;
 
             var corePackagePath = packageInfo.resolvedPath;
-            _packageData.Name = packageInfo.name.Replace("core", packageName);
+            _packageData.Name = packageInfo.name.Replace("packagewizard", packageName);
 
             var newPackagePath = corePackagePath.Replace(packageInfo.name, _packageData.Name);
             return newPackagePath;
