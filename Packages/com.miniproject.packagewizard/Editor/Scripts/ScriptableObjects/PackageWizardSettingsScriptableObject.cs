@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MiniProject.PackageWizard.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "Package Wizard Settings", menuName = "Mini Project/Package Wizard/Settings", order = 1)]
+    [CreateAssetMenu(fileName = "Package Wizard Settings", menuName = "Package Wizard/Settings", order = 1)]
     public class PackageWizardSettingsScriptableObject : ScriptableObject
     {
         [Serializable]

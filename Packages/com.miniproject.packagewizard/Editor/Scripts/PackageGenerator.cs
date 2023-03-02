@@ -86,7 +86,8 @@ namespace MiniProject.PackageWizard
             yield return wait;
             TryCreateAssemblyDefinitions();
             yield return wait;
-            UpdateManifests(_packageData.Directory, 
+            UpdateManifests(
+                _packageData.Directory, 
                 _packageData.SelectedProjects.ToArray(),
                 _packageData.Dependencies.ToArray(),
                 _packageData.CustomDependencies.ToArray());
@@ -118,6 +119,8 @@ namespace MiniProject.PackageWizard
                 DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Editor"));
             if (_packageData.HasSamples)
                 DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Samples"));
+
+            _packageData.Directory = new DirectoryInfo(_rootPackagePath);
         }
 
         private void TryCreateAssemblyDefinitions()

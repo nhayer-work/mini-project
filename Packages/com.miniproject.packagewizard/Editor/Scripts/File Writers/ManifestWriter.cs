@@ -43,18 +43,18 @@ namespace MiniProject.PackageWizard.FileWriters
             var packagePath = $"file:{packageDirectory.FullName.Replace("\\","/")}";
 
             var packageManifestDependencies = GetAsManifestDependencies(packageDependencies, customDependencies);
-
+            packageManifestDependencies.Add(new KeyValuePair<string, string>(packageDirectory.Name, packagePath));
             for (var i = 0; i < targetProjects.Length; i++)
             {
                 //We only need to find the Manifest file, as the package-lock appears to update itself
-                var files = targetProjects[i].GetFiles(MANIFEST_FILENAME);
+                var files = targetProjects[i].GetFiles(MANIFEST_FILENAME, SearchOption.AllDirectories);
 
                 for (var ii = 0; ii < files.Length; ii++)
                 {
                     if(files[ii].Name.Equals(MANIFEST_FILENAME) == false)
                         continue;
                     
-                    packageManifestDependencies.Add(new KeyValuePair<string, string>(packageDirectory.Name, packagePath));
+
                     //Add all of the dependencies that the package needs to the project, including itself
                     TryAddKeysToManifest(files[ii], packageManifestDependencies);
                     
