@@ -1,12 +1,9 @@
 ﻿# [Title]
 ## [AuthorName]
-[EditorVersion], [RenderPipeline]
+[RenderPipeline]
 
 ### Tags
 [Tags]
-
-### Platforms
-[Platforms]
 
 ### Description
 [Description]

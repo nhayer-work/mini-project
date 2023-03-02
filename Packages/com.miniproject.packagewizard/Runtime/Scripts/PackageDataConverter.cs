@@ -4,38 +4,6 @@ namespace MiniProject.PackageWizard
 {
     public static class PackageDataConverter
     {
-        private static Dictionary<PackageData.UnityVersion, string> _unityVersions = new();
-
-        /// <summary>
-        /// Dictionary mapping UnityVersion enum to string values
-        /// </summary>
-        public static Dictionary<PackageData.UnityVersion, string> UnityVersions
-        {
-            get
-            {
-                if (_unityVersions.Count != 0) return _unityVersions;
-                _unityVersions.Add(PackageData.UnityVersion.LTS2021, "2021.3");
-                _unityVersions.Add(PackageData.UnityVersion.BETA2022, "2022.2");
-                return _unityVersions;
-            }
-        }
-
-        private static Dictionary<PackageData.UnityVersion, string> _unityReleases = new();
-
-        /// <summary>
-        /// Dictionary mapping UnityVersion enum to string values
-        /// </summary>
-        public static Dictionary<PackageData.UnityVersion, string> UnityReleases
-        {
-            get
-            {
-                if (_unityReleases.Count != 0) return _unityReleases;
-                _unityReleases.Add(PackageData.UnityVersion.LTS2021, "12f1");
-                _unityReleases.Add(PackageData.UnityVersion.BETA2022, "0b13");
-                return _unityReleases;
-            }
-        }
-
         private static Dictionary<PackageData.ExperienceTag, string> _experienceTags = new();
 
         /// <summary>

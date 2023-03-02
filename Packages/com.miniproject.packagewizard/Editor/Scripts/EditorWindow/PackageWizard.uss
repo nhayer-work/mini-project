@@ -62,6 +62,12 @@ ScrollView#FDTags #unity-content-container {
     padding: 10;
 }
 
+
+GroupBox.project-header > Label.unity-group-box__label {
+    background-color: rgb(44,93,135);
+}
+
+
 /*Custom Box Group setting to use Toggle as Title*/
 /*======================================================*/
 GroupBox.box-group.dependency-group > Toggle {

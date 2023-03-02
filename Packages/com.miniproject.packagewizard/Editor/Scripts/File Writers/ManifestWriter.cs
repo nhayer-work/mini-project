@@ -28,113 +28,33 @@ namespace MiniProject.PackageWizard.FileWriters
         /// to manifest.json & packages-lock.json. If the entry already exists, then the it will only overwrite the
         /// directory information.
         /// </summary>
-        /// <param name="packageName">com.miniproject.EXAMPLE</param>
-        /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
-        /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
+        /// <param name="targetProjects"></param>
         /// <param name="packageDependencies"></param>
         /// <param name="customDependencies"></param>
-        public void UpdateManifestFiles(in string packageName, 
-            PackageData.UnityVersion[] supportedUnityVersions, 
-            PackageData.Platform[] supportedPlatforms,
+        /// <param name="packageDirectory"></param>
+        public void UpdateManifestFiles(
+            in DirectoryInfo packageDirectory, 
+            in DirectoryInfo[] targetProjects,
             PackageData.DependencyData[] packageDependencies,
             PackageData.DependencyData[] customDependencies)
         {
-            bool DirectoryContainsItem(in DirectoryInfo directoryInfo, in string[] searchFor)
-            {
-                var name = directoryInfo.FullName.ToLower();
-                for (var i = 0; i < searchFor.Length; i++)
-                {
-                    if (name.Contains(searchFor[i]))
-                        return true;
-                }
-
-                return false;
-            }
-
-            //Setup friendly platform names
-            //----------------------------------------------------------//
-           
-            var supportedPlatformNames = new string[supportedPlatforms.Length];
-            for (var i = 0; i < supportedPlatforms.Length; i++)
-            {
-                switch (supportedPlatforms[i])
-                {
-                    case PackageData.Platform.Windows:
-                    case PackageData.Platform.MacOS:
-                        supportedPlatformNames[i] = "miniproject-standalone";
-                        break;
-                    case PackageData.Platform.Android:
-                    case PackageData.Platform.iOS:
-                    case PackageData.Platform.WebGL:
-                        supportedPlatformNames[i] = $"miniproject-{Enum.GetName(typeof(PackageData.Platform), supportedPlatforms[i]).ToLower()}";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-            //Ensure we don't double include specific directories
-            supportedPlatformNames = supportedPlatformNames
-                .Distinct()
-                .ToArray();
-            //Setup friendly version names
-            //----------------------------------------------------------//
-            
-            var supportedVersionNames = new string[supportedUnityVersions.Length];
-            for (int i = 0; i < supportedUnityVersions.Length; i++)
-            {
-                switch (supportedUnityVersions[i])
-                {
-                    case PackageData.UnityVersion.LTS2021:
-                        supportedVersionNames[i] = "2021";
-                        break;
-                    case PackageData.UnityVersion.BETA2022:
-                        supportedVersionNames[i] = "2022";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-            
             //----------------------------------------------------------//
 
-            var packagePath = $"file:../../../../../Packages/{packageName}";
-
-            //Go to Projects folder
-            // /Projects/
-            string proj = @"../../../";
-            var path = Path.Combine(Application.dataPath, proj);
-            var directory = new DirectoryInfo(path);
-
-
-            var projectDirectories = directory
-                .EnumerateDirectories(PACKAGES_KEY, SearchOption.AllDirectories)
-                .Where(x => x.FullName.ToLower().Contains(IGNORE_PROJECT_SETTINGS) == false)
-                .Where(x => DirectoryContainsItem(x, supportedVersionNames))
-                .Where(x => DirectoryContainsItem(x, supportedPlatformNames))
-                .ToArray();
-
-#if DEBUG
-            Debug.Log("Found Packages:\n" + string.Join('\n', projectDirectories.Select(x => x.FullName)));
-#endif
+            var packagePath = $"file:{packageDirectory.FullName.Replace("\\","/")}";
 
             var packageManifestDependencies = GetAsManifestDependencies(packageDependencies, customDependencies);
 
-            for (var i = 0; i < projectDirectories.Length; i++)
+            for (var i = 0; i < targetProjects.Length; i++)
             {
                 //We only need to find the Manifest file, as the package-lock appears to update itself
-                var files = projectDirectories[i].GetFiles(MANIFEST_FILENAME);
-#if DEBUG
-                Debug.Log(
-                    $"{projectDirectories[i].FullName} [{files.Length}] => {string.Join(", ", files.Select(x => x.Name))}");    
-#endif
-                
+                var files = targetProjects[i].GetFiles(MANIFEST_FILENAME);
 
                 for (var ii = 0; ii < files.Length; ii++)
                 {
                     if(files[ii].Name.Equals(MANIFEST_FILENAME) == false)
                         continue;
                     
-                    packageManifestDependencies.Add(new KeyValuePair<string, string>(packageName, packagePath));
+                    packageManifestDependencies.Add(new KeyValuePair<string, string>(packageDirectory.Name, packagePath));
                     //Add all of the dependencies that the package needs to the project, including itself
                     TryAddKeysToManifest(files[ii], packageManifestDependencies);
                     

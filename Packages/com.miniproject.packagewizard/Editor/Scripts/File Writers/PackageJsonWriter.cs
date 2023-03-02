@@ -34,8 +34,7 @@ namespace MiniProject.PackageWizard.FileWriters
                 { "version", packageData.Version },
                 { "displayName", packageData.DisplayName },
                 { "description", packageData.Description },
-                { "unity", packageData.UnityVersionFormatted },
-                { "unityRelease", packageData.UnityRelease },
+                { "unity", packageData.MinSupportedVersion },
                 { "keywords", emptyArray },
                 { "author", author },
                 {

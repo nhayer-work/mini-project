@@ -2,50 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61055483-0388-4b9b-9f8c-416c6c6b4f34" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Runtime/Scripts/Core/deleteMe.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Runtime/Scripts/Core/deleteMe.txt.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyData.uxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyData.uxml.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyDataCustomEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/DependencyDataCustomEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uxml.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/R.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/R.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/AssemblyWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/AssemblyWriter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/ConfigDataWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/ConfigDataWriter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/ManifestWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/ManifestWriter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/PackageJsonWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/PackageJsonWriter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/ReadmeWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/File Writers/ReadmeWriter.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/PackageGenerator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/PackageGenerator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/PackageWizardEditorWindow.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/PackageWizardEditorWindow.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/ProgressEventArgs.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Editor/Scripts/PackageWizard/ProgressEventArgs.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Runtime/Scripts/Core/PackageData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Runtime/Scripts/Core/PackageData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageData.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Runtime/Scripts/Core/PackageDataConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageDataConverter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/Runtime/Scripts/Core/PackageDataConverter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageDataConverter.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.core/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../miniproject-android/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../miniproject-android/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Package Dependency Collection.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Package Dependency Collection.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Package Wizard Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Package Wizard Settings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Resources/ReadMeTemplate.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Resources/ReadMeTemplate.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/R.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/R.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/ConfigDataWriter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/ConfigDataWriter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/ManifestWriter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/ManifestWriter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/PackageJsonWriter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/PackageJsonWriter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/ReadmeWriter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/File Writers/ReadmeWriter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/PackageGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/PackageGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/ScriptableObjects/DependenciesScriptableObject.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/ScriptableObjects/DependenciesScriptableObject.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/ScriptableObjects/PackageWizardSettingsScriptableObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/ScriptableObjects/PackageWizardSettingsScriptableObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageDataConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Runtime/Scripts/PackageDataConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.miniproject-standalone/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.miniproject-standalone/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,10 +29,32 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../Packages/com.miniproject.core/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/DependencyDataCustomEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.17/Editor/Symbols.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.performance.profile-analyzer@1.1.1/Editor/ProfileData.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.settings-manager@1.0.3/Editor/PackageSettingsRepository.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.33/UnityEditor.TestRunner/NUnitExtension/Attributes/AssetPipelineIgnore.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMP_EditorUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Runtime/TMP_ScrollbarEventHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/InputFieldEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/RectMask2DEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Graphic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/LayoutUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/ToggleGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/CanvasRenderer/ParentCanvasIsSane.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Editor/TestBehaviourBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/EventSystem/InputModuleTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Tests/Runtime/TextEditor/TextEditorTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/4014a86cbefb4944b2b6c9211c8fd2fc159a00/82/1db9d64e/RuntimePlatform.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/36/3ffbc40b/ModuleManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/4f/3ae2d675/BuildPlatforms.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/52/ed234b89/BuildPlatform.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/5f/4441eebb/BuildTargetGroup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/90/37463a46/BuildTarget.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/9d/70a6327a/PlayerSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/42a64fd733d9417da1ea3a757ad9a96d81d600/c1/a0c97139/NamedBuildTarget.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/dc02e039b5ca4833b0d87f7a9d73d70012ba00/d1/fbf02e09/TimerEventScheduler.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -67,23 +64,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Discover.Launch.Via.Unity": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\AlexBédard-Reid\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\AlexBédard-Reid\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\AlexBédard-Reid\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\AlexBédard-Reid\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\AlexBédard-Reid\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\AlexBédard-Reid\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.18f1\Editor\Unity.exe" />
@@ -111,10 +108,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14484">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="20736">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="14484" />
+      <option name="pid" value="20736" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -130,7 +127,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1677531130771</updated>
-      <workItem from="1677531133081" duration="4020000" />
+      <workItem from="1677531133081" duration="7097000" />
+      <workItem from="1677599810807" duration="267000" />
+      <workItem from="1677600654411" duration="23058000" />
+      <workItem from="1677691058335" duration="1661000" />
+      <workItem from="1677695035160" duration="8776000" />
+      <workItem from="1677773306685" duration="5426000" />
     </task>
     <servers />
   </component>
@@ -146,45 +148,79 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.cs</url>
-          <line>77</line>
-          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\PackageWizard.cs" initialLine="77" containingFunctionPresentation="method 'CreateGUI'">
+          <url>file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/R.cs</url>
+          <line>132</line>
+          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\R.cs" initialLine="85" containingFunctionPresentation="method 'GetDependencyDatas'">
             <startOffsets>
-              <option value="2315" />
+              <option value="5903" />
             </startOffsets>
             <endOffsets>
-              <option value="2396" />
+              <option value="5932" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.cs</url>
-          <line>67</line>
-          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\PackageWizard.cs" initialLine="67" containingFunctionPresentation="method 'Init'">
+          <line>126</line>
+          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\PackageWizard.cs" initialLine="122" containingFunctionPresentation="method 'CreateGUI'">
             <startOffsets>
-              <option value="2073" />
+              <option value="4463" />
             </startOffsets>
             <endOffsets>
-              <option value="2109" />
+              <option value="4476" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/R.cs</url>
+          <line>101</line>
+          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\R.cs" initialLine="97" containingFunctionPresentation="method 'GetProjectDirectories'">
+            <startOffsets>
+              <option value="4549" />
+            </startOffsets>
+            <endOffsets>
+              <option value="4584" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.cs</url>
-          <line>365</line>
-          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\PackageWizard.cs" initialLine="365" containingFunctionPresentation="method 'GetDependencies'">
+          <line>191</line>
+          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\PackageWizard.cs" initialLine="142" containingFunctionPresentation="method 'CreateGUI'">
             <startOffsets>
-              <option value="13765" />
+              <option value="6801" />
             </startOffsets>
             <endOffsets>
-              <option value="13802" />
+              <option value="6846" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/../../../../Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/R.cs</url>
+          <line>115</line>
+          <properties documentPath="C:\Repos\mini-project\Packages\com.miniproject.packagewizard\Editor\Scripts\EditorWindow\R.cs" initialLine="115" containingFunctionPresentation="method 'GetGroupedProjectDirectories'">
+            <startOffsets>
+              <option value="5278" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5296" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#UnityEditor.Build.NamedBuildTarget" memberName="TargetName" />
+        <PinnedItemInfo parentTag="Type#MiniProject.PackageWizard.ScriptableObjects.PackageWizardSettingsScriptableObject+PlatformData" memberName="NamedBuildTarget" />
+        <PinnedItemInfo parentTag="Type#System.Reflection.RuntimeFieldInfo" memberName="Name" />
+        <PinnedItemInfo parentTag="Type#MiniProject.PackageWizard.ScriptableObjects.PackageWizardSettingsScriptableObject+UnityEditorData" memberName="version" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

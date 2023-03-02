@@ -25,9 +25,7 @@ namespace MiniProject.PackageWizard.FileWriters
             {
                 { "Name", packageData.Name },
                 { "DisplayName", packageData.DisplayName },
-                { "Platforms", string.Join(", ", packageData.Platforms.ToArray()) },
                 { "Dependencies", emptyArray },
-                { "EditorVersion", packageData.UnityVersionFormatted },
                 { "Description", packageData.Description },
                 { "Tags", string.Join(", ", packageData.ExperienceTags.ToArray()) },
                 { "RenderPipeline", packageData.RenderPipeline }

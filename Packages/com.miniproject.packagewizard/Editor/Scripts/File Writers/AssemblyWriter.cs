@@ -99,7 +99,7 @@ namespace MiniProject.PackageWizard.FileWriters
 
         private const string CLIMB_TO_REPO_ROOT = @"..\..\..\..\..\";
 
-        [MenuItem("Mini Project/Package Wizard/Test Assembly Writer")]
+        //[MenuItem("Mini Project/Package Wizard/Test Assembly Writer")]
         private static void Test()
         {
             

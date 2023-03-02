@@ -86,9 +86,8 @@ namespace MiniProject.PackageWizard
             yield return wait;
             TryCreateAssemblyDefinitions();
             yield return wait;
-            UpdateManifests(_packageData.Name, 
-                _packageData.UnityVersions.ToArray(), 
-                _packageData.Platforms.ToArray(),
+            UpdateManifests(_packageData.Directory, 
+                _packageData.SelectedProjects.ToArray(),
                 _packageData.Dependencies.ToArray(),
                 _packageData.CustomDependencies.ToArray());
             yield return wait;
@@ -152,20 +151,19 @@ namespace MiniProject.PackageWizard
         /// to manifest.json & packages-lock.json. If the entry already exists, then the it will only overwrite the
         /// directory information.
         /// </summary>
-        /// <param name="packageName">com.miniproject.EXAMPLE</param>
-        /// <param name="supportedUnityVersions">No need to include the subversions of Unity, just the major will suffice. Examples: "2021", "2022"</param>
-        /// <param name="supportedPlatforms">All platforms will need to start with "miniproject-". Examples: "miniproject-ios","miniproject-webgl"</param>
+        /// <param name="targetProjects"></param>
         /// <param name="dependencies"></param>
         /// <param name="customDependencies"></param>
-        private void UpdateManifests(in string packageName, 
-            in PackageData.UnityVersion[] supportedUnityVersions,
-            in PackageData.Platform[] supportedPlatforms,
+        /// <param name="packageDirectory"></param>
+        private void UpdateManifests(
+            in DirectoryInfo packageDirectory, 
+            in DirectoryInfo[] targetProjects,
             in PackageData.DependencyData[] dependencies,
             in PackageData.DependencyData[] customDependencies)
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Manifest, .7f));
             var manifestWriter = new ManifestWriter();
-            manifestWriter.UpdateManifestFiles(packageName, supportedUnityVersions, supportedPlatforms, dependencies, customDependencies);
+            manifestWriter.UpdateManifestFiles(packageDirectory, targetProjects, dependencies, customDependencies);
         }
 
         private void PostGenerate()

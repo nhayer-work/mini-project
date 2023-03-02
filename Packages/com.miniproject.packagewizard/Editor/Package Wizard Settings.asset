@@ -12,79 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321e1309a9664df89d201da74e0e39a4, type: 3}
   m_Name: Package Wizard Settings
   m_EditorClassIdentifier: 
-  installsDirectory: C:\Program Files\Unity\Hub\Editor
-  installedEditors:
-  - version: 2022.2.0b9
-    installedModules:
-    - Standalone
-    - Server
-  - version: 2022.2.0b13
-    installedModules:
-    - Standalone
-    - Server
-    - iOS
-    - Android
-    - WebGL
-  - version: 2022.2.0b12
-    installedModules:
-    - Standalone
-    - Server
-    - iOS
-    - Android
-    - WebGL
-  - version: 2021.3.9f1
-    installedModules:
-    - Standalone
-    - Server
-    - Android
-  - version: 2021.3.18f1
-    installedModules:
-    - Standalone
-    - Server
-    - Android
-    - WebGL
-  - version: 2020.3.45f1
-    installedModules:
-    - Standalone
-    - Server
-  - version: 2019.4.40f1
-    installedModules:
-    - Standalone
-    - Server
-    - iOS
   projectDirectories:
-  - name: 2021.3.12f1 - Unknown
+  - name: 2021.3.12f1 - miniproject-android
+    projectName: miniproject-android
     directory: C:\Repos\mini-project\Projects\Unity\2021.3.12f1-lts\miniproject-android
     unityVersion: 2021.3.12f1
-    buildTargetGroup: 0
-  - name: 2021.3.12f1 - Unknown
+  - name: 2021.3.12f1 - miniproject-ios
+    projectName: miniproject-ios
     directory: C:\Repos\mini-project\Projects\Unity\2021.3.12f1-lts\miniproject-ios
     unityVersion: 2021.3.12f1
-    buildTargetGroup: 0
-  - name: 2021.3.18f1 - Standalone
+  - name: 2021.3.18f1 - miniproject-standalone
+    projectName: miniproject-standalone
     directory: C:\Repos\mini-project\Projects\Unity\2021.3.12f1-lts\miniproject-standalone
     unityVersion: 2021.3.18f1
-    buildTargetGroup: 1
-  - name: 2021.3.18f1 - Unknown
+  - name: 2021.3.18f1 - miniproject-webgl
+    projectName: miniproject-webgl
     directory: C:\Repos\mini-project\Projects\Unity\2021.3.12f1-lts\miniproject-webgl
     unityVersion: 2021.3.18f1
-    buildTargetGroup: 0
-  - name: 2022.2.0b13 - Standalone
+  - name: 2022.2.0b13 - miniproject-android
+    projectName: miniproject-android
     directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-android
     unityVersion: 2022.2.0b13
-    buildTargetGroup: 1
-  - name: 2022.2.0b13 - Standalone
+  - name: 2022.2.0b13 - miniproject-ios
+    projectName: miniproject-ios
     directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-ios
     unityVersion: 2022.2.0b13
-    buildTargetGroup: 1
-  - name: 2022.2.0b13 - Standalone
+  - name: 2022.2.0b13 - miniproject-standalone
+    projectName: miniproject-standalone
     directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-standalone
     unityVersion: 2022.2.0b13
-    buildTargetGroup: 1
-  - name: 2022.2.0b13 - WebGL
+  - name: 2022.2.0b13 - miniproject-webgl
+    projectName: miniproject-webgl
     directory: C:\Repos\mini-project\Projects\Unity\2022.2.0b13-beta\miniproject-webgl
     unityVersion: 2022.2.0b13
-    buildTargetGroup: 13
+  unityVersions:
+  - 2019.1
+  - 2019.2
+  - 2019.3
+  - 2019.4
+  - 2020.1
+  - 2020.2
+  - 2020.3
+  - 2021.1
+  - 2021.2
+  - 2021.3
+  - 2022.1
+  - 2022.2
   depedencyDataGroups:
   - name: Common
     dependencies:

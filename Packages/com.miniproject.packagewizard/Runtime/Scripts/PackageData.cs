@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEditor;
 
@@ -26,6 +27,7 @@ namespace MiniProject.PackageWizard
             TerrainTools,
         }
 
+        /*
         public enum Platform
         {
             Windows = 1 << 1,
@@ -40,27 +42,13 @@ namespace MiniProject.PackageWizard
             LTS2021,
             BETA2022,
         }
+        */
 
         public enum RenderingPipeline
         {
             BuiltIn,
             URP,
             HDRP
-        }
-
-        public enum Dependency
-        {
-            Common,
-            URP,
-            HDRP,
-            Android,
-            Cinemachine,
-            Shaders,
-            AR,
-            VR,
-            MachineLearning,
-            NewInputSystem,
-            TerrainTools
         }
 
         public struct Author
@@ -85,9 +73,10 @@ namespace MiniProject.PackageWizard
         /// </summary>
         public List<ExperienceTag> ExperienceTags{ get; set; }
 
-        public List<Platform> Platforms { get; set; }
+        //public List<Platform> Platforms { get; set; }
         
-        public List<UnityVersion> UnityVersions { get; set; }
+        public List<DirectoryInfo> SelectedProjects { get; set; }
+        public string MinSupportedVersion { get; set; }
 
         /// <summary>
         /// Dictionary mapping RenderingPipeline enum to string values
@@ -104,7 +93,8 @@ namespace MiniProject.PackageWizard
         /// <see href="https://docs.unity3d.com/Manual/upm-manifestPkg.html#name">Link Text</see>
         /// </summary>
         public string Name { get; set; }
-
+        public DirectoryInfo Directory { get; set; }
+        
         public bool HasEditorFolder { get; set; }
         public bool KeepsScore { get; set; }
         public bool HasSamples { get; set; }
@@ -116,10 +106,10 @@ namespace MiniProject.PackageWizard
 
         public Author AuthorInfo;
 
-        public string UnityRelease => PackageDataConverter.UnityReleases[UnityVersions[0]];
-        public string UnityVersionFormatted => PackageDataConverter.UnityVersions[UnityVersions[0]];
+        /*public string UnityRelease => PackageDataConverter.UnityReleases[UnityVersions[0]];
+        public string UnityVersionFormatted => PackageDataConverter.UnityVersions[UnityVersions[0]];*/
 
-        /// <summary>
+        /*/// <summary>
         /// Prints all string values of package data
         /// </summary>
         /// <returns></returns>
@@ -155,6 +145,6 @@ namespace MiniProject.PackageWizard
             }
 
             Debug.Log(info);
-        }
+        }*/
     }
 }
