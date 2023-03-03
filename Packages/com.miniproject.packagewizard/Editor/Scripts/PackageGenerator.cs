@@ -43,7 +43,7 @@ namespace MiniProject.PackageWizard
             return true;
         }
 
-        private string FormatPackagePath(string packageName)
+        /*private string FormatPackagePath(string packageName)
         {
             var packageInfo = PackageInfo.FindForAssembly(GetType().Assembly);
             if (packageInfo == null) return null;
@@ -53,7 +53,7 @@ namespace MiniProject.PackageWizard
 
             var newPackagePath = corePackagePath.Replace(packageInfo.name, _packageData.Name);
             return newPackagePath;
-        }
+        }*/
 
         private bool CheckForExisting()
         {
@@ -63,8 +63,9 @@ namespace MiniProject.PackageWizard
                 return false;
 
             var regexItem = new Regex("[^a-zA-Z0-9_.]+");
-            _packageData.Name = regexItem.Replace(_packageData.DisplayName.ToLower(), "");
-            _rootPackagePath = FormatPackagePath(_packageData.Name);
+            _packageData.Name = $"com.miniproject.{regexItem.Replace(_packageData.DisplayName.ToLower(), "")}";
+
+            _rootPackagePath = Path.Combine(_packageData.Path, _packageData.Name).Replace("\\","/");
 
             if (!DirectoryOperations.CreateFolder(_rootPackagePath))
             {
@@ -164,6 +165,7 @@ namespace MiniProject.PackageWizard
             in PackageData.DependencyData[] dependencies,
             in PackageData.DependencyData[] customDependencies)
         {
+            
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Manifest, .7f));
             var manifestWriter = new ManifestWriter();
             manifestWriter.UpdateManifestFiles(packageDirectory, targetProjects, dependencies, customDependencies);

@@ -38,6 +38,9 @@ namespace MiniProject.PackageWizard.FileWriters
             PackageData.DependencyData[] packageDependencies,
             PackageData.DependencyData[] customDependencies)
         {
+            if (packageDependencies == null || packageDependencies.Length == 0)
+                return;
+
             //----------------------------------------------------------//
 
             var packagePath = $"file:{packageDirectory.FullName.Replace("\\","/")}";

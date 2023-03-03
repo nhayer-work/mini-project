@@ -68,6 +68,8 @@ namespace MiniProject.PackageWizard
             public string Source;
         }
 
+        public string Path { get; set; }
+
         /// <summary>
         /// Dictionary mapping ExperienceTag enum to string values
         /// </summary>

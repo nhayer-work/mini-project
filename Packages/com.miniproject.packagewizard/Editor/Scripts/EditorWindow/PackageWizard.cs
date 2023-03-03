@@ -28,6 +28,8 @@ namespace MiniProject.PackageWizard.EditorWindow
         private DropdownField m_MinEditorVersion;
         private EnumField m_RenderPipeline;
 
+        private TextInputBaseField<string> m_PackageLocationField;
+
 		//State dependent Elements
 		private VisualElement m_ButtonContainer;
         private ProgressBar m_ProgressBar;
@@ -89,6 +91,23 @@ namespace MiniProject.PackageWizard.EditorWindow
 
 			GetReferences(root);
 
+			//Package Save Location
+			//----------------------------------------------------------//
+
+			m_PackageLocationField = root.Q<TextInputBaseField<string>>(R.UI.PackageLocationInputField);
+			m_PackageLocationField.value = new DirectoryInfo(Application.dataPath).Parent?.Parent?.FullName;
+			var packageLocationButton = root.Q<Button>(R.UI.PackageLocationButton);
+			packageLocationButton.clicked += () =>
+			{
+				m_PackageLocationField.value = EditorUtility.OpenFolderPanel(
+					"Save Location for Package",
+					Application.dataPath,
+					"");
+			};
+			
+			//Experience Tags
+			//----------------------------------------------------------//
+
             var tags = Enum.GetValues(typeof(PackageData.ExperienceTag));
             m_TagToggles = new Toggle[tags.Length];
             var i = 0;
@@ -136,20 +155,6 @@ namespace MiniProject.PackageWizard.EditorWindow
 				//todo Group By Editor Versions
 				foreach (var groupedProject in projectDirectories)
 				{
-					/*var projectName = projectInfo.name;
-					
-					//Create toggle group
-					//----------------------------------------------------------//
-					//Use the display name as the toggle text, and let the domain be used for the tooltip
-					var newProjectToggle = new Toggle(projectName)
-					{
-						tooltip = projectInfo.unityVersion
-					};
-					m_ToggleToProjectInfo.Add(newProjectToggle, projectInfo);
-
-					newProjectToggle.RegisterCallback<ChangeEvent<bool>>(
-						e => newProjectToggle.value = e.newValue);*/
-					
 					var projectVersion = groupedProject.Key;
 					//Create group box
 					//----------------------------------------------------------//
@@ -332,6 +337,7 @@ namespace MiniProject.PackageWizard.EditorWindow
             m_PackageData = new PackageData
             {
 	            DisplayName = m_PackageNameInputField.text,
+	            Path = m_PackageLocationField.text,
 	            HasEditorFolder = m_UsesEditorToggle.value,
 	            KeepsScore = m_UsesScoreToggle.value,
 	            HasSamples = false,//TODO Will need to add some support for this

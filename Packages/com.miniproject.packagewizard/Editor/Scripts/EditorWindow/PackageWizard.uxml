@@ -2,13 +2,17 @@
     <Style src="project://database/Packages/com.miniproject.core/Editor/Scripts/PackageWizard/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:ScrollView>
         <ui:Label text="Package Details" name="Title" class="section-title" style="font-size: 20px; -unity-text-align: upper-left; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
-        <ui:TextField picking-mode="Ignore" label="Experience Name" value="filler text" name="ExperienceName" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px;" />
+        <ui:TextField picking-mode="Ignore" label="Package Name" value="filler text" name="ExperienceName" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px;" />
+        <ui:VisualElement style="flex-direction: row;border-width: 6px;">
+            <ui:TextField name="package-location" picking-mode="Ignore" label="Package Location" value="filler text"  style="flex-grow:1;" />
+            <ui:Button name="select-location-button" text="..." display-tooltip-when-elided="true" />
+        </ui:VisualElement>
         <ui:Toggle label="Does it Score?" name="IfScore" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:VisualElement name="PlatformOptionsPlaceholder" />
         <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" style="margin-bottom: 6px; margin-left: 6px; margin-right: 6px; margin-top: 6px;" />
-        <ui:GroupBox text="Experience Tags" name="experience-tags" class="box-group" style="min-height: 100px; max-height: 250px;">
+        <ui:GroupBox text="Package Tags" name="experience-tags" class="box-group" style="min-height: 100px; max-height: 250px;">
             <ui:ScrollView name="FDTags" horizontal-scroller-visibility="Hidden" style="flex-wrap: wrap; flex-direction: row;" />
         </ui:GroupBox>
         <ui:Label text="Author Details" display-tooltip-when-elided="true" class="section-title" style="font-size: 17px; -unity-text-align: upper-left; border-left-width: 4px; border-right-width: 4px; border-top-width: 4px; border-bottom-width: 4px;" />

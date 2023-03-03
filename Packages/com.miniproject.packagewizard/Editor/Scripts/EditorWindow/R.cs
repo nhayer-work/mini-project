@@ -41,6 +41,9 @@ namespace MiniProject.PackageWizard.EditorWindow
 			public const string DependenciesFoldout = "SCDependencies";
 			public const string DependenciesScrollview = "ScrollDependencies";
             public const string ProjectsScrollview = "ScrollProject";
+
+            public const string PackageLocationInputField = "package-location";
+            public const string PackageLocationButton = "select-location-button";
         
             public const string Title = "PackageWizard";
             
