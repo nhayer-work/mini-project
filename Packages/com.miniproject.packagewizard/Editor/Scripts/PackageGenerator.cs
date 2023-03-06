@@ -9,12 +9,16 @@ using MiniProject.PackageWizard.FileWriters;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
-using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace MiniProject.PackageWizard
 {
     public class PackageGenerator
     {
+        private const string RUNTIME_DIR_NAME = "Runtime";
+        private const string TESTS_DIR_NAME = "Tests";
+        private const string EDITOR_DIR_NAME = "Editor";
+        private const string SAMPLES_DIR_NAME = "Samples";
+        
         private readonly PackageData _packageData;
         private string _rootPackagePath;
 
@@ -36,24 +40,12 @@ namespace MiniProject.PackageWizard
             EditorCoroutineUtility.StartCoroutine(CreateNewPackageCoroutine(), this);
         }
 
-        private bool IsEmptyName(string packageDataName)
+        private static bool IsEmptyName(string packageDataName)
         {
             if (!string.IsNullOrEmpty(packageDataName)) return false;
             EditorUtility.DisplayDialog(R.UI.Title, "Package name is empty", "Ok");
             return true;
         }
-
-        /*private string FormatPackagePath(string packageName)
-        {
-            var packageInfo = PackageInfo.FindForAssembly(GetType().Assembly);
-            if (packageInfo == null) return null;
-
-            var corePackagePath = packageInfo.resolvedPath;
-            _packageData.Name = packageInfo.name.Replace("packagewizard", packageName);
-
-            var newPackagePath = corePackagePath.Replace(packageInfo.name, _packageData.Name);
-            return newPackagePath;
-        }*/
 
         private bool CheckForExisting()
         {
@@ -62,8 +54,12 @@ namespace MiniProject.PackageWizard
             if (IsEmptyName(_packageData.DisplayName))
                 return false;
 
+            //Find and remove any illegal characters
+            //----------------------------------------------------------//
             var regexItem = new Regex("[^a-zA-Z0-9_.]+");
             _packageData.Name = $"com.miniproject.{regexItem.Replace(_packageData.DisplayName.ToLower(), "")}";
+
+            //----------------------------------------------------------//
 
             _rootPackagePath = Path.Combine(_packageData.Path, _packageData.Name).Replace("\\","/");
 
@@ -113,13 +109,13 @@ namespace MiniProject.PackageWizard
         private void TryCreateDirectories()
         {
             OnProgressChanged?.Invoke(this, new ProgressEventArgs(R.Progress.Folder, .2f));
-            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Runtime"));
-            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Tests"));
+            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, RUNTIME_DIR_NAME));
+            DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, TESTS_DIR_NAME));
 
             if (_packageData.HasEditorFolder)
-                DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Editor"));
+                DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, EDITOR_DIR_NAME));
             if (_packageData.HasSamples)
-                DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, "Samples"));
+                DirectoryOperations.CreateFolder(Path.Join(_rootPackagePath, SAMPLES_DIR_NAME));
 
             _packageData.Directory = new DirectoryInfo(_rootPackagePath);
         }

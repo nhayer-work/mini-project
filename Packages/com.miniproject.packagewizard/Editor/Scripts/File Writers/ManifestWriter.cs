@@ -8,15 +8,13 @@ using System.Linq;
 using MiniProject.Core.Editor.Utilities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using UnityEngine;
 
 namespace MiniProject.PackageWizard.FileWriters
 {
     public class ManifestWriter : FileWriterBase
     {
-        private const string PACKAGES_KEY = "Packages";
         private const string DEPENDENCIES_KEY = "dependencies";
-        private const string IGNORE_PROJECT_SETTINGS = "projectsettings";
+        private const string PROJECT_SETTINGS = "ProjectSettings";
 
         private const string MANIFEST_FILENAME = "manifest.json";
 
@@ -35,31 +33,38 @@ namespace MiniProject.PackageWizard.FileWriters
         public void UpdateManifestFiles(
             in DirectoryInfo packageDirectory, 
             in DirectoryInfo[] targetProjects,
-            PackageData.DependencyData[] packageDependencies,
-            PackageData.DependencyData[] customDependencies)
+            in IEnumerable<PackageData.DependencyData> packageDependencies,
+            in IEnumerable<PackageData.DependencyData> customDependencies)
         {
-            if (packageDependencies == null || packageDependencies.Length == 0)
-                return;
-
             //----------------------------------------------------------//
 
-            var packagePath = $"file:{packageDirectory.FullName.Replace("\\","/")}";
-
             var packageManifestDependencies = GetAsManifestDependencies(packageDependencies, customDependencies);
-            packageManifestDependencies.Add(new KeyValuePair<string, string>(packageDirectory.Name, packagePath));
             for (var i = 0; i < targetProjects.Length; i++)
             {
                 //We only need to find the Manifest file, as the package-lock appears to update itself
                 var files = targetProjects[i].GetFiles(MANIFEST_FILENAME, SearchOption.AllDirectories);
+                var projectSettingsDirectory =
+                    new DirectoryInfo(Path.Combine(targetProjects[i].FullName, PROJECT_SETTINGS));
 
                 for (var ii = 0; ii < files.Length; ii++)
                 {
                     if(files[ii].Name.Equals(MANIFEST_FILENAME) == false)
                         continue;
+
+                    //TODO Determine if this should be a toggleable setting
+                    //Gets relative path from targetProjects[i]/ProjectSettings/ to package save location
+                    var relativePath = projectSettingsDirectory.GetRelativePathTo(packageDirectory);
+                    //Convert the path into a Package Manifest friendly format
+                    var relativePackagePath = $"file:{relativePath.Replace("\\","/")}";
                     
+                    //Need to create new list here, since the relative path needs to be different per project 
+                    var tempList = new List<KeyValuePair<string, string>>(packageManifestDependencies)
+                    {
+                        new KeyValuePair<string, string>(packageDirectory.Name, relativePackagePath)
+                    };
 
                     //Add all of the dependencies that the package needs to the project, including itself
-                    TryAddKeysToManifest(files[ii], packageManifestDependencies);
+                    TryAddKeysToManifest(files[ii], tempList);
                     
                 }
             }
@@ -168,29 +173,5 @@ namespace MiniProject.PackageWizard.FileWriters
         }
 
         //================================================================================================================//
-
-        
-        //FIXME I think this should move to a Test
-        /*[MenuItem("Mini Project/Package Wizard/Test")]
-        private static void Test()
-        {
-            var unityVersions = new []
-            {
-                "2021",
-                "2022"
-            };
-        
-            var supportedPlatforms = new []
-            {
-                "miniproject-android",
-                "miniproject-ios",
-                "miniproject-standalone",
-                "miniproject-webgl"
-            };
-            
-            var manifestWriter = new ManifestWriter();
-            manifestWriter.UpdateManifestFiles("MyTestPackage", unityVersions, supportedPlatforms);
-        }*/
-
     }
 }

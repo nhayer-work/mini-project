@@ -58,7 +58,7 @@ MonoBehaviour:
   - 2021.3
   - 2022.1
   - 2022.2
-  depedencyDataGroups:
+  dependencyDataGroups:
   - name: Common
     dependencies:
     - DisplayName: 2D Features

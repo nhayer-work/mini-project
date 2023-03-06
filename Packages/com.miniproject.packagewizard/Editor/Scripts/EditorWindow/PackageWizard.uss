@@ -62,7 +62,7 @@ ScrollView#FDTags #unity-content-container {
     padding: 10;
 }
 
-
+/*Used for Project Selection Groups */
 GroupBox.project-header > Label.unity-group-box__label {
     background-color: rgb(44,93,135);
 }

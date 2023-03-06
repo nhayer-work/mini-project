@@ -44,6 +44,8 @@ namespace MiniProject.PackageWizard.EditorWindow
 
             public const string PackageLocationInputField = "package-location";
             public const string PackageLocationButton = "select-location-button";
+            
+            public const string CustomDependenciesListView = "custom-dependencies";
         
             public const string Title = "PackageWizard";
             
@@ -59,7 +61,6 @@ namespace MiniProject.PackageWizard.EditorWindow
                 public const string SourceField = "source";
             }
         }
-        
 
         public class Progress
         {
@@ -76,67 +77,44 @@ namespace MiniProject.PackageWizard.EditorWindow
 			public const string EmptyNameError = "Warning: Package Cannot be Empty";
 		}
 
+        //Package Wizard Settings Access
+        //================================================================================================================//
+
+        private const string PACKAGE_SETTINGS_PATH =
+            "Packages/com.miniproject.packagewizard/Editor/Package Wizard Settings.asset";
+        private static PackageWizardSettingsScriptableObject PackageWizardSettings
+        {
+            get
+            {
+                if (s_PackageWizardSettings == null)
+                    s_PackageWizardSettings = AssetDatabase.LoadAssetAtPath<PackageWizardSettingsScriptableObject>(
+                        PACKAGE_SETTINGS_PATH);
+                
+                return s_PackageWizardSettings;
+            }
+        }
+        private static PackageWizardSettingsScriptableObject s_PackageWizardSettings;
+        
         public class MinVersions
         {
-            public static List<string> UnityVersions => GetUnityVersions();
+            public static IReadOnlyList<string> UnityVersions => PackageWizardSettings.unityVersions;
 
-            private static List<string> GetUnityVersions()
-            {
-                var settings = AssetDatabase.LoadAssetAtPath<PackageWizardSettingsScriptableObject>(
-                    "Packages/com.miniproject.packagewizard/Editor/Package Wizard Settings.asset");
-
-                return settings.unityVersions;
-            }
         }
         
         public class Projects
         {
             public static IReadOnlyDictionary<string, List<PackageWizardSettingsScriptableObject.ProjectInfo>>
-                GroupedProjectDirectories => GetGroupedProjectDirectories();
+                GroupedProjectDirectories => PackageWizardSettings.GetGroupedProjectDirectories();
             
-            public static IReadOnlyList<PackageWizardSettingsScriptableObject.ProjectInfo> ProjectDirectories => GetProjectDirectories();
-
-            private static IReadOnlyList<PackageWizardSettingsScriptableObject.ProjectInfo> GetProjectDirectories()
-            {
-                var settings = AssetDatabase.LoadAssetAtPath<PackageWizardSettingsScriptableObject>(
-                    "Packages/com.miniproject.packagewizard/Editor/Package Wizard Settings.asset");
-
-                return settings.ProjectDirectories;
-            }
-            
-            private static IReadOnlyDictionary<string, List<PackageWizardSettingsScriptableObject.ProjectInfo>> GetGroupedProjectDirectories()
-            {
-                var projects = GetProjectDirectories();
-
-                var outDictionary = new Dictionary<string, List<PackageWizardSettingsScriptableObject.ProjectInfo>>();
-
-                foreach (var project in projects)
-                {
-                    if (outDictionary.TryGetValue(project.unityVersion, out var list) == false)
-                    {
-                        list = new List<PackageWizardSettingsScriptableObject.ProjectInfo>();
-                        outDictionary.Add(project.unityVersion, list);
-                    }
-                    
-                    list.Add(project);
-                }
-
-                return outDictionary;
-            }
+            public static IReadOnlyList<PackageWizardSettingsScriptableObject.ProjectInfo> ProjectDirectories => PackageWizardSettings.ProjectDirectories;
         }
 
         public class Dependencies
         {
             public static IReadOnlyDictionary<string, PackageData.DependencyData[]> DependencyDatas =>
-                GetDependencyDatas();
-
-            private static IReadOnlyDictionary<string, PackageData.DependencyData[]> GetDependencyDatas()
-            {
-                var settings = AssetDatabase.LoadAssetAtPath<PackageWizardSettingsScriptableObject>(
-                    "Packages/com.miniproject.packagewizard/Editor/Package Wizard Settings.asset");
-
-                return settings.Dependencies;
-            }
+                PackageWizardSettings.Dependencies;
         }
+        //================================================================================================================//
+
     }
 }
