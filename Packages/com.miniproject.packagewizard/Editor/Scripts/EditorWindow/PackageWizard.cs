@@ -175,7 +175,7 @@ namespace MiniProject.PackageWizard.EditorWindow
 		        m_RenderPipeline.Init(renderPipelineType);
 	        }
 
-	        m_RenderPipeline.value = default;
+	        m_RenderPipeline.value = PackageData.RenderingPipeline.BuiltIn;
         }
         private void CreateMinVersionUI()
         {
