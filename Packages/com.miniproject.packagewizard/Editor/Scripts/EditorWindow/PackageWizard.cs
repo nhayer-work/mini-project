@@ -149,10 +149,15 @@ namespace MiniProject.PackageWizard.EditorWindow
 	        var packageLocationButton = root.Q<Button>(R.UI.PackageLocationButton);
 	        packageLocationButton.clicked += () =>
 	        {
+		        var previousPath = m_PackageLocationField.value;
 		        m_PackageLocationField.value = EditorUtility.OpenFolderPanel(
 			        "Save Location for Package",
 			        Application.dataPath,
 			        "");
+		        if (string.IsNullOrEmpty(m_PackageLocationField.value))
+		        {
+			        m_PackageLocationField.value = previousPath;
+		        }
 	        };
         }
         private void CreatePackageTagsUI()
