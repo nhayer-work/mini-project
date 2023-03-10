@@ -154,7 +154,7 @@ namespace MiniProject.PackageWizard.EditorWindow
 			        "Save Location for Package",
 			        Application.dataPath,
 			        "");
-		        if (string.IsNullOrEmpty(m_PackageLocationField.value))
+		        if (string.IsNullOrWhiteSpace(m_PackageLocationField.value))
 		        {
 			        m_PackageLocationField.value = previousPath;
 		        }
