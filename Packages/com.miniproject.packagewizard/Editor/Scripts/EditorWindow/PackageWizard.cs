@@ -31,7 +31,6 @@ namespace MiniProject.PackageWizard.EditorWindow
 	    private ScrollView m_FoldoutTags;
 	    private Toggle[] m_TagToggles;
 	    private Toggle m_UsesEditorToggle;
-	    private Toggle m_UsesScoreToggle;
 	    private DropdownField m_MinEditorVersion;
 	    private EnumField m_RenderPipeline;
 
@@ -360,7 +359,6 @@ namespace MiniProject.PackageWizard.EditorWindow
 			m_FoldoutTags = root.Q<ScrollView>(R.UI.FoldoutTagsName);
 				
 			m_UsesEditorToggle = root.Q<Toggle>(R.UI.IfRequireEditorScriptsFieldName);
-			m_UsesScoreToggle = root.Q<Toggle>(R.UI.IfScoreFieldName);
 
 			m_WarningContainer = root.Q<VisualElement>(R.UI.WarningContainer);
 			m_WarningLabel = root.Q<Label>(R.UI.WarningLabel);
@@ -398,7 +396,6 @@ namespace MiniProject.PackageWizard.EditorWindow
 		        DisplayName = m_PackageNameInputField.text,
 		        Path = m_PackageLocationField.text,
 		        HasEditorFolder = m_UsesEditorToggle.value,
-		        KeepsScore = m_UsesScoreToggle.value,
 		        HasSamples = false,//TODO Will need to add some support for this
 		        Version = "0.0.1",
 		        Description = m_AuthorDesc.text,

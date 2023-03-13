@@ -7,7 +7,6 @@
             <ui:TextField name="package-location" picking-mode="Ignore" label="Package Location" value="filler text"  style="flex-grow:1;" />
             <ui:Button name="select-location-button" text="..." display-tooltip-when-elided="true" />
         </ui:VisualElement>
-        <ui:Toggle label="Does it Score?" name="IfScore" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:VisualElement name="PlatformOptionsPlaceholder" />
         <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
