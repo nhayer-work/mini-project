@@ -149,10 +149,15 @@ namespace MiniProject.PackageWizard.EditorWindow
 	        var packageLocationButton = root.Q<Button>(R.UI.PackageLocationButton);
 	        packageLocationButton.clicked += () =>
 	        {
+		        var previousPath = m_PackageLocationField.value;
 		        m_PackageLocationField.value = EditorUtility.OpenFolderPanel(
 			        "Save Location for Package",
 			        Application.dataPath,
 			        "");
+		        if (string.IsNullOrWhiteSpace(m_PackageLocationField.value))
+		        {
+			        m_PackageLocationField.value = previousPath;
+		        }
 	        };
         }
         private void CreatePackageTagsUI()
@@ -175,7 +180,7 @@ namespace MiniProject.PackageWizard.EditorWindow
 		        m_RenderPipeline.Init(renderPipelineType);
 	        }
 
-	        m_RenderPipeline.value = default;
+	        m_RenderPipeline.value = PackageData.RenderingPipeline.BuiltIn;
         }
         private void CreateMinVersionUI()
         {
