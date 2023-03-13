@@ -21,6 +21,11 @@ GroupBox.box-group > Label.unity-group-box__label {
 /*======================================================*/
 GroupBox .unity-toggle {
     max-width: 166px;
+    flex-direction: row-reverse;
+}
+
+GroupBox .unity-label {
+    padding-left: 8px;
 }
 
 .unity-toggle .unity-label {
