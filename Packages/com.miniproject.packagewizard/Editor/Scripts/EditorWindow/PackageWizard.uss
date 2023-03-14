@@ -1,5 +1,3 @@
-/*Box Group Styles*/
-/*======================================================*/
 GroupBox.box-group {
     border-width: 1px;
     border-radius: 2px;
@@ -17,8 +15,6 @@ GroupBox.box-group > Label.unity-group-box__label {
     font-size: 17px;
 }
 
-/*Box Group Toggle*/
-/*======================================================*/
 GroupBox .unity-toggle {
     max-width: 166px;
     flex-direction: row-reverse;
@@ -33,64 +29,56 @@ GroupBox .unity-label {
     flex-shrink: 1;
 }
 
-/*Foldout Group Styles*/
-/*======================================================*/
 Foldout.foldout-group {
     border-width: 1px;
     border-radius: 2px;
-    border-color: rgb(45,45,45);
-    background-color: rgb(65,65,65);
+    border-color: rgb(45, 45, 45);
+    background-color: rgb(65, 65, 65);
     margin: 5px;
     padding: 0;
 }
-Foldout.foldout-group > Toggle.unity-foldout__toggle{
-    background-color: rgb(85,85,85);
+
+Foldout.foldout-group > Toggle.unity-foldout__toggle {
+    background-color: rgb(85, 85, 85);
     margin: 0;
     padding: 2px;
     max-width: none;
     font-size: 14;
 }
-Foldout.foldout-group > #unity-content{
+
+Foldout.foldout-group > #unity-content {
     padding: 5px;
 }
 
-/*Group Styling to support Wrapping Rows*/
-/*======================================================*/
 .dependency-group .container {
     flex-direction: row;
     flex-wrap: wrap;
     padding: 10;
 }
+
 ScrollView#FDTags #unity-content-container {
     flex-direction: row;
     flex-wrap: wrap;
     padding: 10;
 }
 
-/*Used for Project Selection Groups */
 GroupBox.project-header > Label.unity-group-box__label {
-    background-color: rgb(44,93,135);
+    background-color: rgb(44, 93, 135);
 }
 
-
-/*Custom Box Group setting to use Toggle as Title*/
-/*======================================================*/
 GroupBox.box-group.dependency-group > Toggle {
     max-width: none;
     justify-content: space-around;
     flex-direction: row;
-/*    //flex-grow: 1;
-    width: auto;*/
-    background-color: rgb(44,93,135);
+    background-color: rgb(44, 93, 135);
     margin: 0;
     padding: 2px;
     padding-left: 10;
     padding-right: 10;
     font-size: 17px;
 }
+
 GroupBox.box-group.dependency-group > Toggle > * {
     flex-grow: 1;
     justify-content: flex-end;
 }
-/*======================================================*/
-

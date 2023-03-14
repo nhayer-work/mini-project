@@ -1,4 +1,5 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:VisualElement name="PackageCreation">
         <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; height: 100px;">
             <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" style="flex-grow: 1; height: 30px;" />

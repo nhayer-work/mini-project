@@ -1,4 +1,5 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:VisualElement name="PackageDetails">
         <ui:Label text="Package Details" name="PackageDetailsTitle" class="section-title" style="font-size: 20px; -unity-text-align: upper-left; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
         <ui:TextField picking-mode="Ignore" label="Package Name" value="filler text" name="package-name" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px;" />

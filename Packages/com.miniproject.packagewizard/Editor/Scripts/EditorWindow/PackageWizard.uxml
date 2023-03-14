@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <ui:Template name="PackageCreation" src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageCreation.uxml?fileID=9197481963319205126&amp;guid=69b548070f74c1541802cba157cf343f&amp;type=3#PackageCreation" />
     <ui:Template name="PackageDetails" src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageDetails.uxml?fileID=9197481963319205126&amp;guid=2302c98fe630a8443aef816aef198a53&amp;type=3#PackageDetails" />
     <ui:Template name="TargetProjects" src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/TargetProjects.uxml?fileID=9197481963319205126&amp;guid=fc001eae6488d8a43a08dc16b0411343&amp;type=3#TargetProjects" />
+    <ui:Template name="PackageCreation" src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageCreation.uxml?fileID=9197481963319205126&amp;guid=69b548070f74c1541802cba157cf343f&amp;type=3#PackageCreation" />
     <Style src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:ScrollView>
         <ui:Instance template="PackageDetails" name="PackageDetails" />
