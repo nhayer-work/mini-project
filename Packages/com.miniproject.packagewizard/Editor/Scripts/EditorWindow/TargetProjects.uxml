@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="TargetProjects">
+        <ui:GroupBox text="Target Projects" class="box-group dependency-group" style="max-height: 250px; min-height: 100px;">
+            <ui:ScrollView name="ScrollProject" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

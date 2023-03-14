@@ -13,7 +13,7 @@ namespace MiniProject.PackageWizard.EditorWindow
             public const string PathToUSS = 
                 "Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss";
         
-            public const string PackageNameInputField = "ExperienceName";
+            public const string PackageNameInputField = "package-name";
             public const string ExperienceTagsFieldName = "ExperienceTags";
             public const string PlatformOptionsPlaceholderFieldName = "PlatformOptionsPlaceholder";
             public const string PlatformOptionsFieldName = "PlatformOptions";
@@ -33,8 +33,8 @@ namespace MiniProject.PackageWizard.EditorWindow
 			public const string WarningContainer = "WarningContainer";
 			public const string WarningLabel = "WarningLabel";
 
-			public const string AuthorNameField = "IfAuthor";
-			public const string AuthorDescription = "IfDescription";
+			public const string AuthorNameField = "author-name";
+			public const string AuthorDescription = "package-description";
         
             public const string ProgressBar = "FileProgressBar";
 
