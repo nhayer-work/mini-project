@@ -1,18 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
-    <ui:VisualElement name="PackageDetails">
-        <ui:Label text="Package Details" name="PackageDetailsTitle" class="section-title" style="font-size: 20px; -unity-text-align: upper-left; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 12px;" />
-        <ui:TextField picking-mode="Ignore" label="Package Name" value="filler text" name="package-name" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px;" />
-        <ui:TextField picking-mode="Ignore" label="Author Name" name="author-name" style="border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;" />
-        <ui:TextField picking-mode="Ignore" label="Description" text="Tell us what your project is all about!" multiline="true" name="package-description" style="height: 60px; border-bottom-width: 6px; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px;" />
+    <Style src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
+    <ui:VisualElement name="PackageDetails" style="margin-left: 3px; margin-right: 3px; margin-top: 3px; margin-bottom: 3px;">
+        <ui:Label text="Package Details" name="PackageDetailsTitle" class="section-title" style="font-size: 20px; -unity-text-align: upper-left; margin-left: 3px; margin-right: 3px; margin-top: 3px; margin-bottom: 3px; -unity-font-style: bold; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
+        <ui:TextField picking-mode="Ignore" label="Package Name" value="filler text" name="package-name" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        <ui:TextField picking-mode="Ignore" label="Author Name" name="author-name" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+        <ui:TextField picking-mode="Ignore" label="Description" text="Tell us what your project is all about!" multiline="true" name="package-description" style="height: 60px; border-bottom-width: 0; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
         <ui:VisualElement name="PackageLocation" style="flex-direction: row; border-width: 6px;">
-            <ui:TextField name="package-location" picking-mode="Ignore" label="Package Location" value="filler text" style="flex-grow: 1;" />
-            <ui:Button name="select-location-button" text="..." display-tooltip-when-elided="true" />
+            <ui:TextField name="package-location" picking-mode="Ignore" label="Package Location" value="filler text" style="flex-grow: 1; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-left-width: 0; border-right-width: 0; border-top-width: 6px; border-bottom-width: 6px;" />
+            <ui:Button name="select-location-button" text="..." display-tooltip-when-elided="true" style="padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px; margin-left: 6px; margin-right: 0; margin-top: 6px; margin-bottom: 6px;" />
         </ui:VisualElement>
         <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" style="margin-bottom: 6px; margin-left: 6px; margin-right: 6px; margin-top: 6px;" />
         <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:VisualElement name="PlatformOptionsPlaceholder" />
-        <ui:Toggle label="Does it require Editor Scripts?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
+        <ui:Toggle label="Uses Editor?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:GroupBox text="Package Tags" name="experience-tags" class="box-group" style="min-height: 100px; max-height: 250px;">
             <ui:ScrollView name="FDTags" horizontal-scroller-visibility="Hidden" style="flex-wrap: wrap; flex-direction: row;" />
         </ui:GroupBox>
