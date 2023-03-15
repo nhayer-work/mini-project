@@ -82,3 +82,20 @@ GroupBox.box-group.dependency-group > Toggle > * {
     flex-grow: 1;
     justify-content: flex-end;
 }
+
+.section-title {
+    -unity-font-style: bold;
+    font-size: 20px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.visualelement-section {
+    background-color: rgba(84, 84, 84, 255);
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
