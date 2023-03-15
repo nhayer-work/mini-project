@@ -4,7 +4,7 @@
         <ui:Label text="Package Details" name="PackageDetailsTitle" class="section-title" />
         <ui:TextField picking-mode="Ignore" label="Package Name" value="filler text" name="package-name" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         <ui:TextField picking-mode="Ignore" label="Author Name" name="author-name" style="border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
-        <ui:TextField picking-mode="Ignore" label="Description" text="Tell us what your project is all about!" multiline="true" name="package-description" style="height: 60px; border-bottom-width: 0; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+        <ui:TextField picking-mode="Ignore" label="Description" multiline="true" name="package-description" tooltip="Tell us what your project is all about!" style="height: 60px; border-bottom-width: 0; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
         <ui:VisualElement name="PackageLocation" style="flex-direction: row; border-width: 6px;">
             <ui:TextField name="package-location" picking-mode="Ignore" label="Package Location" value="filler text" style="flex-grow: 1; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-left-width: 0; border-right-width: 0; border-top-width: 6px; border-bottom-width: 6px;" />
             <ui:Button name="select-location-button" text="..." display-tooltip-when-elided="true" style="padding-left: 6px; padding-right: 6px; padding-top: 6px; padding-bottom: 6px; margin-left: 6px; margin-right: 0; margin-top: 6px; margin-bottom: 6px;" />
@@ -12,15 +12,15 @@
         <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" style="margin-bottom: 6px; margin-left: 6px; margin-right: 6px; margin-top: 6px;" />
         <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
         <ui:VisualElement name="PlatformOptionsPlaceholder" />
-        <ui:Toggle label="Uses Editor?" name="IfRequireEditorScripts" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
-        <ui:GroupBox text="Package Tags" name="experience-tags" class="box-group" style="min-height: 100px; max-height: 250px;">
+        <ui:Toggle label="Uses Editor?" name="IfRequireEditorScripts" tooltip="Creates a folder for editor scripts if TRUE" style="margin-left: 6px; margin-right: 6px; margin-top: 6px; margin-bottom: 6px;" />
+        <ui:GroupBox text="Package Tags" name="experience-tags" tooltip="Experiences / Tools used in this package" class="box-group" style="min-height: 100px; max-height: 250px;">
             <ui:ScrollView name="FDTags" horizontal-scroller-visibility="Hidden" style="flex-wrap: wrap; flex-direction: row;" />
         </ui:GroupBox>
-        <ui:GroupBox text="Optional Dependencies" name="optional-dependencies" class="box-group dependency-group" style="max-height: 250px; min-height: 100px;">
+        <ui:GroupBox text="Optional Dependencies" name="optional-dependencies" tooltip="Unity package dependencies" class="box-group dependency-group" style="max-height: 250px; min-height: 100px;">
             <ui:ScrollView name="ScrollDependencies" />
         </ui:GroupBox>
         <ui:Foldout text="Select" name="SCDependencies" value="false" style="display: none;" />
-        <ui:GroupBox text="Custom Dependencies" name="CustomDependencies" class="box-group dependency-group">
+        <ui:GroupBox text="Custom Dependencies" name="CustomDependencies" tooltip="Custom package dependencies" class="box-group dependency-group">
             <ui:ListView focusable="true" name="custom-dependencies" show-add-remove-footer="true" reorderable="true" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="ContentOnly" style="flex-grow: 1;" />
         </ui:GroupBox>
         <ui:TextField picking-mode="Ignore" label="Any Extra Dependencies?" name="IFExtraDependencies" tooltip="Comma separated Please" style="display: none;" />
