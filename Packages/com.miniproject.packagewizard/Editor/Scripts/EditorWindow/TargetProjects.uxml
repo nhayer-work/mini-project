@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:VisualElement name="TargetProjects">
-        <ui:GroupBox text="Target Projects" tooltip="Projects selected will have this package added to their manifests" class="box-group dependency-group" style="max-height: 250px; min-height: 100px;">
+        <ui:GroupBox text="Target Projects" tooltip="Projects selected will have this package added to their manifests" class="box-group dependency-group box-group-dependencies">
             <ui:ScrollView name="ScrollProject" />
         </ui:GroupBox>
     </ui:VisualElement>
