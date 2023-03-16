@@ -1,15 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
     <ui:VisualElement name="PackageCreation">
-        <ui:VisualElement name="StateButtons" style="flex-direction: row; align-items: center; justify-content: center; display: flex; border-left-width: 6px; border-right-width: 6px; border-top-width: 6px; border-bottom-width: 6px; height: 100px;">
-            <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" tooltip="Creates a package in the target location" style="flex-grow: 1; height: 30px;" />
-            <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" style="flex-grow: 1; height: 30px; display: none;" />
-            <ui:Button text="Clear Data" display-tooltip-when-elided="true" name="ClearButton" tooltip="Clears filled in infos" style="height: 30px; flex-grow: 1;" />
-            <ui:Button text="Refresh Database" display-tooltip-when-elided="true" name="RefreshButton" style="height: 30px; flex-grow: 1;" />
+        <ui:VisualElement name="StateButtons" class="state-buttons">
+            <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" tooltip="Creates a package in the target location" class="package-creation-button" />
+            <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" class="package-creation-button" style="display: none;" />
+            <ui:Button text="Clear Data" display-tooltip-when-elided="true" name="ClearButton" tooltip="Clears filled in infos" class="package-creation-button" />
+            <ui:Button text="Refresh Database" display-tooltip-when-elided="true" name="RefreshButton" class="package-creation-button" />
         </ui:VisualElement>
-        <ui:ProgressBar title="Hang Tight!" name="FileProgressBar" tooltip="Package creation progress bar" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; display: flex;" />
-        <ui:VisualElement name="WarningContainer" style="height: 57px; flex-direction: row; background-color: rgb(47, 47, 47); border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px; padding-bottom: 39px;">
-            <ui:Label text="This is a warning " display-tooltip-when-elided="true" name="WarningLabel" style="flex-grow: 1; -unity-text-align: middle-center; border-left-width: 7px; border-right-width: 7px; border-top-width: 7px; border-bottom-width: 7px; font-size: 17px; color: rgb(255, 255, 255); -unity-font-style: normal; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 12px;" />
+        <ui:ProgressBar title="Hang Tight!" name="FileProgressBar" tooltip="Package creation progress bar" class="file-progress-bar" />
+        <ui:VisualElement name="WarningContainer" class="warning-element">
+            <ui:Label text="This is a warning " display-tooltip-when-elided="true" name="WarningLabel" class="warning-label" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
