@@ -93,9 +93,87 @@ GroupBox.box-group.dependency-group > Toggle > * {
 }
 
 .visualelement-section {
-    background-color: rgba(84, 84, 84, 255);
+    background-color: rgb(84, 84, 84);
     margin-left: 6px;
     margin-right: 6px;
     margin-top: 6px;
     margin-bottom: 6px;
+}
+
+.details-text-field {
+    border-left-width: 6px;
+    border-right-width: 6px;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.details-text-field-large {
+    height: 60px;
+}
+
+.details-location-field {
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+}
+
+.details-location-field-element {
+    flex-direction: row;
+    border-width: 6px;
+}
+
+.details-location-button {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin-left: 6px;
+    margin-right: 0;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.details-dropdown {
+    margin-bottom: 6px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+.details-toggle {
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.box-group-dependencies {
+    max-height: 250px;
+    min-height: 100px;
+}
+
+.optional-dependencies {
+    display: none;
+}
+
+.custom-dependencies {
+    flex-grow: 1;
+}
+
+.custom-dependencies-extra {
+    display: none;
 }
