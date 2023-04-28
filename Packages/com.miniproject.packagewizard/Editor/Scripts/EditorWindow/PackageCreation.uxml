@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
+    <ui:VisualElement name="PackageCreation">
+        <ui:VisualElement name="StateButtons" class="state-buttons">
+            <ui:Button text="Generate Package" display-tooltip-when-elided="true" name="GeneratePackage" tooltip="Creates a package in the target location" class="package-creation-button" />
+            <ui:Button text="Load Package" display-tooltip-when-elided="true" name="LoadPackage" class="package-creation-button" style="display: none;" />
+            <ui:Button text="Clear Data" display-tooltip-when-elided="true" name="ClearButton" tooltip="Clears filled in infos" class="package-creation-button" />
+            <ui:Button text="Refresh Database" display-tooltip-when-elided="true" name="RefreshButton" class="package-creation-button" />
+        </ui:VisualElement>
+        <ui:ProgressBar title="Hang Tight!" name="FileProgressBar" tooltip="Package creation progress bar" class="file-progress-bar" />
+        <ui:VisualElement name="WarningContainer" class="warning-element">
+            <ui:Label text="This is a warning " display-tooltip-when-elided="true" name="WarningLabel" class="warning-label" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

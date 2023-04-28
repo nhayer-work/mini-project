@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.miniproject.packagewizard/Editor/Scripts/EditorWindow/PackageWizard.uss?fileID=7433441132597879392&amp;guid=0c061ff59c04373489742356252f97ea&amp;type=3#PackageWizard" />
+    <ui:VisualElement name="PackageDetails">
+        <ui:Label text="Package Details" name="PackageDetailsTitle" class="section-title" />
+        <ui:TextField picking-mode="Ignore" label="Package Name" value="filler text" name="package-name" class="details-text-field" />
+        <ui:TextField picking-mode="Ignore" label="Author Name" name="author-name" class="details-text-field" />
+        <ui:TextField picking-mode="Ignore" label="Description" multiline="true" name="package-description" tooltip="Tell us what your project is all about!" class="details-text-field details-text-field-large" />
+        <ui:VisualElement name="PackageLocation" class="details-location-field-element">
+            <ui:TextField name="package-location" picking-mode="Ignore" label="Package Location" value="filler text" class="details-location-field" />
+            <ui:Button name="select-location-button" text="..." display-tooltip-when-elided="true" class="details-location-button" />
+        </ui:VisualElement>
+        <ui:DropdownField label="Unity Editor Version" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="UnityEditorVersion" class="details-dropdown" />
+        <uie:EnumField label="Render Pipeline" value="Center" name="RenderPipeline" class="details-dropdown" />
+        <ui:VisualElement name="PlatformOptionsPlaceholder" />
+        <ui:Toggle label="Uses Editor?" name="IfRequireEditorScripts" tooltip="Creates a folder for editor scripts if TRUE" class="details-toggle" />
+        <ui:GroupBox text="Package Tags" name="experience-tags" tooltip="Experiences / Tools used in this package" class="box-group">
+            <ui:ScrollView name="FDTags" horizontal-scroller-visibility="Hidden" />
+        </ui:GroupBox>
+        <ui:GroupBox text="Optional Dependencies" name="optional-dependencies" tooltip="Unity package dependencies" class="box-group dependency-group box-group-dependencies">
+            <ui:ScrollView name="ScrollDependencies" />
+        </ui:GroupBox>
+        <ui:Foldout text="Select" name="SCDependencies" value="false" class="optional-dependencies" />
+        <ui:GroupBox text="Custom Dependencies" name="CustomDependencies" tooltip="Custom package dependencies" class="box-group dependency-group custom-dependencies">
+            <ui:ListView focusable="true" name="custom-dependencies" show-add-remove-footer="true" reorderable="true" virtualization-method="DynamicHeight" show-alternating-row-backgrounds="ContentOnly" class="custom-dependencies" />
+        </ui:GroupBox>
+        <ui:TextField picking-mode="Ignore" label="Any Extra Dependencies?" name="IFExtraDependencies" tooltip="Comma separated Please" class="custom-dependencies-extra" />
+    </ui:VisualElement>
+</ui:UXML>
